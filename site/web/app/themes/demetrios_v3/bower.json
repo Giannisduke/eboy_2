@@ -1,0 +1,36 @@
+{
+  "name": "demetrios_3",
+  "homepage": "https://eboy.gr/demetrios_3/",
+  "authors": [
+    "eboy <giannis@eboy.gr>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "picturefill": "^3.0.3",
+    "simplycountdown.js": "^1.3.2",
+    "stickybits": "^3.3.2",
+    "css-hamburgers": "^0.9.3"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "./scss/bootstrap.scss",
+        "./dist/js/bootstrap.bundle.js"
+      ]
+    },
+    "gsap": {
+      "main": [
+        "./src/uncompressed/TweenMax.js",
+        "./src/uncompressed/plugins/ScrollToPlugin.js"
+      ]
+    },
+    "isotope-layout": {
+      "main": [
+        "./dist/isotope.pkgd.min.js"
+      ],
+      "dependencies": {}
+    }
+  }
+}
