@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php do_action( 'woocommerce_product_title' ); ?>
 			</div>
 			<div class="col-lg-4 pt-5 text-center">
-	
+
 				<?php get_template_part('templates/unit', 'button_demo'); ?>
 		</div>
 			</div>
@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 
-		<div class="col-12 py-4">
+		<div class="col-8 py-4">
 			<?php the_content(); ?>
 			</div>
 
