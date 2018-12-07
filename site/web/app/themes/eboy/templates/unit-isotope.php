@@ -18,6 +18,10 @@
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
       <div class="product grid-item card col-6 col-md-4 col-lg-4 mb-3 <?php do_action( 'eboy_woocommerce_current_tags_thumb' ); ?>" data-href="<?php echo get_permalink( $post->ID ); ?>" >
         <div class="grid-item-content">
+          <div id="overlay">
+            <span id="plus">+</span>
+            <span id="plus">++</span>
+          </div>
       <?php if ( has_post_thumbnail() ) {
         $image_src_thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id(),'large' );
         echo '<a href="'.get_permalink( $post->ID ).'" >';

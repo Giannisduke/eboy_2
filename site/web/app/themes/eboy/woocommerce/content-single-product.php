@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 
-		<div class="col-8 py-4">
+		<div class="col-lg-8 py-4">
 			<?php the_content(); ?>
 			</div>
 
