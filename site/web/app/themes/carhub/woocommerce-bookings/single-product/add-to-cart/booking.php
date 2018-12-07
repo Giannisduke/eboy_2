@@ -16,13 +16,13 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 <noscript><?php _e( 'Your browser must support JavaScript in order to make a booking.', 'woocommerce-bookings' ); ?></noscript>
 
-<form class="cart container" method="post" enctype='multipart/form-data'>
+<form class="cart container p-0" method="post" enctype='multipart/form-data'>
 
 
 	<div id="wc-bookings-booking-form" class="wc-bookings-booking-form row test" style="">
 
 		<?php // do_action( 'woocommerce_before_booking_form' ); ?>
-			
+
 
 		<?php $booking_form->output(); ?>
 
