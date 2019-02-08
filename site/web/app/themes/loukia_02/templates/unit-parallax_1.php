@@ -1,1 +1,1 @@
-<?php  do_action( 'custom_parallax_1', 'parallax_1'); ?>
+<?php  do_action( 'carhub_product_carousel_2'); ?>

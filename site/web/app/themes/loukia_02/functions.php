@@ -750,7 +750,7 @@ function demetrios_front_carousel(){
         <!-- end of the loop -->
         <?php wp_reset_postdata(); ?>
           <?php else : ?>
-              <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+              <p><?php _e( 'Sorry, no posts matched your criteria 1.' ); ?></p>
           <?php endif; ?>
   <?php
   // the query
@@ -2006,3 +2006,98 @@ function demetrios_wishlist_meta_custom() {
 }
 
 add_action ('demetrios_wishlist_meta', 'demetrios_wishlist_meta_custom', 10);
+
+
+function product_carousel_2() {
+              $args = array(
+                'posts_per_page' => 5,
+                'post_type' => 'post',
+              'facetwp' => true,
+            );
+            $the_query = new WP_Query ( $args );
+            $thumbnail_id   = get_post_thumbnail_id();
+            $thumbnail_url  = wp_get_attachment_image_src( $thumbnail_id, 'full', true );
+            $thumbnail_meta = get_post_meta( $thumbnail_id, '_wp_attatchment_image_alt', true );
+
+            ?>
+
+            <div id="myCarousel" class="carousel slide text-center facetwp-template" data-ride="carousel" data-interval="7000">
+
+
+
+            <div class="carousel-inner">
+	    <?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post();
+      global $product;
+      $id = $product->get_id();
+	    ?>
+
+      <div class="carousel-item item <?php if ( $the_query->current_post == 0 ) : ?>active<?php endif; ?>">
+  <div class="container">
+    <div class="row">
+<div class="col-2">
+    <div class="carousel-caption text-left">
+      <h2><?php the_title(); ?></h2>
+      <p class="d-none d-sm-block"><?php the_excerpt(); ?></p>
+      <a class="btn btn-primary product-preview" data-project-id="<?php echo $id ?>" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Book Now!
+      </a>
+    </div>
+  </div>
+  <div class="col-8">
+    <?php if ( has_post_thumbnail() ) : ?>
+    <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+      <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
+    </a>
+    <?php endif; ?>
+
+  </div>
+
+  <div class="col-2">
+<?php do_action ( 'woocommerce_attribute' );  ?>
+    </div>
+
+  </div>
+  </div>
+</div><!-- /.carousel-item -->
+<!-- end first loop -->
+<?php endwhile;	endif; ?>
+
+<?php rewind_posts(); ?>
+</div><!-- /.carousel-inner -->
+
+
+                                <div class="row">
+                                  <div class="col-12 collapse" id="collapseExample">
+                                    test
+                              <?php //echo wc_get_template_part( 'content', 'single-car' ); ?>
+                              </div>
+                              </div>
+
+
+<div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="reservation-form">
+          </div>
+        </div>
+      </div>
+      <div class="row ">
+        <!-- Start Carousel Indicator Loop-->
+    <?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+
+
+      <div data-target="#myCarousel" data-slide-to="<?php echo $the_query->current_post; ?>" class="carousel p-2 col-6 col-lg-3 <?php if ( $the_query->current_post == 0 ) : ?>active<?php endif; ?>">
+        <?php //the_post_thumbnail('medium', array('class' => 'img-fluid car-thumb', 'data-href' => "'" . get_permalink() . "'", 'data-project-id' => "" . get_the_ID() . ""));?>
+        <?php wc_get_template_part( 'content', 'single-product' );?>
+        <span class="carprice"></span>
+      </div>
+
+    <?php endwhile; endif; ?>
+
+    </div>
+  </div>
+</div><!-- /.carousel-slide -->
+<?
+}
+add_action('loukia_product_carousel_2', 'product_carousel_2', 20);
