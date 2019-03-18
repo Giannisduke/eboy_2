@@ -1,0 +1,33 @@
+.test {
+  border: 1px solid red;
+}
+
+
+body {
+  font-family: 'Proxima Nova Lt', sans-serif;
+  font-size: 16px;
+}
+
+h1 {
+  font-family: 'Roboto-Thin', sans-serif;
+}
+
+h2 {
+  font-family: 'RobotoCondensed-Bold', sans-serif;
+}
+
+.facetwp-date.hide {
+  display: none;
+}
+
+input.facetwp-date {
+  background-image:url('../images/calendar_01.svg');
+  background-repeat: no-repeat;
+  //background-attachment: fixed;
+  background-position: 50% 0%;
+
+  border-width: 0px;
+  height: 50px;
+  width: 50px;
+  color: transparent;
+}

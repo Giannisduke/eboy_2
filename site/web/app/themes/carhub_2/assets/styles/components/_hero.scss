@@ -1,0 +1,129 @@
+/* JUMBOTRON */
+.jumbotron {
+  position: relative;
+  padding: 0;
+  margin-bottom: 0em;
+  //height: 800px;
+//  width: 100vw;
+  overflow: hidden;
+  background-color: transparent;
+
+background-image:
+  linear-gradient(
+    to top,
+    #fff,
+    #fff 54%,
+    transparent 54%
+
+  );
+
+  -webkit-transition: all 800ms ease-in-out;
+	-moz-transition: all 800ms ease-in-out;
+	-ms-transition: all 800ms ease-in-out;
+	-o-transition: all 800ms ease-in-out;
+	transition: all 800ms ease-in-out;
+}
+.jumbotron .container {
+  padding-top: 0em;
+  padding-bottom: 0em;
+  text-align: center;
+}
+.jumbotron .container h1 {
+  color: white;
+  font-size: 3.8em;
+  margin-bottom: .5em;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.25);
+}
+
+.jumbotron .container h2 {
+  color: white;
+  font-size: 3.8em;
+  margin-bottom: .5em;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.25);
+  line-height: 3.4rem;
+  letter-spacing: .05rem;
+}
+
+.jumbotron .container .woocommerce-product-gallery h2 {
+  font-size: 1.8em;
+}
+
+.jumbotron .container p {
+  color: white;
+  margin-bottom: 1.5em;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.25);
+}
+.jumbotron-bg {
+//  background: url("https://res.cloudinary.com/mrcloud/image/upload/q_100/v1472550908/slide-01_vksled.jpg") no-repeat center center, rgba(112, 152, 255, 0.5);
+  background:$black;
+  position: fixed;
+  width: 100%;
+  height: 600px; /*same height as jumbotron */
+  top: 0;
+  left: 0;
+  z-index: -999;
+  background-blend-mode: soft-light;
+  -webkit-background-blend-mode: soft-lightsoft-light;
+}
+
+
+
+/* larger screens */
+@media(min-width:1440px) {
+  .jumbotron-bg {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+}
+
+#myCarousel .list-inline {
+    white-space:nowrap;
+    //overflow-x:auto;
+}
+
+#myCarousel .carousel-indicators {
+    position: static;
+    left: initial;
+    width: initial;
+    margin-left: initial;
+}
+
+#myCarousel .carousel-indicators > li {
+    width: initial;
+    height: initial;
+    text-indent: initial;
+}
+
+#myCarousel .carousel-indicators > li.active img {
+    opacity: 0.7;
+}
+
+.carousel-caption {
+  position: absolute;
+  right: ((100% - $carousel-caption-width) / 2);
+  top: 20px;
+  left: ((100% - $carousel-caption-width) / 2);
+  z-index: 10;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  color: $carousel-caption-color;
+  text-align: left;
+}
+
+.carousel h1.product_title {
+  font-size: 1.5em;
+margin-bottom: .5em;
+}
+
+
+
+// Map
+.facetwp-map-filtering {
+  display: none;
+}
+
+.gmnoprint {
+  display: none;
+}
