@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
 	if ( ! window.console ) {
 		window.console = {
 			log : function(str) {
-				// alert(str);
+				 alert(str);
 			}
 		};
 	}

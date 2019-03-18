@@ -18,7 +18,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 <form class="cart" method="post" enctype='multipart/form-data'>
 
-	<div id="wc-bookings-booking-form" class="wc-bookings-booking-form" style="display:none">
+	<div id="wc-bookings-booking-form" class="wc-bookings-booking-form" style="">
 
 		<?php do_action( 'woocommerce_before_booking_form' ); ?>
 

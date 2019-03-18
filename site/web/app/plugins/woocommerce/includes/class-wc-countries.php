@@ -548,7 +548,7 @@ class WC_Countries {
 		$full_country = ( isset( $this->countries[ $country ] ) ) ? $this->countries[ $country ] : $country;
 
 		// Country is not needed if the same as base.
-		if ( $country === $this->get_base_country() && ! apply_filters( 'woocommerce_formatted_address_force_country_display', true ) ) {
+		if ( $country === $this->get_base_country() && ! apply_filters( 'woocommerce_formatted_address_force_country_display', false ) ) {
 			$format = str_replace( '{country}', '', $format );
 		}
 
@@ -558,7 +558,8 @@ class WC_Countries {
 		// Substitute address parts into the string.
 		$replace = array_map(
 			'esc_html', apply_filters(
-				'woocommerce_formatted_address_replacements', array(
+				'woocommerce_formatted_address_replacements',
+				array(
 					'{first_name}'       => $args['first_name'],
 					'{last_name}'        => $args['last_name'],
 					'{name}'             => $args['first_name'] . ' ' . $args['last_name'],
@@ -569,18 +570,19 @@ class WC_Countries {
 					'{state}'            => $full_state,
 					'{postcode}'         => $args['postcode'],
 					'{country}'          => $full_country,
-					'{first_name_upper}' => strtoupper( $args['first_name'] ),
-					'{last_name_upper}'  => strtoupper( $args['last_name'] ),
-					'{name_upper}'       => strtoupper( $args['first_name'] . ' ' . $args['last_name'] ),
-					'{company_upper}'    => strtoupper( $args['company'] ),
-					'{address_1_upper}'  => strtoupper( $args['address_1'] ),
-					'{address_2_upper}'  => strtoupper( $args['address_2'] ),
-					'{city_upper}'       => strtoupper( $args['city'] ),
-					'{state_upper}'      => strtoupper( $full_state ),
-					'{state_code}'       => strtoupper( $state ),
-					'{postcode_upper}'   => strtoupper( $args['postcode'] ),
-					'{country_upper}'    => strtoupper( $full_country ),
-				), $args
+					'{first_name_upper}' => wc_strtoupper( $args['first_name'] ),
+					'{last_name_upper}'  => wc_strtoupper( $args['last_name'] ),
+					'{name_upper}'       => wc_strtoupper( $args['first_name'] . ' ' . $args['last_name'] ),
+					'{company_upper}'    => wc_strtoupper( $args['company'] ),
+					'{address_1_upper}'  => wc_strtoupper( $args['address_1'] ),
+					'{address_2_upper}'  => wc_strtoupper( $args['address_2'] ),
+					'{city_upper}'       => wc_strtoupper( $args['city'] ),
+					'{state_upper}'      => wc_strtoupper( $full_state ),
+					'{state_code}'       => wc_strtoupper( $state ),
+					'{postcode_upper}'   => wc_strtoupper( $args['postcode'] ),
+					'{country_upper}'    => wc_strtoupper( $full_country ),
+				),
+				$args
 			)
 		);
 
@@ -704,7 +706,11 @@ class WC_Countries {
 			unset( $fields['address_2'] );
 		}
 
-		return apply_filters( 'woocommerce_default_address_fields', $fields );
+		$default_address_fields = apply_filters( 'woocommerce_default_address_fields', $fields );
+		// Sort each of the fields based on priority.
+		uasort( $default_address_fields, 'wc_checkout_fields_uasort_comparison' );
+
+		return $default_address_fields;
 	}
 
 	/**
@@ -746,6 +752,15 @@ class WC_Countries {
 					'AF' => array(
 						'state' => array(
 							'required' => false,
+						),
+					),
+					'AO' => array(
+						'postcode' => array(
+							'required' => false,
+							'hidden'   => true,
+						),
+						'state' => array(
+							'label' => __( 'Province', 'woocommerce' ),
 						),
 					),
 					'AT' => array(
@@ -1165,6 +1180,15 @@ class WC_Countries {
 							'required' => false,
 						),
 					),
+					'ST' => array(
+						'postcode' => array(
+							'required' => false,
+							'hidden'   => true,
+						),
+						'state'    => array(
+							'label' => __( 'District', 'woocommerce' ),
+						),
+					),
 					'VN' => array(
 						'state'     => array(
 							'required' => false,
@@ -1280,6 +1304,10 @@ class WC_Countries {
 		 * on country selection. If you want to change things like the required status of an
 		 * address field, filter woocommerce_default_address_fields instead.
 		 */
-		return apply_filters( 'woocommerce_' . $type . 'fields', $address_fields, $country );
+		$address_fields = apply_filters( 'woocommerce_' . $type . 'fields', $address_fields, $country );
+		// Sort each of the fields based on priority.
+		uasort( $address_fields, 'wc_checkout_fields_uasort_comparison' );
+
+		return $address_fields;
 	}
 }
