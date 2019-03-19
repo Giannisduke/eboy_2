@@ -20,6 +20,9 @@
       init: function() {
         // JavaScript to be fired on all pages
 
+
+
+
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
@@ -102,7 +105,9 @@
           function daterangepicker() {
              $.getScript("https://eboy.gr/app/plugins/facetwp-bookings/assets/vendor/daterangepicker/daterangepicker.min.js?ver=3.2.12");
           }
-
+          function mykeypress(){
+              $('.uppend:first').keypress().removeClass('uppend').addClass('test');
+          }
 
           $(document).on('facetwp-loaded', function() {
             var str1 = $(".facetwp-date").val(),
@@ -120,21 +125,29 @@
             // $('.booking_date_day').focus();
              $('.booking_to_date_month').val(str4);
              $('.booking_to_date_day').val(str5);
+             var delay = 0;
+             var ajax1 = $.ajax();
+             $.when.apply($, [ajax1]).done(function() {
+            //   mykeypress();
+               $('.booking_date_month').each(function() { //foreach element with a class of item.
+
+                  setTimeout(function(){
+                    mykeypress($(this));        //pass in the current element into your function.
+
+                    }, delay+=2000);
+                });
+
+             });
+
+
              console.log("first load");
-             $('.booking_date_month').addClass('uppend');
-           $( ".products" ).find( '.uppend:first' ).removeClass('uppend').trigger({type: 'keypress', which: 32, keyCode: 32});
-
          if (FWP.loaded) { // after the initial pageload
-           console.log("second load");
-
-         $( ".products" ).find( '.uppend:first' ).removeClass('uppend').trigger({type: 'keypress', which: 32, keyCode: 32});
-
            booking_form();
-        //   jqueryScript();
-        //   jqueryblockui();
+      //  jqueryScript();
+           jqueryblockui();
            woocommerce();
            cart_fragments();
-           mainjs();
+//           mainjs();
           add_to_cart_variation();
           datepicker();
            single_product();
@@ -142,6 +155,8 @@
            date_picker();
 
 
+
+           console.log("second load");
          }
 
 
