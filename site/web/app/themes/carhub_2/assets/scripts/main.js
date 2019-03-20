@@ -127,18 +127,11 @@
              $('.booking_to_date_day').val(str5);
              var delay = 0;
              var ajax1 = $.ajax();
-             $.when.apply($, [ajax1]).done(function() {
-            //   mykeypress();
-               $('.booking_date_month').each(function() { //foreach element with a class of item.
 
-                  setTimeout(function(){
-                    mykeypress($(this));        //pass in the current element into your function.
-
-                    }, delay+=2000);
-                });
-
-             });
-
+             $(document).ajaxStop(function() {
+                   // This function will be triggered every time an ajax is requested and completed
+                    mykeypress();
+              });
 
              console.log("first load");
          if (FWP.loaded) { // after the initial pageload
