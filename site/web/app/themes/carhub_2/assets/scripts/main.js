@@ -124,14 +124,10 @@
              $('.booking_date_day').val(str3);
             // $('.booking_date_day').focus();
              $('.booking_to_date_month').val(str4);
-             $('.booking_to_date_day').val(str5);
+             $('.booking_to_date_day').val(str5).keypress();
              var delay = 0;
              var ajax1 = $.ajax();
 
-             $(document).ajaxStop(function() {
-                   // This function will be triggered every time an ajax is requested and completed
-                    mykeypress();
-              });
 
              console.log("first load");
          if (FWP.loaded) { // after the initial pageload
@@ -150,6 +146,12 @@
 
 
            console.log("second load");
+           $(document).ajaxStop(function() {
+                 // This function will be triggered every time an ajax is requested and completed
+                //  mykeypress();
+                console.log("ajax loaded");
+            });
+
          }
 
 
