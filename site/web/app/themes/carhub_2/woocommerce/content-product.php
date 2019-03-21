@@ -48,6 +48,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	 * @hooked woocommerce_template_loop_product_title - 10
 	 */
 	do_action( 'woocommerce_shop_loop_item_title' );
+	//do_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price');
   do_action( 'woocommerce_single_product_summary' );
 	/**
 	 * Hook: woocommerce_after_shop_loop_item_title.

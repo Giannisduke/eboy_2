@@ -178,10 +178,9 @@ function product_carousel_2() {
 
 
       <div data-project-id="<?php echo $id ?>" data-target="#carscarousel" data-slide-to="<?php echo $the_query->current_post; ?>" class="carousel p-2 col-6 col-lg-4 <?php if ( $the_query->current_post == 0 ) : ?>active<?php endif; ?>">
-        <?php //the_post_thumbnail('medium', array('class' => 'img-fluid car-thumb', 'data-href' => "'" . get_permalink() . "'", 'data-project-id' => "" . get_the_ID() . ""));?>
+        <?php the_post_thumbnail('medium', array('class' => 'img-fluid car-thumb', 'data-href' => "'" . get_permalink() . "'", 'data-project-id' => "" . get_the_ID() . ""));?>
         <?php wc_get_template_part( 'content', 'single-product' );?>
-        <?php //$booking_form->output(); ?>
-        <?php //do_action( 'woocommerce_single_product_summary' ); ?>
+
       </div>
 
     <?php endwhile; endif; ?>

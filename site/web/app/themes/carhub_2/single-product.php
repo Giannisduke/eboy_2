@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php //wc_get_template_part( 'content', 'single-product' ); ?>
+			<?php wc_get_template_part( 'content', 'single-product' ); ?>
 
 		<?php endwhile; // end of the loop. ?>
 
@@ -46,16 +46,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		do_action( 'woocommerce_after_main_content' );
 	?>
-
-	<?php
-		/**
-		 * woocommerce_sidebar hook.
-		 *
-		 * @hooked woocommerce_get_sidebar - 10
-		 */
-		do_action( 'woocommerce_sidebar' );
-	?>
-
-<?php get_footer( 'shop' );
-
-/* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

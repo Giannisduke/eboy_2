@@ -111,17 +111,20 @@
               $('.uppend:first').keypress().removeClass('uppend').addClass('test');
           }
 
-
+          function carouselitemactive() {
+          $( ".carousel-inner .carousel-item" ).first().addClass( "active" );
+          }
 
 
           $(document).on('facetwp-loaded', function() {
+            carouselitemactive();
             var str1 = $(".facetwp-date").val(),
                   str2 = str1.slice(5, 7),
                    str3 = str1.slice(8, 11),
                    str4 = str1.slice(24,26);
                    str5 = str1.slice(27,30);
             console.log(str1);
-            console.log(str2); // OUTPUT: he morn
+            console.log(str2);
             console.log(str3);
             console.log(str4);
             console.log(str5);
@@ -136,6 +139,7 @@
 
              console.log("first load");
          if (FWP.loaded) { // after the initial pageload
+
            booking_form();
       //  jqueryScript();
            jqueryblockui();
@@ -189,7 +193,7 @@
       },
       finalize: function() {
         // JavaScript to be fired on the home page, after the init JS
-        $( ".carousel-inner .carousel-item" ).first().addClass( "active" );
+
 
       }
     },
