@@ -151,11 +151,14 @@
 
 
            console.log("second load");
-           $( document ).ajaxStop(function() {
-            mykeypress();
-            console.log("keypres");
-            });
-
+           var time = 2000;
+           $('.booking_date_month').each(function() {
+               setTimeout(function() {
+                   console.log('paused');
+                   mykeypress();
+               }, time);
+               time += 3000;
+           });
 
          }
 
