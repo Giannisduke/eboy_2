@@ -151,13 +151,13 @@
 
 
            console.log("second load");
-           var time = 2000;
+           var time = 1000;
            $('.booking_date_month').each(function() {
                setTimeout(function() {
                    console.log('paused');
                    mykeypress();
                }, time);
-               time += 3000;
+               time += 2000;
            });
 
          }
