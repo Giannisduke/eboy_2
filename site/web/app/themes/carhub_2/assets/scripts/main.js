@@ -105,9 +105,14 @@
           function daterangepicker() {
              $.getScript("https://eboy.gr/app/plugins/facetwp-bookings/assets/vendor/daterangepicker/daterangepicker.min.js?ver=3.2.12");
           }
+
+
           function mykeypress(){
               $('.uppend:first').keypress().removeClass('uppend').addClass('test');
           }
+
+
+
 
           $(document).on('facetwp-loaded', function() {
             var str1 = $(".facetwp-date").val(),
@@ -124,9 +129,9 @@
              $('.booking_date_day').val(str3);
             // $('.booking_date_day').focus();
              $('.booking_to_date_month').val(str4);
-             $('.booking_to_date_day').val(str5).keypress();
-             var delay = 0;
-             var ajax1 = $.ajax();
+             $('.booking_to_date_day').val(str5);
+
+
 
 
              console.log("first load");
@@ -146,11 +151,11 @@
 
 
            console.log("second load");
-           $(document).ajaxStop(function() {
-                 // This function will be triggered every time an ajax is requested and completed
-                //  mykeypress();
-                console.log("ajax loaded");
+           $( document ).ajaxStop(function() {
+            mykeypress();
+            console.log("keypres");
             });
+
 
          }
 
