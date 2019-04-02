@@ -201,7 +201,7 @@ function additional_div_in_shop() {
     if( ! is_shop() ) return;
     // Output the div
     ?>
-    <div class="container jumbotron-container text-center hidden">
+
       <div class="row">
         <div class="col-12 text-center">
         <h1><?php printf( esc_html__( '%s', 'sage' ), get_bloginfo ( 'description' ) ); ?></h1>
@@ -220,19 +220,17 @@ function additional_div_in_shop() {
           </div>
       </div>
 
-    </div>
+
     <?php
 }
 
 add_action( 'woocommerce_archive_description', 'additional_div_in_shop', 5 );
 
-remove_action( 'woocommerce_before_shop_loop' , 'woocommerce_result_count', 20 );
-remove_action( 'woocommerce_before_shop_loop' , 'woocommerce_catalog_ordering', 30 );
 
 
 
 function carhub_carousel_start_1(){ ?>
-  <div id="carscarousel" class="carousel slide text-center facetwp-template" data-ride="carousel" data-interval="7000">
+  <div id="carscarousel" class="carousel slide text-center facetwp-template" data-ride="carousel" >
     <div class="carousel-inner">
 <?php
 if ( wc_get_loop_prop( 'total' ) ) {
@@ -244,6 +242,13 @@ if ( wc_get_loop_prop( 'total' ) ) {
 }
 ?>
 </div>
+<!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#carscarousel">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#carscarousel">
+    <span class="carousel-control-next-icon"></span>
+  </a>
 <?php }
 add_action( 'carhub_carousel_start', 'carhub_carousel_start_1' , 10);
 

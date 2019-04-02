@@ -113,7 +113,15 @@
 
           function carouselitemactive() {
           $( ".carousel-inner .carousel-item" ).first().addClass( "active" );
+          $(".carousel-control-prev").click(function(){
+          $("#carscarousel").carousel("prev");
+        });
+        $(".carousel-control-next").click(function(){
+          $("#carscarousel").carousel("next");
+        });
           }
+
+
 
 
           $(document).on('facetwp-loaded', function() {
@@ -123,11 +131,7 @@
                    str3 = str1.slice(8, 11),
                    str4 = str1.slice(24,26);
                    str5 = str1.slice(27,30);
-            console.log(str1);
-            console.log(str2);
-            console.log(str3);
-            console.log(str4);
-            console.log(str5);
+
              $('.booking_date_month').val(str2);
              $('.booking_date_day').val(str3);
             // $('.booking_date_day').focus();
