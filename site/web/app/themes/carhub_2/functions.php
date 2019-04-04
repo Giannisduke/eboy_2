@@ -229,28 +229,118 @@ add_action( 'woocommerce_archive_description', 'additional_div_in_shop', 5 );
 
 
 
-function carhub_carousel_start_1(){ ?>
-  <div id="carscarousel" class="carousel slide text-center facetwp-template" data-ride="carousel" >
-    <div class="carousel-inner">
-<?php
-if ( wc_get_loop_prop( 'total' ) ) {
+function carhub_carousel_full(){
+  $loop = new WP_Query(array(
+          'post_type' => 'product',
+          'posts_per_page' => 6,
+          'orderyby' => 'post_id',
+          'order' => 'ASC' ));
+  ?>
 
-  while ( have_posts() ) {
-    the_post();
-    wc_get_template_part( 'content', 'product_carousel' );
-  }
-}
-?>
+
+  <!--CAROUSEL SLIDER SECTION START HERE-->
+  <div id="news-carousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox" >
+      <!-- The slideshow -->
+    <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
+      <?php if ( has_post_thumbnail() ) { ?>
+
+
+             <div class="carousel-item <?php if($count == '0'){ echo 'active'; } ?>">
+              <div class="col-12" >
+                  <?php the_post_thumbnail( 'large' ); ?>
+                  <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
+              </div>
+        </div><!-- /item -->
+
+  <?php } ?>
+  <!-- **************************************************************** -->
+   <?php $count++; endwhile; wp_reset_postdata(); ?>
+ </div>
+ <!-- // End The slideshow -->
+    <!-- Left and right controls -->
+          <a class="carousel-control-prev" href="#news-carousel" role="button" data-slide="prev">
+              <i class="fa fa-chevron-left"></i> </a>
+          <a class="carousel-control-next" href="#news-carousel" role="button" data-slide="next">
+              <i style="color: black;" class="fa fa-chevron-right"></i> </a>
+  </div> <!-- Carousel 1 -->
+  <!--//CAROUSEL SLIDER SECTION END HERE-->
+  <!--CAROUSEL indicators SECTION START HERE-->
+<ul class="carousel-indicators">
+   <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
+     <li data-target="#carousel1" data-slide-to="<?php echo $count ?>" class="<?php if($count == '0'){ echo 'active'; } ?>"></li>
+   <?php $count++; endwhile; wp_reset_postdata(); ?>
+</ul>
+<!--//CAROUSEL indicators SECTION END HERE-->
+
+  <?php }
+add_action( 'carhub_carousel_start', 'carhub_carousel_full' , 10);
+
+
+
+
+
+
+
+remove_action( 'carhub_carousel_start', 'carhub_carousel_full' , 10);
+
+function carhub_carousel_start_1(){
+  $loop = new WP_Query(array(
+          'post_type' => 'product',
+          'posts_per_page' => 6,
+          'orderyby' => 'post_id',
+          'order' => 'ASC' ));
+  ?>
+  <!--CAROUSEL SLIDER SECTION START HERE-->
+    <div id="news-carousel" class="carousel slide text-center facetwp-template" data-ride="carousel">
+      <div class="carousel-inner" role="listbox" >
+        <!-- The slideshow -->
+      <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
+        <?php if ( has_post_thumbnail() ) { ?>
+
+
+                 <div class="carousel-item item <?php if($count == '0'){ echo 'active'; } ?>" data-slide-number="<?php echo $count ?>" data-url="<?php the_permalink(); ?>" >
+                <div class="col-12" >
+                    <?php the_post_thumbnail( 'large' ); ?>
+                    <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
+                </div>
+          </div><!-- /item -->
+
+    <?php } ?>
+    <!-- **************************************************************** -->
+     <?php $count++; endwhile; wp_reset_postdata(); ?>
+
+
+
 </div>
-<!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#carscarousel">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#carscarousel">
-    <span class="carousel-control-next-icon"></span>
-  </a>
+<!-- // End The slideshow -->
+   <!-- Left and right controls -->
+         <a class="carousel-control-prev" href="#news-carousel" role="button" data-slide="prev">
+             <i class="fa fa-chevron-left"></i> </a>
+         <a class="carousel-control-next" href="#news-carousel" role="button" data-slide="next">
+             <i style="color: black;" class="fa fa-chevron-right"></i> </a>
+
+ </div> <!-- Carousel 1 -->
+ <!--//CAROUSEL SLIDER SECTION END HERE-->
+ <!--CAROUSEL indicators SECTION START HERE-->
+
+  <div class="row carousel-indicators" id="ads">
+  <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
+
+      <div data-target="#news-carousel" data-slide-to="<?php echo $count ?>" class="col-md-3 col-sm-6 <?php if($count == '0'){ echo 'active'; } ?>">
+
+
+
+
+
+      <?php wc_get_template_part( 'content', 'single-product' );?>
+
+    </div>
+  <?php $count++; endwhile; wp_reset_postdata(); ?>
+</div>
+<!--//CAROUSEL indicators SECTION END HERE-->
 <?php }
-add_action( 'carhub_carousel_start', 'carhub_carousel_start_1' , 10);
+add_action( 'carhub_carousel_start', 'carhub_carousel_start_1' , 20);
 
 
 remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
@@ -269,3 +359,6 @@ function carhub_template_loop_product_link_close() {
   echo '</div>';
 }
 add_action( 'woocommerce_after_shop_loop_item', 'carhub_template_loop_product_link_close', 5 );
+
+
+remove_action ('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);

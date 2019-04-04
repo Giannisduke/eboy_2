@@ -39,10 +39,6 @@
             parallax();
         });
 
-        $('.carousel').carousel({
-              pause: false,
-              interval: false
-          });
           //$('#startdate').daterangepicker();
           $("#startdate, #enddate").focus(function () {
             $(".facetwp-date").click();
@@ -111,14 +107,14 @@
               $('.uppend:first').keypress().removeClass('uppend').addClass('test');
           }
 
+
+
+
           function carouselitemactive() {
-          $( ".carousel-inner .carousel-item" ).first().addClass( "active" );
-          $(".carousel-control-prev").click(function(){
-          $("#carscarousel").carousel("prev");
-        });
-        $(".carousel-control-next").click(function(){
-          $("#carscarousel").carousel("next");
-        });
+      
+
+
+
           }
 
 
@@ -143,7 +139,6 @@
 
              console.log("first load");
          if (FWP.loaded) { // after the initial pageload
-
            booking_form();
       //  jqueryScript();
            jqueryblockui();

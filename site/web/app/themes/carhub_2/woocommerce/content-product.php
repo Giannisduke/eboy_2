@@ -19,13 +19,14 @@ defined( 'ABSPATH' ) || exit;
 
 global $product;
 $id = $product->get_id();
+$count = 0;
 // Ensure visibility.
 if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
 ?>
 
-<li <?php wc_product_class(); ?>>
+<li <?php wc_product_class(); ?> data-target="#news-carousel" data-slide-to="<?php echo $count++; ?>">
 	<?php
 	/**
 	 * Hook: woocommerce_before_shop_loop_item.

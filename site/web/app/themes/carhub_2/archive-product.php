@@ -53,6 +53,7 @@ if ( woocommerce_product_loop() ) {
 	 * @hooked woocommerce_catalog_ordering - 30
 	 */
 	//do_action( 'woocommerce_before_shop_loop' );
+	//do_action( 'carhub_carousel_start' );
 	do_action( 'carhub_carousel_start' );
 
 
@@ -64,26 +65,7 @@ if ( woocommerce_product_loop() ) {
 
 
 
-	if ( wc_get_loop_prop( 'total' ) ) {
 
-		while ( have_posts() ) {
-			the_post();
-
-			/**
-			 * Hook: woocommerce_shop_loop.
-			 *
-			 * @hooked WC_Structured_Data::generate_product_data() - 10
-			 */
-
-			do_action( 'woocommerce_shop_loop' );
-
-			remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-		//	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
-			remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
-			remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
-			wc_get_template_part( 'content', 'product' );
-		}
-	}
 
 	woocommerce_product_loop_end();
 

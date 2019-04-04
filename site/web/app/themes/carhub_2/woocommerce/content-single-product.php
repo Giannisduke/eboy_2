@@ -34,8 +34,8 @@ if ( post_password_required() ) {
 ?>
 
 
-<div id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
+<div id="product-<?php the_ID(); ?>" class="product card rounded">
 	<?php
 		/**
 		 * Hook: woocommerce_before_single_product_summary.
@@ -46,7 +46,7 @@ if ( post_password_required() ) {
 	 do_action( 'woocommerce_before_single_product_summary' );
 	?>
 
-	<div class="summary entry-summary">
+	<div class="card-body text-center">
 		<?php
 			/**
 			 * Hook: Woocommerce_single_product_summary.
