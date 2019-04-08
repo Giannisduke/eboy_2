@@ -100,6 +100,7 @@ add_filter( 'facetwp_assets', function( $assets ) {
 
     return $assets;
 });
+remove_action ('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 
 function product_carousel_2() {
               $args = array(
@@ -202,9 +203,11 @@ function additional_div_in_shop() {
     // Output the div
     ?>
 
+
+
       <div class="row">
         <div class="col-12 text-center">
-        <h1><?php printf( esc_html__( '%s', 'sage' ), get_bloginfo ( 'description' ) ); ?></h1>
+        <h1 class="header"><?php printf( esc_html__( '%s', 'sage' ), get_bloginfo ( 'description' ) ); ?></h1>
         </div>
       </div>
 
@@ -274,37 +277,89 @@ function carhub_carousel_full(){
 <!--//CAROUSEL indicators SECTION END HERE-->
 
   <?php }
-add_action( 'carhub_carousel_start', 'carhub_carousel_full' , 10);
+//add_action( 'carhub_carousel_start', 'carhub_carousel_full' , 10);
 
-
-
-
-
-
-
-remove_action( 'carhub_carousel_start', 'carhub_carousel_full' , 10);
+function show_attributes_doors() {
+global $product;
+$product_id = $product->get_id();
+$attribute_slug = 'doors';
+$array = wc_get_product_terms( $product_id , 'pa_' . $attribute_slug, array( 'fields' => 'names' ) );
+$text = array_shift( $array );
+echo '<div class="cars-slider_item-option car-option-' . $attribute_slug . '"><h6>Doors:<span class="attribute">' . $text . '</span></h6></div>';
+}
+add_action( 'woocommerce_attribute', 'show_attributes_doors', 10 );
+function show_attributes_passengers() {
+global $product;
+$product_id = $product->get_id();
+$attribute_slug = 'passengers';
+$array = wc_get_product_terms( $product_id , 'pa_' . $attribute_slug, array( 'fields' => 'names' ) );
+$text = array_shift( $array );
+echo '<div class="cars-slider_item-option car-option-' . $attribute_slug . '"><h6>passengers:<span class="attribute">' . $text . '</span></h6></div>';
+}
+add_action( 'woocommerce_attribute', 'show_attributes_passengers', 20 );
+function show_attributes_luggages() {
+global $product;
+$product_id = $product->get_id();
+$attribute_slug = 'luggages';
+$array = wc_get_product_terms( $product_id , 'pa_' . $attribute_slug, array( 'fields' => 'names' ) );
+$text = array_shift( $array );
+echo '<div class="cars-slider_item-option car-option-' . $attribute_slug . '"><h6>luggages:<span class="attribute">' . $text . '</span></h6></div>';
+}
+add_action( 'woocommerce_attribute', 'show_attributes_luggages', 30 );
+function show_attributes_transmission() {
+global $product;
+$product_id = $product->get_id();
+$attribute_slug = 'transmission';
+$array = wc_get_product_terms( $product_id , 'pa_' . $attribute_slug, array( 'fields' => 'names' ) );
+$text = array_shift( $array );
+echo '<div class="cars-slider_item-option car-option-' . $attribute_slug . '"><h6>transmission:<span class="attribute">' . $text . '</span></h6></div>';
+}
+add_action( 'woocommerce_attribute', 'show_attributes_transmission', 40 );
 
 function carhub_carousel_start_1(){
   $loop = new WP_Query(array(
           'post_type' => 'product',
-          'posts_per_page' => 6,
+          'posts_per_page' => -1,
           'orderyby' => 'post_id',
           'order' => 'ASC' ));
   ?>
   <!--CAROUSEL SLIDER SECTION START HERE-->
-    <div id="news-carousel" class="carousel slide text-center facetwp-template" data-ride="carousel">
-      <div class="carousel-inner" role="listbox" >
+    <div id="news-carousel" class="row carousel slide text-center facetwp-template" data-ride="carousel">
+      <div class="carousel-inner " role="listbox" >
         <!-- The slideshow -->
       <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
         <?php if ( has_post_thumbnail() ) { ?>
 
 
                  <div class="carousel-item item <?php if($count == '0'){ echo 'active'; } ?>" data-slide-number="<?php echo $count ?>" data-url="<?php the_permalink(); ?>" >
-                <div class="col-12" >
+                  <div class="row">
+                   <div class="col-3 p-0 text-right">
+                       <h2 class="car_title"><a href="<?php the_permalink(); ?>">
+                         <?php
+
+
+
+                          $financialYear = get_the_title();
+                          $test = explode(' ',$financialYear);
+                          echo $test[0]; //
+                          echo "<br>";
+                          echo $test[1]; //
+                          echo "<br>";
+                        //  echo $test[2]; //
+
+                           ?>
+
+                       </a></h2>
+                   </div>
+
+                <div class="col-6 p-0">
                     <?php the_post_thumbnail( 'large' ); ?>
-                    <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
                 </div>
-          </div><!-- /item -->
+                <div class="col-3 p-0 text-left">
+                    <?php do_action ( 'woocommerce_attribute' );?>
+                </div>
+              </div><!-- /item -->
+          </div><!-- /carousel column -->
 
     <?php } ?>
     <!-- **************************************************************** -->
@@ -326,15 +381,8 @@ function carhub_carousel_start_1(){
 
   <div class="row carousel-indicators" id="ads">
   <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
-
       <div data-target="#news-carousel" data-slide-to="<?php echo $count ?>" class="col-md-3 col-sm-6 <?php if($count == '0'){ echo 'active'; } ?>">
-
-
-
-
-
       <?php wc_get_template_part( 'content', 'single-product' );?>
-
     </div>
   <?php $count++; endwhile; wp_reset_postdata(); ?>
 </div>
@@ -359,6 +407,3 @@ function carhub_template_loop_product_link_close() {
   echo '</div>';
 }
 add_action( 'woocommerce_after_shop_loop_item', 'carhub_template_loop_product_link_close', 5 );
-
-
-remove_action ('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);

@@ -6,6 +6,7 @@
 body {
   font-family: 'Proxima Nova Lt', sans-serif;
   font-size: 16px;
+  background-color: #000;
 }
 
 h1 {
@@ -14,6 +15,11 @@ h1 {
 
 h2 {
   font-family: 'RobotoCondensed-Bold', sans-serif;
+}
+
+h2.car_title a {
+  color: #ffffff;
+  font-size: 3.8rem;
 }
 
 .facetwp-date.hide {
@@ -25,7 +31,7 @@ input.facetwp-date {
   background-repeat: no-repeat;
   //background-attachment: fixed;
   background-position: 50% 0%;
-
+  background-color: transparent;
   border-width: 0px;
   height: 50px;
   width: 50px;
@@ -43,7 +49,7 @@ input.facetwp-date {
 /* Category Ads */
 
 #ads {
-    margin: 30px 0 30px 0;
+    margin: 0;
 
 }
 
@@ -127,8 +133,7 @@ input.facetwp-date {
             color: #1e1717;
             border: 2px solid #e6de08;
             background: transparent;
-            transition: all 0.3s ease;
-            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+
         }
 
 #ads .ad-title h5 {
@@ -136,6 +141,11 @@ input.facetwp-date {
         font-size: 18px;
     }
 
+#ads .alert-success {
+        color: #000;
+        background-color: transparent;
+        border-color: #c3e6cb;
+    }
 
     .card-image {opacity: 1 !important;}
 
@@ -181,3 +191,38 @@ input.facetwp-date {
     border: 0px solid rgba(0,0,0,.125);
     border-radius: .25rem;
 }
+
+.row.carousel-indicators {
+  background: #fff;
+}
+.row.carousel {
+    background: -moz-linear-gradient(top, rgba(248,80,50,0) 0%, rgba(241,109,89,0) 50%, rgba(241,111,92,0) 50%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(248,80,50,0) 0%,rgba(241,109,89,0) 50%,rgba(241,111,92,0) 50%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(248,80,50,0) 0%,rgba(241,109,89,0) 50%,rgba(241,111,92,0) 50%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f85032', endColorstr='#ffffff',GradientType=0 );
+  }
+
+
+  .car-option-doors {
+    background: url(../images/attributes_doors.svg) 0px 0px no-repeat !important;
+  }
+
+  .car-option-passengers {
+    background: url(../images/attributes_passengers.svg) 0px 0px no-repeat !important;
+  }
+
+  .car-option-luggage {
+    background: url(../images/attributes_luggage.svg) 0px 0px no-repeat !important;
+  }
+
+  .car-option-transmission {
+    background: url(../images/attributes_transmission.svg) 0px 0px no-repeat !important;
+  }
+
+  .car-option-air-conditioning {
+    background: url(../images/attributes_aircondition.svg) 0px 0px no-repeat !important;
+  }
+
+  h1.header {
+    color: #ffffff;
+  }
