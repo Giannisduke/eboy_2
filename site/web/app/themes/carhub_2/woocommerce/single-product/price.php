@@ -23,5 +23,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 the_title( '<div class="ad-title m-auto"><h5 class="product_title entry-title">', '</h5></div>' );
 ?>
-<div class="d-flex flex-row">
+<div class="d-flex flex-row justify-content-between">
   <div class="p-2"><p class="price"><?php echo $product->get_price_html(); ?></p></div>
