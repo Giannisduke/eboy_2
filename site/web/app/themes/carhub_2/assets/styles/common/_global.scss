@@ -198,6 +198,7 @@ input.facetwp-date {
 
 .row.carousel-indicators {
   background: #fff;
+
 }
 .row.carousel {
     background: -moz-linear-gradient(top, rgba(248,80,50,0) 0%, rgba(241,109,89,0) 50%, rgba(241,111,92,0) 50%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%);
@@ -205,6 +206,13 @@ input.facetwp-date {
     background: linear-gradient(to bottom, rgba(248,80,50,0) 0%,rgba(241,109,89,0) 50%,rgba(241,111,92,0) 50%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f85032', endColorstr='#ffffff',GradientType=0 );
   }
+
+  .datepicker-inline {
+    width: 100%;
+}
+.datepicker table {
+    width: 100%;
+}
 
 
   .car-option-doors {
@@ -229,4 +237,25 @@ input.facetwp-date {
 
   h1.header {
     color: #ffffff;
+  }
+
+
+  .woocommerce .blockUI.blockOverlay::before {
+      height: 1em;
+      width: 1em;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -.5em;
+      margin-top: -.5em;
+      content: '';
+      -webkit-animation: spin 1s ease-in-out infinite;
+      animation: spin 1s ease-in-out infinite;
+      background: url(../images/icons/loader.svg) center center;
+      background-size: cover;
+      line-height: 1;
+      text-align: center;
+      font-size: 2em;
+      color: rgba(0,0,0,.75);
   }
