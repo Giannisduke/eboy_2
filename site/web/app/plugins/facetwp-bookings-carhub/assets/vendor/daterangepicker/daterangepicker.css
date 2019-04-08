@@ -110,7 +110,7 @@
 
 .daterangepicker .drp-calendar {
   display: none;
-  max-width: 270px;
+  max-width: 100%;
 }
 
 .daterangepicker .drp-calendar.left {
@@ -333,9 +333,9 @@
     .daterangepicker.single .drp-calendar.left {
       clear: none; }
     .daterangepicker.single.ltr .ranges, .daterangepicker.single.ltr .drp-calendar {
-      float: left; }
+      float: none; }
     .daterangepicker.single.rtl .ranges, .daterangepicker.single.rtl .drp-calendar {
-      float: right; }
+      float: none; }
     .daterangepicker.ltr {
       direction: ltr;
       text-align: left; }
@@ -355,7 +355,7 @@
       .daterangepicker.ltr .drp-calendar.left .calendar-table {
         padding-right: 8px; }
       .daterangepicker.ltr .ranges, .daterangepicker.ltr .drp-calendar {
-        float: left; }
+        float: none; }
     .daterangepicker.rtl {
       direction: rtl;
       text-align: right; }
