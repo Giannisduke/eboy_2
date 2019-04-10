@@ -120,7 +120,7 @@ function loukia_front_carousel(){
 
                         <?php
                       }
-                        
+
 
                       else {
 
@@ -179,14 +179,20 @@ function collections_menu(){
         </div>
         <div class="p-0">
           <?php
-          $images = get_field('photos');
+          $images = get_field('gallery');
           $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
+
+
           if( $images ): ?>
           <div class="d-flex justify-content-start flex-wrap">
 
               <?php foreach( $images as $image ): ?>
                   <div class="pl-1 pt-1">
+
+
                     <?php echo wp_get_attachment_image( $image['ID'], $size ); ?>
+
+
                   </div>
               <?php endforeach; ?>
           </div>
