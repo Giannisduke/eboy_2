@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Home Template
+ * Template Name: Home 1
  */
 ?>
 

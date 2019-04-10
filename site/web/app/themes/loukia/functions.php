@@ -59,6 +59,90 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 add_action ('customize_register', 'themeslug_theme_customizer');
 
 
+####################################################
+#    VIDEO
+####################################################
+
+function loukia_front_carousel_indicators(){
+
+?>
+<?php
+        if( have_rows('carousel') ):$counter = 0;?>
+
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+
+          <?php while( have_rows('carousel') ): the_row(); ?>
+
+            <li data-target="#video-carousel" data-slide-to="<?php echo $counter;?>" class="myCarousel-target <?php if($counter === 0){ echo "active";} ?>"></li>
+
+
+
+          <?php $counter++; endwhile; ?>
+
+        </ol>
+        <!--/.Indicators-->
+
+
+        <?php endif; ?>
+
+<?php
+}
+
+add_action('loukia_custom_front', 'loukia_front_carousel_indicators', 20);
+
+
+
+
+function loukia_front_carousel(){
+
+?>
+<?php
+        if( have_rows('carousel') ):$counter = 0;?>
+        <!--Carousel Wrapper-->
+        <div id="video-carousel" class="carousel slide carousel-fade home-section" data-ride="carousel">
+
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+
+                <?php while( have_rows('carousel') ): the_row();
+                    $slide_title = get_sub_field('slide_title');
+                    $slide_subtitle = get_sub_field('slide_subtitle');
+                    $image = get_sub_field('slide_image_background');
+                    $slide_video = get_sub_field('slide_video');
+                    ?>
+                    <div class="carousel-item <?php if($counter === 0){ echo "active";} ?>" data-slide-no="<?php echo $counter;?>" style="background: url('<?php echo $image;?>') no-repeat center; background-size: cover;">
+
+                      <?php if (get_sub_field('slide_video')) { ?>
+                        <video class="video-fluid" controls="top" controlsList="nofullscreen nodownload" id="player" preload="auto" playsinline controls muted>
+                            <source src="<?php echo $slide_video;?>"  />
+                        </video>
+
+                        <?php
+                      }
+                        
+
+                      else {
+
+                      }
+                        ?>
+
+
+                      <p class="caption"><?php echo $slide_title; ?></p>
+
+                    </div>
+                    <?php $counter++; endwhile; ?>
+
+
+                      </div> <!--/.Slides-->
+                    </div> <!--Carousel Wrapper-->
+
+        <?php endif; ?>
+<?php
+}
+
+add_action('loukia_custom_front', 'loukia_front_carousel', 30);
+
 function collections_menu(){
 
     query_posts(array(
