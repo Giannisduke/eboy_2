@@ -108,14 +108,15 @@ function loukia_front_carousel(){
                 <?php while( have_rows('carousel') ): the_row();
                     $slide_title = get_sub_field('slide_title');
                     $slide_subtitle = get_sub_field('slide_subtitle');
-                    $image = get_sub_field('slide_image_background');
+                    $slide_image = get_sub_field('slide_image_background');
                     $slide_video = get_sub_field('slide_video');
+                    $slide_external_video = get_sub_field('slide_external_video');
                     ?>
-                    <div class="carousel-item <?php if($counter === 0){ echo "active";} ?>" data-slide-no="<?php echo $counter;?>" style="background: url('<?php echo $image;?>') no-repeat center; background-size: cover;">
+                    <div class="carousel-item <?php if($counter === 0){ echo "active";} ?>" data-slide-no="<?php echo $counter;?>" style="background: url('<?php echo $slide_image;?>') no-repeat center; background-size: cover;">
 
-                      <?php if (get_sub_field('slide_video')) { ?>
-                        <video class="video-fluid" controls="top" controlsList="nofullscreen nodownload" id="player" preload="auto" playsinline controls muted>
-                            <source src="<?php echo $slide_video;?>"  />
+                      <?php if (get_sub_field('slide_external_video')) { ?>
+                        <video class="video-fluid" controls="top" controlsList="nofullscreen nodownload noremoteplayback" id="player" preload="auto" playsinline controls muted>
+                            <source src="<?php echo $slide_external_video;?>"  />
                         </video>
 
                         <?php
@@ -127,8 +128,6 @@ function loukia_front_carousel(){
                       }
                         ?>
 
-
-                      <p class="caption"><?php echo $slide_title; ?></p>
 
                     </div>
                     <?php $counter++; endwhile; ?>
@@ -151,56 +150,71 @@ function collections_menu(){
         'facetwp' => true,
     )); ?>
 
-<div class="col-8 facetwp-template text-center p-0">
+<div class="col-9 facetwp-template text-center p-0">
   <?php
 
   global $post; ?>
   <ul class="list-unstyled">
   <?php while (have_posts()) : the_post(); ?>
      <li class="pb-5">
-       <div class="container">
+       <div class="container p-0">
        <div class="row">
-       <div class="col-12">
-       <a class="" href="<?php the_permalink(); ?>"><h2><?php the_title(); ?></h2></a>
-       <p><?php the_content(); ?></p>
-       <div class="d-flex flex-row justify-content-center">
-        <div class="pt-1">
-          <?php if ( has_post_thumbnail() ) {
-       $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
-       if ( ! empty( $large_image_url[0] ) ) {
-           echo '<p>';
-           echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
-           echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-responsive'));
-           echo '</a>';
-           echo '</p>';
+       <div class="col-12 p-0">
+         <article <?php post_class(); ?>>
+           <div class="entry-wrap">
+             <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+             <?php //get_template_part('templates/entry-meta'); ?>
 
-       }
-   } ?>
-        </div>
-        <div class="p-0">
-          <?php
-          $images = get_field('gallery');
-          $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
+           <div class="entry-summary">
+             <?php the_excerpt(); ?>
+           </div>
+            </div>
+                  <div class="d-flex flex-row justify-content-center">
+                   <div class="pt-1">
+                     <?php if ( has_post_thumbnail() ) {
+                  $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+                  if ( ! empty( $large_image_url[0] ) ) {
+                      echo '<p>';
+                      echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
+                      echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-responsive'));
+                      echo '</a>';
+                      echo '</p>';
+
+                  }
+              } ?>
+                   </div>
+                   <div class="p-0">
+                     <?php
+                     $slide_images = get_field('gallery');
+                     $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
+                     $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
+                     $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
 
 
-          if( $images ): ?>
-          <div class="d-flex justify-content-start flex-wrap">
-
-              <?php foreach( $images as $image ): ?>
-                  <div class="pl-1 pt-1">
-
-
-                    <?php echo wp_get_attachment_image( $image['ID'], $size ); ?>
+                     if( $slide_images ): ?>
+                     <div class="card-columns">
+                       <div class="card test">
+                         <?php //echo wp_get_attachment_image( $slide_image['ID'], $size_medium, "", ["class" => "card-img-top "] );?>
 
 
-                  </div>
-              <?php endforeach; ?>
-          </div>
-          <?php endif; ?>
+                       </div>
+                         <?php foreach( $slide_images as $slide_image ): ?>
+                             <div class="card">
 
-        </div>
 
-      </div>
+                               <?php echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "card-img-top "] );?>
+
+
+                             </div>
+                         <?php endforeach; ?>
+                     </div>
+                     <?php endif; ?>
+
+                   </div>
+
+                 </div>
+         </article>
+
 
 
     </div>
