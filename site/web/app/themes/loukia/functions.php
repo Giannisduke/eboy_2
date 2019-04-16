@@ -158,10 +158,10 @@ function collections_menu(){
   <?php while (have_posts()) : the_post(); ?>
      <li class="pb-5">
        <div class="container p-0">
-       <div class="row">
-       <div class="col-12 p-0">
-         <article <?php post_class(); ?>>
-           <div class="entry-wrap">
+
+         <article <?php post_class('row'); ?>>
+
+             <div class="col-12">
              <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
              <?php //get_template_part('templates/entry-meta'); ?>
 
@@ -169,21 +169,21 @@ function collections_menu(){
              <?php the_excerpt(); ?>
            </div>
             </div>
-                  <div class="d-flex flex-row justify-content-center">
-                   <div class="pt-1">
-                     <?php if ( has_post_thumbnail() ) {
-                  $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
-                  if ( ! empty( $large_image_url[0] ) ) {
-                      echo '<p>';
-                      echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
-                      echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-responsive'));
-                      echo '</a>';
-                      echo '</p>';
+            <div class="col-4 px-0">
+              <?php if ( has_post_thumbnail() ) {
+           $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+           if ( ! empty( $large_image_url[0] ) ) {
+               echo '<p>';
+               echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
+               echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid'));
+               echo '</a>';
+               echo '</p>';
 
-                  }
-              } ?>
-                   </div>
-                   <div class="p-0">
+           }
+       } ?>
+            </div>
+                   <div class="grid col-8 d-flex flex-wrap">
+
                      <?php
                      $slide_images = get_field('gallery');
                      $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
@@ -192,34 +192,28 @@ function collections_menu(){
 
 
                      if( $slide_images ): ?>
-                     <div class="card-columns">
-                       <div class="card test">
-                         <?php //echo wp_get_attachment_image( $slide_image['ID'], $size_medium, "", ["class" => "card-img-top "] );?>
 
 
-                       </div>
                          <?php foreach( $slide_images as $slide_image ): ?>
-                             <div class="card">
+
+                           <div class="grid-item ">
+                               <?php echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid py-1 px-0"] );?>
+                          </div>
 
 
-                               <?php echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "card-img-top "] );?>
-
-
-                             </div>
                          <?php endforeach; ?>
-                     </div>
+
                      <?php endif; ?>
 
                    </div>
 
-                 </div>
+
          </article>
 
 
 
-    </div>
-    </div>
-    </div>
+
+
      </li>
   		    <?php endwhile; ?>
         </ul>

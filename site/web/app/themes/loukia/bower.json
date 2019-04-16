@@ -11,13 +11,30 @@
     "css-hamburgers": "^0.9.3",
     "gsap": "^2.0.1",
     "scrollmagic": "^2.0.5",
-    "mediaelement": "^4.2.9"
+    "mediaelement": "^4.2.9",
+    "imagesloaded": "^4.1.4",
+    "isotope": "^3.0.4",
+    "isotope-layout": "^3.0.6",
+    "isotope-fit-columns": "^1.1.4",
+    "isotope-masonry-horizontal": "^2.0.1"
   },
   "overrides": {
     "bootstrap": {
       "main": [
         "./scss/bootstrap.scss",
         "./dist/js/bootstrap.bundle.js"
+      ]
+    },
+    "isotope": {
+      "main": [
+        "./dist/isotope.pkgd.min.js"
+      ],
+      "dependencies": {}
+    },
+    "outlayer": {
+      "main": [
+        "item.js",
+        "outlayer.js"
       ]
     },
     "gsap": {
