@@ -182,7 +182,7 @@ function collections_menu(){
            }
        } ?>
             </div>
-                   <div class="grid col-8 d-flex flex-wrap">
+                   <div class="col-8 d-flex flex-wrap">
 
                      <?php
                      $slide_images = get_field('gallery');
@@ -196,9 +196,9 @@ function collections_menu(){
 
                          <?php foreach( $slide_images as $slide_image ): ?>
 
-                           <div class="grid-item ">
-                               <?php echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid py-1 px-0"] );?>
-                          </div>
+
+                               <?php echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );?>
+
 
 
                          <?php endforeach; ?>
