@@ -157,11 +157,11 @@ function collections_menu(){
   <ul class="list-unstyled">
   <?php while (have_posts()) : the_post(); ?>
      <li class="pb-5">
-       <div class="container p-0">
+
 
          <article <?php post_class('row'); ?>>
 
-             <div class="col-12">
+             <div class="col-12 entry-meta">
              <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
              <?php //get_template_part('templates/entry-meta'); ?>
 
@@ -169,20 +169,17 @@ function collections_menu(){
              <?php the_excerpt(); ?>
            </div>
             </div>
-            <div class="col-4 px-0">
+            <div class="col-5 px-0">
               <?php if ( has_post_thumbnail() ) {
            $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
            if ( ! empty( $large_image_url[0] ) ) {
-               echo '<p>';
                echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
-               echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid'));
+               echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
                echo '</a>';
-               echo '</p>';
-
            }
        } ?>
             </div>
-                   <div class="col-8 d-flex flex-wrap">
+                   <div class="col-7 d-flex flex-wrap p-0">
 
                      <?php
                      $slide_images = get_field('gallery');
@@ -217,6 +214,6 @@ function collections_menu(){
      </li>
   		    <?php endwhile; ?>
         </ul>
-</div>
+
 <?php }
 add_action ('collection', 'collections_menu', 10 );

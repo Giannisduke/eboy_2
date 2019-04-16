@@ -7,7 +7,7 @@
         <span class="hamburger-inner"></span>
       </span>Menu
     </button>
-    <a class="navbar-brand mx-auto" href="#">
+    <a class="navbar-brand mx-auto text-center" href="#">
       <img class="logo" src='<?php echo esc_url( get_theme_mod( 'themeslug_logo' ) ); ?>' alt='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>'>
     </a>
     <div class="navbar-collapse collapse">
