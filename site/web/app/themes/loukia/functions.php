@@ -265,10 +265,22 @@ $slide_images = get_field('gallery');
 $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
 $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
 global $post;
+$id = get_the_ID();
 ?>
-  <article <?php post_class('justify-content-center test'); ?>>
+  <article <?php post_class('justify-content-center'); ?>>
+    <div class="col-12 entry-meta">
+    <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+    <?php //get_template_part('templates/entry-meta'); ?>
+
+  <div class="entry-summary">
+    <?php the_excerpt(); ?>
+  </div>
+  <div class="entry-content">
+    <?php the_content(); ?>
+  </div>
+   </div>
     <div class="container-fluid text-center p-0 m-0">
-    <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+    <div id="post_carousel_<?php echo esc_html( $id ); ?>" class="carousel slide w-100" data-ride="carousel">
       <div class="carousel-inner w-100" role="listbox">
       <?php //going to wrap every 3 in this example
           if ( get_field( 'gallery' ) ): ?>
@@ -283,11 +295,7 @@ global $post;
 
                   echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
                 } ?>
-
-
           <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
-
-
             <div class="col-2 p-1">
               <img src="<?php echo $slide_images[$index - 1]['url'] ?>" class="img-fluid gallery-image" alt="Responsive image">
             </div>
@@ -316,11 +324,11 @@ global $post;
 
     </div>
 
-        <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="post_carousel_<?php echo esc_html( $id ); ?>" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+        <a class="carousel-control-next" href="post_carousel_<?php echo esc_html( $id ); ?>" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>

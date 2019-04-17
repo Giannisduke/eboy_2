@@ -1,5 +1,4 @@
-<div id='slider'>Hello World!!</div>
-
+<div id='slider'></div>
 <header class="banner">
   <nav id="topNav" class="navbar  navbar-toggleable-sm navbar-inverse bg-inverse">
     <button class="hamburger hamburger--arrowturn" type="button">

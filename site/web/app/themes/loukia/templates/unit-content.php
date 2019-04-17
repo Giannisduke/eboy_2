@@ -1,4 +1,4 @@
-<section class="content white-background">
+<section class="content white-background p-4">
 
 <div class="container-fluid">
 <div class="row">
