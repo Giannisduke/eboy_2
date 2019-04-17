@@ -159,7 +159,7 @@ function collections_menu(){
      <li class="pb-5">
 
 
-         <article <?php post_class('row'); ?>>
+         <article <?php post_class('row justify-content-center'); ?>>
 
              <div class="col-12 entry-meta">
              <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
@@ -169,40 +169,93 @@ function collections_menu(){
              <?php the_excerpt(); ?>
            </div>
             </div>
-            <div class="col-5 px-0">
+
               <?php if ( has_post_thumbnail() ) {
+
            $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
-           if ( ! empty( $large_image_url[0] ) ) {
-               echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
-               echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
-               echo '</a>';
-           }
-       } ?>
-            </div>
-                   <div class="col-7 d-flex flex-wrap p-0">
+           $slide_images = get_field('gallery');
+           $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
+           $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
+           $i = 0;
+                if( $slide_images ):
+                  $count = count( $slide_images );
+                  echo '<div class="col-5 px-0 ">';
+                 echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
+                 echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
+                 echo '</a>';
+                 echo '</div>';
+                      echo '<div class="col-6 d-flex flex-wrap p-0">';
+                    foreach( $slide_images as $slide_image ):$i++;
+                    if( $i > 4)
+                    {
+                      break;
+                    }
+                  echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );
+                  endforeach;
+                  echo '</div>';
 
-                     <?php
-                     $slide_images = get_field('gallery');
-                     $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
-                     $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
-                     $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+                  else:
+                    echo '<div class="col-5 px-0 entry-meta">';
+                   echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
+                   echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
+                   echo '</a>';
+                   echo '</div>';
+                  endif;
 
 
-                     if( $slide_images ): ?>
+       }
+       else{
+
+         $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+         $slide_images = get_field('gallery');
+         $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
+         $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
 
 
-                         <?php foreach( $slide_images as $slide_image ): ?>
+
+          $i = 0;
+              if( $slide_images ):
+                $count = count( $slide_images );
+                    echo '<div class="col-12 d-flex flex-wrap justify-content-center mergin-left-2 p-0">';
+                  foreach( $slide_images as $slide_image ):$i++;
+                  if( $i > 4)
+            			{
+            				break;
+            			}
+                echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );
+                endforeach;
+                echo '</div>';
 
 
-                               <?php echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );?>
+
+
+        if ($count > 4) {
+
+        echo '<div class="col-12 collapse mergin-left-2" id="collapseExample">';
+$counter = 0;
+foreach ($slide_images as $slide_image) {
+  $counter++;
+  if ($counter > 4) {
+    echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );
+
+  }
+}
+          echo '</div>';
+          echo '<div class="col-12 p-3">';
+          echo '  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Button with data-target
+                </button>';
+          echo '</div>';
+               }
+
+
+                endif;
 
 
 
-                         <?php endforeach; ?>
+}
+       ?>
 
-                     <?php endif; ?>
-
-                   </div>
 
 
          </article>
