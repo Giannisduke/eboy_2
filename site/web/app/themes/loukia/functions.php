@@ -202,7 +202,6 @@ function collections_menu(){
                    echo '</div>';
                   endif;
 
-
        }
        else{
 
@@ -210,8 +209,6 @@ function collections_menu(){
          $slide_images = get_field('gallery');
          $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
          $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
-
-
 
           $i = 0;
               if( $slide_images ):
@@ -225,9 +222,6 @@ function collections_menu(){
                 echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );
                 endforeach;
                 echo '</div>';
-
-
-
 
         if ($count > 4) {
 
@@ -247,26 +241,95 @@ foreach ($slide_images as $slide_image) {
                 </button>';
           echo '</div>';
                }
-
-
                 endif;
-
-
-
-}
-       ?>
-
-
-
+} ?>
          </article>
-
-
-
-
-
      </li>
   		    <?php endwhile; ?>
         </ul>
 
 <?php }
 add_action ('collection', 'collections_menu', 10 );
+
+
+function title_meta(){
+  query_posts(array(
+      'post_type' => 'post',
+      'showposts' => -1,
+      'facetwp' => true,
+  ));
+  ?>
+<?php while (have_posts()) : the_post(); global $post;
+$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+$slide_images = get_field('gallery');
+$size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
+$size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
+global $post;
+?>
+  <article <?php post_class('justify-content-center test'); ?>>
+    <div class="container-fluid text-center p-0 m-0">
+    <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+      <div class="carousel-inner w-100" role="listbox">
+      <?php //going to wrap every 3 in this example
+          if ( get_field( 'gallery' ) ): ?>
+
+          <?php $index = 1; ?>
+          <?php $totalNum = count( get_field('gallery') ); ?>
+
+          <div class="carousel-item  no-gutters active">
+            <div class="container">
+              <div class="row">
+                <?php if ( has_post_thumbnail() ) {
+
+                  echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
+                } ?>
+
+
+          <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
+
+
+            <div class="col-2 p-1">
+              <img src="<?php echo $slide_images[$index - 1]['url'] ?>" class="img-fluid gallery-image" alt="Responsive image">
+            </div>
+              <? if ($index % 4 == 0) : ?>
+                  <? if ($index < $totalNum) : ?>
+
+              </div>
+            </div>
+          </div>
+                      <div class="carousel-item  no-gutters">
+                        <div class="container">
+                          <div class="row">
+                  <? elseif ($index == $totalNum) : ?>
+
+                        </div>
+                      </div>
+                    </div>
+                  <? endif; ?>
+
+              <? endif; ?>
+
+          <?php $index++; ?>
+          <?php endwhile; ?>
+
+      <?php endif; ?>
+
+    </div>
+
+        <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+
+</div>
+
+  </article>
+<?php endwhile; ?>
+ <?php }
+add_action ('post_front', 'title_meta', 10 );
