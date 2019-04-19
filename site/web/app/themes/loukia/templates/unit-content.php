@@ -1,4 +1,4 @@
-<section class="content white-background p-4">
+<section class="content white-background">
 
 <div class="container-fluid">
 <div class="row">
@@ -9,7 +9,7 @@
 
   </nav>
   </div>
-  <div class="col-9 facetwp-template text-center p-0">
+  <div class="col-8 facetwp-template text-center p-0 test">
 <?php do_action ('post_front' ); ?>
   </div>
 </div>

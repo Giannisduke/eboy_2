@@ -96,8 +96,7 @@ add_action('loukia_custom_front', 'loukia_front_carousel_indicators', 20);
 
 function loukia_front_carousel(){
 
-?>
-<?php
+
         if( have_rows('carousel') ):$counter = 0;?>
         <!--Carousel Wrapper-->
         <div id="video-carousel" class="carousel slide carousel-fade home-section" data-ride="carousel">
@@ -142,121 +141,13 @@ function loukia_front_carousel(){
 
 add_action('loukia_custom_front', 'loukia_front_carousel', 30);
 
-function collections_menu(){
-
-    query_posts(array(
-        'post_type' => 'post',
-        'showposts' => -1,
-        'facetwp' => true,
-    )); ?>
-
-<div class="col-9 facetwp-template text-center p-0">
-  <?php
-
-  global $post; ?>
-  <ul class="list-unstyled">
-  <?php while (have_posts()) : the_post(); ?>
-     <li class="pb-5">
-
-
-         <article <?php post_class('row justify-content-center'); ?>>
-
-             <div class="col-12 entry-meta">
-             <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-             <?php //get_template_part('templates/entry-meta'); ?>
-
-           <div class="entry-summary">
-             <?php the_excerpt(); ?>
-           </div>
-            </div>
-
-              <?php if ( has_post_thumbnail() ) {
-
-           $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
-           $slide_images = get_field('gallery');
-           $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
-           $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
-           $i = 0;
-                if( $slide_images ):
-                  $count = count( $slide_images );
-                  echo '<div class="col-5 px-0 ">';
-                 echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
-                 echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
-                 echo '</a>';
-                 echo '</div>';
-                      echo '<div class="col-6 d-flex flex-wrap p-0">';
-                    foreach( $slide_images as $slide_image ):$i++;
-                    if( $i > 4)
-                    {
-                      break;
-                    }
-                  echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );
-                  endforeach;
-                  echo '</div>';
-
-                  else:
-                    echo '<div class="col-5 px-0 entry-meta">';
-                   echo '<a href="' . esc_url( $large_image_url[0] ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '">';
-                   echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
-                   echo '</a>';
-                   echo '</div>';
-                  endif;
-
-       }
-       else{
-
-         $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
-         $slide_images = get_field('gallery');
-         $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
-         $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
-
-          $i = 0;
-              if( $slide_images ):
-                $count = count( $slide_images );
-                    echo '<div class="col-12 d-flex flex-wrap justify-content-center mergin-left-2 p-0">';
-                  foreach( $slide_images as $slide_image ):$i++;
-                  if( $i > 4)
-            			{
-            				break;
-            			}
-                echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );
-                endforeach;
-                echo '</div>';
-
-        if ($count > 4) {
-
-        echo '<div class="col-12 collapse mergin-left-2" id="collapseExample">';
-$counter = 0;
-foreach ($slide_images as $slide_image) {
-  $counter++;
-  if ($counter > 4) {
-    echo wp_get_attachment_image( $slide_image['ID'], $size, "", ["class" => "img-fluid p-1"] );
-
-  }
-}
-          echo '</div>';
-          echo '<div class="col-12 p-3">';
-          echo '  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                  Button with data-target
-                </button>';
-          echo '</div>';
-               }
-                endif;
-} ?>
-         </article>
-     </li>
-  		    <?php endwhile; ?>
-        </ul>
-
-<?php }
-add_action ('collection', 'collections_menu', 10 );
 
 
 function title_meta(){
   query_posts(array(
       'post_type' => 'post',
       'showposts' => -1,
-      'facetwp' => true,
+      'facetwp' => true
   ));
   ?>
 <?php while (have_posts()) : the_post(); global $post;
@@ -268,51 +159,105 @@ global $post;
 $id = get_the_ID();
 ?>
   <article <?php post_class('justify-content-center'); ?>>
-    <div class="col-12 entry-meta">
-    <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-    <?php //get_template_part('templates/entry-meta'); ?>
 
-  <div class="entry-summary">
-    <?php the_excerpt(); ?>
-  </div>
-  <div class="entry-content">
-    <?php the_content(); ?>
-  </div>
-   </div>
     <div class="container-fluid text-center p-0 m-0">
+      <div class="d-flex flex-row justify-content-center">
+        <div class="entry-meta">
+        <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+        <?php get_template_part('templates/entry-meta'); ?>
+
+      <div class="entry-summary">
+        <?php the_excerpt(); ?>
+      </div>
+      <div class="entry-content">
+        <?php the_content(); ?>
+
+      </div>
+
+      <div class="entry-indicators d-flex flex-row justify-content-center">
+
+        <?php if ( get_field( 'gallery' ) ): ?>
+          <?php $index = 1; ?>
+          <?php $totalNum = count( get_field('gallery') ); ?>
+          <?php $counter = 0 ?>
+                <!--Indicators-->
+                <a class="carousel-control-prev" href="#post_carousel_<?php echo esc_html( $id ); ?>" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+
+
+                  <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
+
+                    <? if ($index % 4 == 1) :  ?>
+
+                        <? if ($index < $totalNum) : ?>
+                        <div data-target="#post_carousel_<?php echo esc_html( $id ); ?>" data-slide-to="<?php echo esc_html( $counter++%4 ); ?>" class="myCarousel-target <?php if($counter === 0){ echo "active";} ?>"></div>
+
+                        <? elseif ($index == $totalNum) : ?>
+
+                      <? endif; ?>
+
+                  <? endif; ?>
+
+          <?php $index++; ?>
+          <?php $counter++;  ?>
+
+
+
+
+                <?php endwhile; ?>
+                <a class="carousel-control-next" href="#post_carousel_<?php echo esc_html( $id ); ?>" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                <?php endif; ?>
+
+              <!--/.Indicators-->
+      </div>
+
+       </div>
+
+
+      </div>
     <div id="post_carousel_<?php echo esc_html( $id ); ?>" class="carousel slide w-100" data-ride="carousel">
-      <div class="carousel-inner w-100" role="listbox">
+
+      <div class="carousel-inner w-100 post_carousel" role="listbox">
       <?php //going to wrap every 3 in this example
           if ( get_field( 'gallery' ) ): ?>
 
           <?php $index = 1; ?>
           <?php $totalNum = count( get_field('gallery') ); ?>
 
-          <div class="carousel-item  no-gutters active">
-            <div class="container">
-              <div class="row">
-                <?php if ( has_post_thumbnail() ) {
 
-                  echo get_the_post_thumbnail( $post->ID, 'medium', array('class' => 'img-fluid p-1'));
-                } ?>
-          <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
-            <div class="col-2 p-1">
-              <img src="<?php echo $slide_images[$index - 1]['url'] ?>" class="img-fluid gallery-image" alt="Responsive image">
-            </div>
-              <? if ($index % 4 == 0) : ?>
-                  <? if ($index < $totalNum) : ?>
+          <div class="carousel-item post_carousel no-gutters active">
 
-              </div>
-            </div>
-          </div>
-                      <div class="carousel-item  no-gutters">
-                        <div class="container">
-                          <div class="row">
+              <div class="d-flex flex-row flex-wrap align-items-start">
+
+                            <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
+                              <? if ($index  == 1) : ?>
+
+                              <img src="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" class="img-fluid gallery-image w-50 p-1" alt="Responsive image">
+
+
+                            <? elseif ($index  > 1) : ?>
+
+                            <img src="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" class="img-fluid gallery-image w-25 p-1" alt="Responsive image">
+
+                              <? endif; ?>
+
+                                <? if ($index % 4 == 0) : ?>
+                                    <? if ($index < $totalNum) : ?>
+                                    </div>
+                                  </div>
+
+
+                      <div class="carousel-item post_carousel no-gutters">
+                          <div class="d-flex flex-row flex-wrap align-items-start">
                   <? elseif ($index == $totalNum) : ?>
 
-                        </div>
-                      </div>
-                    </div>
+
+                  </div>
                   <? endif; ?>
 
               <? endif; ?>
@@ -324,20 +269,81 @@ $id = get_the_ID();
 
     </div>
 
-        <a class="carousel-control-prev" href="post_carousel_<?php echo esc_html( $id ); ?>" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="post_carousel_<?php echo esc_html( $id ); ?>" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+
     </div>
 
 
-</div>
 
   </article>
 <?php endwhile; ?>
+
  <?php }
-add_action ('post_front', 'title_meta', 10 );
+ add_action ('post_front', 'title_meta', 10 );
+
+
+
+function posts_normal() {
+  // WP_Query arguments
+$args = array(
+  'post_type' => 'post',
+  'showposts' => -1,
+  'facetwp' => true
+);
+
+// The Query
+$query = new WP_Query( $args );
+global $post;
+// The Loop
+if ( $query->have_posts() ) {
+	while ( $query->have_posts() ) {
+		$query->the_post();
+		// do something
+    $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+    $slide_images = get_field('gallery');
+    $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
+
+    $id = get_the_ID();
+
+  ?>
+      <article <?php post_class('justify-content-center'); ?>>
+        <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+        <?php the_excerpt(); ?>
+        <?php the_content(); ?>
+        <?php if ( get_field( 'gallery' ) ): ?>
+          <?php $index = 1; ?>
+          <?php $totalNum = count( get_field('gallery') ); ?>
+          <div id="post_carousel_<?php echo esc_html( $id ); ?>" class="carousel slide w-100" data-ride="carousel">
+
+            <div class="carousel-inner w-100 d-flex flex-row flex-wrap align-items-start test post_carousel" role="listbox">
+              <div class="carousel-item post_carousel no-gutters active">
+
+              <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
+
+                    test
+                <? if ($index % 4 == 0) : ?>
+                    <? if ($index < $totalNum) : ?>
+
+                    test_1
+                  <? elseif ($index == $totalNum) : ?>
+                </div>
+
+                    test2
+
+                    <? endif; ?>
+                <? endif; ?>
+                <?php $index++; ?>
+                <?php endwhile; ?>
+
+            </div>
+        <? endif; ?>
+      </article>
+	<?php }
+} else {
+	// no posts found
+    echo 'No test';
+  }
+
+// Restore original Post Data
+wp_reset_postdata();
+}
+//add_action ('post_front', 'posts_normal', 10 );
