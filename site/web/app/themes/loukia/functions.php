@@ -29,6 +29,13 @@ foreach ($sage_includes as $file) {
 unset($file, $filepath);
 
 
+// Register Custom Navigation Walker (Soil)
+require_once('Microdot_Walker_Nav_Menu.php');
+
+//declare your new menu
+register_nav_menus( array(
+    'primary' => __( 'Primary Menu', 'sage' ),
+) );
 
 // Add svg & swf support
 function cc_mime_types( $mimes ){
@@ -146,7 +153,8 @@ add_action('loukia_custom_front', 'loukia_front_carousel', 30);
 function title_meta(){
   query_posts(array(
       'post_type' => 'post',
-      'showposts' => -1,
+    //  'showposts' => -1,
+    "posts_per_page" => -1,
       'facetwp' => true
   ));
   ?>
@@ -164,7 +172,7 @@ $id = get_the_ID();
       <div class="d-flex flex-row justify-content-center">
         <div class="entry-meta">
         <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-        <?php get_template_part('templates/entry-meta'); ?>
+
 
       <div class="entry-summary">
         <?php the_excerpt(); ?>
@@ -202,17 +210,12 @@ $id = get_the_ID();
 
           <?php $index++; ?>
           <?php $counter++;  ?>
-
-
-
-
                 <?php endwhile; ?>
                 <a class="carousel-control-next" href="#post_carousel_<?php echo esc_html( $id ); ?>" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
                 <?php endif; ?>
-
               <!--/.Indicators-->
       </div>
 
@@ -220,67 +223,82 @@ $id = get_the_ID();
 
 
       </div>
-    <div id="post_carousel_<?php echo esc_html( $id ); ?>" class="carousel slide w-100" data-ride="carousel">
-
+    <div id="post_carousel_<?php echo esc_html( $id ); ?>" class="carousel slide w-100 post-carousel" data-ride="carousel">
       <div class="carousel-inner w-100 post_carousel" role="listbox">
       <?php //going to wrap every 3 in this example
           if ( get_field( 'gallery' ) ): ?>
-
           <?php $index = 1; ?>
           <?php $totalNum = count( get_field('gallery') ); ?>
-
-
-          <div class="carousel-item post_carousel no-gutters active">
-
-              <div class="d-flex flex-row flex-wrap align-items-start">
-
-                            <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
-                              <? if ($index  == 1) : ?>
-
-                              <img src="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" class="img-fluid gallery-image w-50 p-1" alt="Responsive image">
-
-
-                            <? elseif ($index  > 1) : ?>
-
-                            <img src="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" class="img-fluid gallery-image w-25 p-1" alt="Responsive image">
-
-                              <? endif; ?>
-
-                                <? if ($index % 4 == 0) : ?>
-                                    <? if ($index < $totalNum) : ?>
-                                    </div>
-                                  </div>
-
-
-                      <div class="carousel-item post_carousel no-gutters">
-                          <div class="d-flex flex-row flex-wrap align-items-start">
-                  <? elseif ($index == $totalNum) : ?>
-
-
-                  </div>
-                  <? endif; ?>
-
-              <? endif; ?>
-
-          <?php $index++; ?>
-          <?php endwhile; ?>
-
-      <?php endif; ?>
-
-    </div>
-
-
-    </div>
-
-
-
+          <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
+          <? if ($index  == 1) : ?>
+         <div class="carousel-item post_carousel no-gutters active">
+         <div class="d-flex flex-row flex-wrap justify-content-center align-items-start">
+         <div class="w-40 ">
+         <img src="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" class="img-fluid w-100 p-1" alt="Responsive image">
+        </div>
+        <div class="w-60 "> <!-- w-50 second start -->
+          <div class="d-flex flex-row flex-wrap  align-items-start">
+        <? elseif ($index  > 1) : ?>
+        <img src="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" class="img-fluid p-1" alt="Responsive image">
+       <? endif; ?>
+        <? if ($index % 4 == 0) : ?>
+        <? if ($index < $totalNum) : ?>
+        </div>
+        </div> <!-- w-50 second end -->
+        </div>
+        </div>
+        <div class="carousel-item post_carousel no-gutters">
+        <div class="d-flex flex-row flex-wrap justify-content-center align-items-start">
+        <div class="w-100">
+        <div class="d-flex flex-row flex-wrap justify-content-center align-items-start">
+        <? elseif ($index == $totalNum) : ?>
+        </div>
+        </div>
+        </div>
+        <? endif; ?>
+        <? endif; ?>
+        <?php $index++; ?>
+        <?php endwhile; ?>
+        <?php endif; ?>
+        </div>
+        </div>
   </article>
 <?php endwhile; ?>
 
  <?php }
  add_action ('post_front', 'title_meta', 10 );
 
+ add_filter( 'facetwp_pager_html', function( $output, $params ) {
+     $output = '<nav aria-label="Resources Pagination"><ul class="pagination mt-1 justify-content-center">';
+     $page = $params['page'];
+     $i = 1;
+     $total_pages = $params['total_pages'];
+     $limit = ($total_pages >= 5) ? 3 : $total_pages;
+     $prev_disabled = ($params['page'] <= 1) ? 'disabled' : '';
+     $output .= '<li class="page-item ' . $prev_disabled . '"><a class="facetwp-page page-link" data-page="' . ($page - 1) . '">Prev</a></li>';
+     $loop = ($limit) ? $limit : $total_pages;
+     while($i <= $loop) {
+       $active = ($i == $page) ? 'active' : '';
+       $output .= '<li class="page-item ' . $active . '"><a class="facetwp-page page-link" data-page="' . $i . '">' . $i . '</a></li>';
+       $i++;
+     }
+     if($limit && $total_pages > '3') {
+       $output .= ($page > $limit && $page != ($total_pages - 1) && $page <= ($limit + 1)) ? '<li class="page-item active"><a class="facetwp-page page-link" data-page="' . $page . '">' . $page . '</a></li>' : '';
+       $output .= '<li class="page-item disabled"><a class="facetwp-page page-link">...</a></li>';
+       $output .= ($page > $limit && $page != ($total_pages - 1) && $page > ($limit + 1)) ? '<li class="page-item active"><a class="facetwp-page page-link" data-page="' . $page . '">' . $page . '</a></li>' : '';
+       $output .= ($page > $limit && $page != ($total_pages - 1) && $page != ($total_pages - 2) && $page > ($limit + 1)) ? '<li class="page-item disabled"><a class="facetwp-page page-link">...</a></li>' : '';
+       $active = ($page == ($total_pages - 1)) ? 'active' : '';
+       $output .= '<li class="page-item ' . $active . '"><a class="facetwp-page page-link" data-page="' . ($total_pages - 1) .'">' . ($total_pages - 1) .'</a></li>';
+     }
+     $next_disabled = ($page >= $total_pages) ? 'disabled' : '';
+     $output .= '<li class="page-item ' . $next_disabled . '"><a class="facetwp-page page-link" data-page="' . ($page + 1) . '">Next</a></li>';
+     $output .= '</ul></nav>';
+     return $output;
+ }, 10, 2 );
 
+ add_filter( 'facetwp_per_page_options', function( $options ) {
+    return array( 5, 10, 25, 50, 100, 250 );
+});
 
 function posts_normal() {
   // WP_Query arguments
@@ -314,20 +332,20 @@ if ( $query->have_posts() ) {
           <?php $totalNum = count( get_field('gallery') ); ?>
           <div id="post_carousel_<?php echo esc_html( $id ); ?>" class="carousel slide w-100" data-ride="carousel">
 
-            <div class="carousel-inner w-100 d-flex flex-row flex-wrap align-items-start test post_carousel" role="listbox">
+            <div class="carousel-inner w-100 d-flex flex-row flex-wrap align-items-start post_carousel" role="listbox">
               <div class="carousel-item post_carousel no-gutters active">
 
               <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
 
-                    test
+
                 <? if ($index % 4 == 0) : ?>
                     <? if ($index < $totalNum) : ?>
 
-                    test_1
+
                   <? elseif ($index == $totalNum) : ?>
                 </div>
 
-                    test2
+
 
                     <? endif; ?>
                 <? endif; ?>

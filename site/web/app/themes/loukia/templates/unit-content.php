@@ -9,9 +9,12 @@
 
   </nav>
   </div>
-  <div class="col-8 facetwp-template text-center p-0 test">
+  <div class="col-8 facetwp-template text-center p-0">
 <?php do_action ('post_front' ); ?>
+    <?php echo facetwp_display( 'pager' ); ?>
   </div>
+
+
 </div>
 </div>
 </section>
