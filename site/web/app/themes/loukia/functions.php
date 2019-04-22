@@ -171,12 +171,8 @@ $id = get_the_ID();
     <div class="container-fluid text-center p-0 m-0">
       <div class="d-flex flex-row justify-content-center">
         <div class="entry-meta">
-        <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+        <h2 class="entry-title"><?php the_title(); ?></h2>
 
-
-      <div class="entry-summary">
-        <?php the_excerpt(); ?>
-      </div>
       <div class="entry-content">
         <?php the_content(); ?>
 
