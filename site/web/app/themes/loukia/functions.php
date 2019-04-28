@@ -165,17 +165,33 @@ $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
 $size_medium = 'medium'; // (thumbnail, medium, large, full or custom size)
 global $post;
 $id = get_the_ID();
+$tags = get_the_tags();
 ?>
   <article <?php post_class('justify-content-center'); ?>>
 
-    <div class="container-fluid text-center p-0 m-0">
+    <div class="container-fluid text-sm-left text-xl-center">
       <div class="d-flex flex-row justify-content-center">
         <div class="entry-meta">
-        <h2 class="entry-title"><?php the_title(); ?></h2>
+        <h3 class="entry-title"><?php the_title(); ?></h2>
+          <div class="entry-tags">
+          <?php
+
+               if ($tags){
+                   foreach ($tags as $tag) {
+                      // global $wp;
+                       $fwplink = home_url($wp->request) . '/?_search=' . $tag->slug;
+                       echo '<span class="entry-tag" style="margin-right:1px">';
+                       echo $tag->name;
+                       echo '</span> ';
+                   }
+               }
+           ?>
+         </div>
+
+
 
       <div class="entry-content">
         <?php the_content(); ?>
-
       </div>
 
       <div class="entry-indicators d-flex flex-row justify-content-center">
@@ -229,18 +245,23 @@ $id = get_the_ID();
           <? if ($index  == 1) : ?>
          <div class="carousel-item post_carousel no-gutters active">
          <div class="d-flex flex-row flex-wrap justify-content-center align-items-start">
-         <div class="w-40 ">
-         <img src="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" class="img-fluid w-100 p-1" alt="Responsive image">
+         <div class=" gallery-left">
+           <a class="pan" data-big="<?php echo $slide_images[$index - 1]['sizes']['large'] ?>" href="#">
+         <img src="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" class="img-fluid w-100 pan p-1" alt="Atelier Loukia - <?php the_title(); ?>">
+          </a>
         </div>
-        <div class="w-60 "> <!-- w-50 second start -->
-          <div class="d-flex flex-row flex-wrap  align-items-start">
+
+        <div class="gallery-right grid"> <!-- w-60 second start -->
+ <div class="grid-sizer"></div>
         <? elseif ($index  > 1) : ?>
-        <img src="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" class="img-fluid p-1" alt="Responsive image">
+        <a class="pan grid-item" data-big="<?php echo $slide_images[$index - 1]['sizes']['large'] ?>" href="#">
+        <img src="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" class="img-fluid pan " alt="Atelier Loukia - <?php the_title(); ?>">
+        </a>
        <? endif; ?>
         <? if ($index % 4 == 0) : ?>
         <? if ($index < $totalNum) : ?>
-        </div>
-        </div> <!-- w-50 second end -->
+
+      </div> <!-- w-60 second end -->
         </div>
         </div>
         <div class="carousel-item post_carousel no-gutters">
@@ -292,9 +313,7 @@ $id = get_the_ID();
      return $output;
  }, 10, 2 );
 
- add_filter( 'facetwp_per_page_options', function( $options ) {
-    return array( 5, 10, 25, 50, 100, 250 );
-});
+
 
 function posts_normal() {
   // WP_Query arguments
@@ -320,7 +339,7 @@ if ( $query->have_posts() ) {
 
   ?>
       <article <?php post_class('justify-content-center'); ?>>
-        <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+        <h3 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
         <?php the_excerpt(); ?>
         <?php the_content(); ?>
         <?php if ( get_field( 'gallery' ) ): ?>
@@ -361,3 +380,30 @@ if ( $query->have_posts() ) {
 wp_reset_postdata();
 }
 //add_action ('post_front', 'posts_normal', 10 );
+function logo() {
+  if ( is_front_page() && is_home() ) {
+  // Default homepage
+  ?>
+  <a class="" href="<?php echo esc_url( home_url( '/' ) ); ?>" >
+  <h1>Atelier <span class="highlight">Loukia</span></h1>
+  </a>
+  <?php
+} elseif ( is_front_page()){
+  //Static homepage
+?>
+<a class="" href="<?php echo esc_url( home_url( '/' ) ); ?>" >
+<h1>Atelier <span class="highlight">Loukia</span></h1>
+</a>
+<?php
+  } elseif ( is_home()){
+
+  //Blog page
+
+  } else {
+
+  //everything else
+
+  }
+
+}
+add_action ('loukia_header', 'logo', 30 );
