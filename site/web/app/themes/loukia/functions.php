@@ -244,24 +244,24 @@ $tags = get_the_tags();
           <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
           <? if ($index  == 1) : ?>
          <div class="carousel-item post_carousel no-gutters active">
-         <div class="d-flex flex-row flex-wrap justify-content-center align-items-start">
-         <div class=" gallery-left">
-           <a class="pan" data-big="<?php echo $slide_images[$index - 1]['sizes']['large'] ?>" href="#">
-         <img src="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" class="img-fluid w-100 pan p-1" alt="Atelier Loukia - <?php the_title(); ?>">
+         <div class="d-flex flex-row flex-wrap justify-content-center align-items-start grid">
+            <div class="grid-sizer"></div>
+           <a class="pan grid-item grid-item-landscape" data-big="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" href="#">
+         <img src="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" class="img-fluid pan" alt="Atelier Loukia - <?php the_title(); ?>">
           </a>
-        </div>
 
-        <div class="gallery-right grid"> <!-- w-60 second start -->
- <div class="grid-sizer"></div>
+
+
+
         <? elseif ($index  > 1) : ?>
-        <a class="pan grid-item" data-big="<?php echo $slide_images[$index - 1]['sizes']['large'] ?>" href="#">
+        <a class="pan grid-item " data-big="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" href="#">
         <img src="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" class="img-fluid pan " alt="Atelier Loukia - <?php the_title(); ?>">
         </a>
        <? endif; ?>
         <? if ($index % 4 == 0) : ?>
         <? if ($index < $totalNum) : ?>
 
-      </div> <!-- w-60 second end -->
+
         </div>
         </div>
         <div class="carousel-item post_carousel no-gutters">
