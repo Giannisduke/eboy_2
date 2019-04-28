@@ -107,13 +107,15 @@ class FacetWP_Facet_Radio_Core extends FacetWP_Facet
         $selected_values = (array) $params['selected_values'];
 
         $key = 0;
-        $output .= '<ul class="list-unstyled">';
+        $output .= '<ul class="list-unstyled list-inline mx-auto justify-content-center">';
         foreach ( $values as $key => $result ) {
             $selected = in_array( $result['facet_value'], $selected_values ) ? ' checked' : '';
             $selected .= ( 0 == $result['counter'] && '' == $selected ) ? ' disabled' : '';
 
-            $output .= '<li class="facetwp-radio' . $selected . '" data-value="' . esc_attr( $result['facet_value'] ) . '">';
-            $output .= esc_html( $result['facet_display_value'] ) . ' <span class="facetwp-counter">(' . $result['counter'] . ')</span>';
+            $output .= '<li class="list-inline-item facetwp-radio' . $selected . '" data-value="' . esc_attr( $result['facet_value'] ) . '">';
+            $output .= '<h2>';
+            $output .= esc_html( $result['facet_display_value'] );
+            $output .= '</h2>';
             $output .= '</li>';
         }
         $output .= '</ul>';

@@ -19,8 +19,8 @@ class FacetWP_Facet_Search extends FacetWP_Facet
         $placeholder = isset( $params['facet']['placeholder'] ) ? $params['facet']['placeholder'] : __( 'Enter keywords', 'fwp-front' );
         $placeholder = facetwp_i18n( $placeholder );
         $output .= '<span class="facetwp-search-wrap">';
-        $output .= '<i class="facetwp-btn"></i>';
-        $output .= '<input type="text" class="facetwp-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr( $placeholder ) . '" />';
+        //$output .= '<i class="facetwp-btn"></i>';
+        $output .= '#<input type="text" class="facetwp-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr( $placeholder ) . '" />';
         $output .= '</span>';
         return $output;
     }

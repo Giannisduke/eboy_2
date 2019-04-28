@@ -52,7 +52,7 @@ class FacetWP_Display
             $facet = FWP()->helper->get_facet_by_name( $atts['facet'] );
 
             if ( $facet ) {
-                $output = '<div class="facetwp-facet form-inline justify-content-center facetwp-facet-' . $facet['name'] . ' facetwp-type-' . $facet['type'] . '" data-name="' . $facet['name'] . '" data-type="' . $facet['type'] . '"></div>';
+                $output = '<div class="facetwp-facet  facetwp-facet-' . $facet['name'] . ' facetwp-type-' . $facet['type'] . '" data-name="' . $facet['name'] . '" data-type="' . $facet['type'] . '"></div>';
 
                 // Build list of active facet types
                 $this->active_types[ $facet['type'] ] = $facet['type'];
