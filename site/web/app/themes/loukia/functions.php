@@ -154,7 +154,7 @@ function title_meta(){
   query_posts(array(
       'post_type' => 'post',
     //  'showposts' => -1,
-    "posts_per_page" => -1,
+    "posts_per_page" => 5,
       'facetwp' => true
   ));
   ?>
@@ -180,7 +180,7 @@ $tags = get_the_tags();
                    foreach ($tags as $tag) {
                       // global $wp;
                        $fwplink = home_url($wp->request) . '/?_search=' . $tag->slug;
-                       echo '<span class="entry-tag" style="margin-right:1px">';
+                       echo '#<span class="entry-tag" style="margin-right:1px">';
                        echo $tag->name;
                        echo '</span> ';
                    }
@@ -246,7 +246,7 @@ $tags = get_the_tags();
          <div class="carousel-item post_carousel no-gutters active">
          <div class="d-flex flex-row flex-wrap justify-content-center align-items-start grid">
             <div class="grid-sizer"></div>
-           <a class="pan grid-item grid-item-landscape" data-big="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" href="#">
+           <a class="pan grid-item grid-item-landscape" data-big="<?php echo $slide_images[$index - 1]['sizes']['large'] ?>" href="#">
          <img src="<?php echo $slide_images[$index - 1]['sizes']['medium'] ?>" class="img-fluid pan" alt="Atelier Loukia - <?php the_title(); ?>">
           </a>
 
@@ -254,7 +254,7 @@ $tags = get_the_tags();
 
 
         <? elseif ($index  > 1) : ?>
-        <a class="pan grid-item " data-big="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" href="#">
+        <a class="pan grid-item " data-big="<?php echo $slide_images[$index - 1]['sizes']['large'] ?>" href="#">
         <img src="<?php echo $slide_images[$index - 1]['sizes']['thumbnail'] ?>" class="img-fluid pan " alt="Atelier Loukia - <?php the_title(); ?>">
         </a>
        <? endif; ?>
@@ -266,12 +266,10 @@ $tags = get_the_tags();
         </div>
         <div class="carousel-item post_carousel no-gutters">
         <div class="d-flex flex-row flex-wrap justify-content-center align-items-start">
-        <div class="w-100">
-        <div class="d-flex flex-row flex-wrap justify-content-center align-items-start">
+
         <? elseif ($index == $totalNum) : ?>
         </div>
-        </div>
-        </div>
+
         <? endif; ?>
         <? endif; ?>
         <?php $index++; ?>
@@ -315,71 +313,6 @@ $tags = get_the_tags();
 
 
 
-function posts_normal() {
-  // WP_Query arguments
-$args = array(
-  'post_type' => 'post',
-  'showposts' => -1,
-  'facetwp' => true
-);
-
-// The Query
-$query = new WP_Query( $args );
-global $post;
-// The Loop
-if ( $query->have_posts() ) {
-	while ( $query->have_posts() ) {
-		$query->the_post();
-		// do something
-    $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
-    $slide_images = get_field('gallery');
-    $size = 'thumbnail'; // (thumbnail, medium, large, full or custom size)
-
-    $id = get_the_ID();
-
-  ?>
-      <article <?php post_class('justify-content-center'); ?>>
-        <h3 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-        <?php the_excerpt(); ?>
-        <?php the_content(); ?>
-        <?php if ( get_field( 'gallery' ) ): ?>
-          <?php $index = 1; ?>
-          <?php $totalNum = count( get_field('gallery') ); ?>
-          <div id="post_carousel_<?php echo esc_html( $id ); ?>" class="carousel slide w-100" data-ride="carousel">
-
-            <div class="carousel-inner w-100 d-flex flex-row flex-wrap align-items-start post_carousel" role="listbox">
-              <div class="carousel-item post_carousel no-gutters active">
-
-              <?php while ( have_rows( 'gallery' ) ): the_row(); ?>
-
-
-                <? if ($index % 4 == 0) : ?>
-                    <? if ($index < $totalNum) : ?>
-
-
-                  <? elseif ($index == $totalNum) : ?>
-                </div>
-
-
-
-                    <? endif; ?>
-                <? endif; ?>
-                <?php $index++; ?>
-                <?php endwhile; ?>
-
-            </div>
-        <? endif; ?>
-      </article>
-	<?php }
-} else {
-	// no posts found
-    echo 'No test';
-  }
-
-// Restore original Post Data
-wp_reset_postdata();
-}
-//add_action ('post_front', 'posts_normal', 10 );
 function logo() {
   if ( is_front_page() && is_home() ) {
   // Default homepage
