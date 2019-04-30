@@ -331,11 +331,18 @@ function logo() {
   } elseif ( is_home()){
 
   //Blog page
-
-  } else {
+?>
+<a class="" href="<?php echo esc_url( home_url( '/' ) ); ?>" >
+<h1>Atelier <span class="highlight">Loukia</span></h1>
+</a>
+<?php  } else {
 
   //everything else
-
+  ?>
+  <a class="" href="<?php echo esc_url( home_url( '/' ) ); ?>" >
+  <h1>Atelier <span class="highlight">Loukia</span></h1>
+  </a>
+  <?php
   }
 
 }

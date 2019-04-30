@@ -1,4 +1,6 @@
-<div id='slider'>		<?php
+<div id='slider'>
+	<div class="d-flex align-items-start flex-column">
+  <div class="p-2 mb-auto"><?php
 		wp_nav_menu(array(
 		  'theme_location' => 'primary',
 		  'walker' => new Microdot_Walker_Nav_Menu(),
@@ -6,6 +8,24 @@
 		  'items_wrap' => '<ul class="list-unstyled pt-3">%3$s</ul>'
 		));
 		?>
+	</div>
+  <div class="p-0 w-100">
+		<div class="d-flex flex-row flex-wrap align-items-end">
+  <div class="p-1">
+		<a class="p-2 social-sharing-icon social-sharing-icon-facebook" target="_new" href="https://www.facebook.com/LoukiaAtelier/"></a>
+	</div>
+  <div class="p-1">
+				<a class="p-2 social-sharing-icon social-sharing-icon-instagram" target="_new" href="https://www.facebook.com/LoukiaAtelier/"></a>
+	</div>
+  <div class="p-1">
+		Powered by: <a href="https://eboy.gr">eboy.gr</a>
+	</div>
+</div>
+
+	</div>
+
+</div>
+
 </div>
 <header class="banner  align-top">
   <nav id="topNav" class="navbar navbar-toggleable-md navbar-inverse bg-inverse d-flex justify-content-between align-content-start">
