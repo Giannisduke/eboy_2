@@ -180,9 +180,9 @@ $tags = get_the_tags();
                    foreach ($tags as $tag) {
                       // global $wp;
                        $fwplink = home_url($wp->request) . '/?_search=' . $tag->slug;
-                       echo '#<span class="entry-tag" style="margin-right:1px">';
+                       echo '#<span class="entry-tag" style="margin-right:1px"><a href="#">';
                        echo $tag->name;
-                       echo '</span> ';
+                       echo '</a></span> ';
                    }
                }
            ?>
