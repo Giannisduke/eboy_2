@@ -102,97 +102,6 @@ add_filter( 'facetwp_assets', function( $assets ) {
 });
 remove_action ('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 
-function product_carousel_2() {
-              $args = array(
-                'posts_per_page' => 5,
-                'post_type' => 'product',
-              'facetwp' => true,
-            );
-            $the_query = new WP_Query ( $args );
-            $thumbnail_id   = get_post_thumbnail_id();
-            $thumbnail_url  = wp_get_attachment_image_src( $thumbnail_id, 'full', true );
-            $thumbnail_meta = get_post_meta( $thumbnail_id, '_wp_attatchment_image_alt', true );
-            ?>
-
-            <div id="carscarousel" class="carousel slide text-center facetwp-template" data-ride="carousel" data-interval="7000">
-
-            <div class="carousel-inner">
-	    <?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post();
-      global $product;
-      $id = $product->get_id();
-	    ?>
-
-      <div class="carousel-item item <?php if ( $the_query->current_post == 0 ) : ?>active<?php endif; ?>">
-  <div class="container">
-    <div class="row">
-<div class="col-2">
-    <div class="carousel-caption text-left">
-      <h2><?php the_title(); ?></h2>
-      <p class="d-none d-sm-block"><?php the_excerpt(); ?></p>
-      <a class="btn btn-primary product-preview" data-project-id="<?php echo $id ?>" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Book Now!
-      </a>
-    </div>
-  </div>
-  <div class="col-8">
-    <?php if ( has_post_thumbnail() ) : ?>
-    <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-      <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
-    </a>
-    <?php endif; ?>
-
-  </div>
-
-  <div class="col-2">
-<?php do_action ( 'woocommerce_attribute' );  ?>
-    </div>
-
-  </div>
-  </div>
-</div><!-- /.carousel-item -->
-<!-- end first loop -->
-<?php endwhile;	endif; ?>
-
-<?php rewind_posts(); ?>
-</div><!-- /.carousel-inner -->
-
-
-                                <div class="row">
-                                  <div class="col-12 collapse" id="collapseExample">
-                                    test
-                              <?php //echo wc_get_template_part( 'content', 'single-car' ); ?>
-                              </div>
-                              </div>
-
-
-<div class="row">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="reservation-form">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <!-- Start Carousel Indicator Loop-->
-    <?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-
-
-      <div data-project-id="<?php echo $id ?>" data-target="#carscarousel" data-slide-to="<?php echo $the_query->current_post; ?>" class="carousel p-2 col-6 col-lg-4 <?php if ( $the_query->current_post == 0 ) : ?>active<?php endif; ?>">
-        <?php the_post_thumbnail('medium', array('class' => 'img-fluid car-thumb', 'data-href' => "'" . get_permalink() . "'", 'data-project-id' => "" . get_the_ID() . ""));?>
-        <?php wc_get_template_part( 'content', 'single-product' );?>
-
-      </div>
-
-    <?php endwhile; endif; ?>
-
-    </div>
-  </div>
-</div><!-- /.carousel-slide -->
-<?
-}
-add_action('carhub_product_carousel_2', 'product_carousel_2', 20);
-
 
 
 
@@ -232,52 +141,6 @@ add_action( 'woocommerce_archive_description', 'additional_div_in_shop', 5 );
 
 
 
-function carhub_carousel_full(){
-  $loop = new WP_Query(array(
-          'post_type' => 'product',
-          'posts_per_page' => 6,
-          'orderyby' => 'post_id',
-          'order' => 'ASC' ));
-  ?>
-
-
-  <!--CAROUSEL SLIDER SECTION START HERE-->
-  <div id="news-carousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner" role="listbox" >
-      <!-- The slideshow -->
-    <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
-      <?php if ( has_post_thumbnail() ) { ?>
-
-
-             <div class="carousel-item <?php if($count == '0'){ echo 'active'; } ?>">
-              <div class="col-12" >
-                  <?php the_post_thumbnail( 'large' ); ?>
-                  <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
-              </div>
-        </div><!-- /item -->
-
-  <?php } ?>
-  <!-- **************************************************************** -->
-   <?php $count++; endwhile; wp_reset_postdata(); ?>
- </div>
- <!-- // End The slideshow -->
-    <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#news-carousel" role="button" data-slide="prev">
-              <i class="fa fa-chevron-left"></i> </a>
-          <a class="carousel-control-next" href="#news-carousel" role="button" data-slide="next">
-              <i style="color: black;" class="fa fa-chevron-right"></i> </a>
-  </div> <!-- Carousel 1 -->
-  <!--//CAROUSEL SLIDER SECTION END HERE-->
-  <!--CAROUSEL indicators SECTION START HERE-->
-<ul class="carousel-indicators">
-   <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
-     <li data-target="#carousel1" data-slide-to="<?php echo $count ?>" class="<?php if($count == '0'){ echo 'active'; } ?>"></li>
-   <?php $count++; endwhile; wp_reset_postdata(); ?>
-</ul>
-<!--//CAROUSEL indicators SECTION END HERE-->
-
-  <?php }
-//add_action( 'carhub_carousel_start', 'carhub_carousel_full' , 10);
 
 function show_attributes_doors() {
 global $product;
@@ -382,6 +245,7 @@ function carhub_carousel_start_1(){
   <div class="row carousel-indicators pt-5" id="ads">
   <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
       <div data-target="#news-carousel" data-slide-to="<?php echo $count ?>" class="col-md-2 col-sm-6 <?php if($count == '0'){ echo 'active'; } ?>">
+
       <?php wc_get_template_part( 'content', 'single-product' );?>
     </div>
   <?php $count++; endwhile; wp_reset_postdata(); ?>

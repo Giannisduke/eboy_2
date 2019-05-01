@@ -20,6 +20,6 @@
             <input type="text" class="form-control-lg" autocomplete="off" id="enddate" value="" placeholder="End Date" readonly>
           </div>
       </div>
-      <p><?php do_action('carhub_product_carousel_2'); ?></p>
+      <p><?php //do_action('carhub_product_carousel_2'); ?></p>
     </div>
   </div>
