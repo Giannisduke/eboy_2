@@ -39,7 +39,7 @@
             parallax();
         });
 
-          //$('#startdate').daterangepicker();
+
           $("#startdate, #enddate").focus(function () {
             $(".facetwp-date").click();
           });
@@ -96,10 +96,10 @@
              $.getScript("https://eboy.gr/app/plugins/facetwp/assets/js/dist/front.min.js?ver=3.2.12");
           }
           function moment() {
-             $.getScript("https://eboy.gr/app/plugins/facetwp-bookings/assets/vendor/daterangepicker/moment.min.js?ver=3.2.12");
+             $.getScript("https://eboy.gr/app/plugins/facetwp-bookings-carhub/assets/vendor/daterangepicker/moment.min.js?ver=3.2.12");
           }
           function daterangepicker() {
-             $.getScript("https://eboy.gr/app/plugins/facetwp-bookings/assets/vendor/daterangepicker/daterangepicker.min.js?ver=3.2.12");
+             $.getScript("https://eboy.gr/app/plugins/facetwp-bookings-carhub/assets/vendor/daterangepicker/daterangepicker.min.js?ver=3.2.12");
           }
 
 
@@ -111,7 +111,7 @@
 
 
           function carouselitemactive() {
-      
+
 
 
 
@@ -122,7 +122,7 @@
 
           $(document).on('facetwp-loaded', function() {
             carouselitemactive();
-            var str1 = $(".facetwp-date").val(),
+            var str1 = $("input.facetwp-date").val(),
                   str2 = str1.slice(5, 7),
                    str3 = str1.slice(8, 11),
                    str4 = str1.slice(24,26);
@@ -134,10 +134,12 @@
              $('.booking_to_date_month').val(str4);
              $('.booking_to_date_day').val(str5);
 
+          
 
 
 
-             console.log("first load");
+
+             console.log(str1);
          if (FWP.loaded) { // after the initial pageload
            booking_form();
       //  jqueryScript();
