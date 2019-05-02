@@ -247,10 +247,9 @@ function carhub_carousel_start_1(){
  </div> <!-- Carousel 1 -->
  <!--//CAROUSEL SLIDER SECTION END HERE-->
  <!--CAROUSEL indicators SECTION START HERE-->
-
-  <div class="row carousel-indicators pt-5" id="ads">
+  <div class="row carousel-indicators pt-5">
   <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
-      <div data-target="#cars-carousel" data-slide-to="<?php echo $count ?>" class="col-md-2 col-sm-6 <?php if($count == '0'){ echo 'active'; } ?>">
+      <div data-target="#cars-carousel" data-slide-to="<?php echo $count ?>" class="col-lg-3 col-sm-6 <?php if($count == '0'){ echo 'active'; } ?>">
 
       <?php wc_get_template_part( 'content', 'single-product' );?>
     </div>

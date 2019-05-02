@@ -1,7 +1,7 @@
 
   <!-- First Parallax Section -->
   <div class="jumbotron">
-    <div class="jumbotron-bg"><?php // echo facetwp_display( 'facet', 'map' ); ?></div>
+    <div class="jumbotron-bg"><?php  echo facetwp_display( 'facet', 'map' ); ?></div>
     <div class="container jumbotron-container text-center hidden">
       <div class="row">
         <div class="col-12 text-center">
@@ -20,6 +20,6 @@
             <input type="text" class="form-control-lg" autocomplete="off" id="enddate" value="" placeholder="End Date" readonly>
           </div>
       </div>
-      <p><?php //do_action('carhub_product_carousel_2'); ?></p>
+      <p><?php do_action('carhub_product_carousel_2'); ?></p>
     </div>
   </div>
