@@ -26,18 +26,6 @@
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
-        var jumboHeight = $('.jumbotron').outerHeight();
-        function parallax(){
-            var scrolled = $(window).scrollTop();
-            $('.jumbotron-bg').css('height', (jumboHeight-scrolled-680) + 'px');
-        }
-        $(window).scroll(function(e){
-            parallax();
-        });
-        $(document).ready(function () {
-            $('div.hidden').fadeIn(500).removeClass('hidden');
-            parallax();
-        });
 
 
           $("#startdate, #enddate").focus(function () {
@@ -107,18 +95,13 @@
               $('.uppend:first').keypress().removeClass('uppend').addClass('test');
           }
 
-
-
-
           function carouselitemactive() {
 
-
-
+            $('.carousel').on('click', function() {
+                $('.carousel').carousel('cycle');
+            });
 
           }
-
-
-
 
           $(document).on('facetwp-loaded', function() {
             carouselitemactive();
@@ -134,7 +117,7 @@
              $('.booking_to_date_month').val(str4);
              $('.booking_to_date_day').val(str5);
 
-          
+
 
 
 

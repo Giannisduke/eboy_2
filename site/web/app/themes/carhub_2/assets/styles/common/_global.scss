@@ -6,7 +6,7 @@
 body {
   font-family: 'Proxima Nova Lt', sans-serif;
   font-size: 16px;
-  background-color: #000;
+
 }
 
 h1 {
@@ -17,9 +17,24 @@ h2 {
   font-family: 'RobotoCondensed-Bold', sans-serif;
 }
 
-h2.car_title a {
+li.car_title h2 {
   color: #ffffff;
   font-size: 3.8rem;
+  line-height: 3.6rem;
+}
+
+li.price_from {
+  font-family: 'Roboto-Light', sans-serif;
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.3rem;
+}
+
+li.car_price {
+  font-family: 'RobotoCondensed-Bold', sans-serif;
+  color: #ffffff;
+  font-size: 3.8rem;
+  line-height: 3rem;
 }
 
 .facetwp-date.hide {
@@ -201,9 +216,8 @@ input.facetwp-date {
 
 }
 .row.carousel {
-    background: -moz-linear-gradient(top, rgba(248,80,50,0) 0%, rgba(241,109,89,0) 50%, rgba(241,111,92,0) 50%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%);
-    background: -webkit-linear-gradient(top, rgba(248,80,50,0) 0%,rgba(241,109,89,0) 50%,rgba(241,111,92,0) 50%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
-    background: linear-gradient(to bottom, rgba(248,80,50,0) 0%,rgba(241,109,89,0) 50%,rgba(241,111,92,0) 50%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
+  background:
+  linear-gradient(to top, #fff 50%, #000 50%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f85032', endColorstr='#ffffff',GradientType=0 );
   }
 
@@ -235,8 +249,14 @@ input.facetwp-date {
     background: url(../images/attributes_aircondition.svg) 0px 0px no-repeat !important;
   }
 
-  h1.header {
-    color: #ffffff;
+  .row.description {
+    background-color: $black;
+  }
+  .row.description h1 {
+    color: $white;
+  }
+  .calendar {
+    background-color: $black;
   }
 
 

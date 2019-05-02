@@ -114,13 +114,12 @@ function additional_div_in_shop() {
 
 
 
-      <div class="row">
+      <div class="row description">
         <div class="col-12 text-center">
-        <h1 class="header"><?php printf( esc_html__( '%s', 'sage' ), get_bloginfo ( 'description' ) ); ?></h1>
+        <h1><?php printf( esc_html__( '%s', 'sage' ), get_bloginfo ( 'description' ) ); ?></h1>
         </div>
       </div>
-
-      <div class="d-flex flex-row justify-content-center">
+      <div class="row justify-content-center calendar">
           <div class="">
             <input type="text" class="form-control-lg" autocomplete="off" id="startdate" value="" placeholder="Start Date" readonly>
           </div>
@@ -148,7 +147,7 @@ $product_id = $product->get_id();
 $attribute_slug = 'doors';
 $array = wc_get_product_terms( $product_id , 'pa_' . $attribute_slug, array( 'fields' => 'names' ) );
 $text = array_shift( $array );
-echo '<div class="cars-slider_item-option car-option-' . $attribute_slug . '"><h6>Doors:<span class="attribute">' . $text . '</span></h6></div>';
+echo '<li class="cars-slider_item-option car-option-' . $attribute_slug . '"><h3>Doors:<span class="attribute">' . $text . '</span></h3></li>';
 }
 add_action( 'woocommerce_attribute', 'show_attributes_doors', 10 );
 function show_attributes_passengers() {
@@ -157,7 +156,7 @@ $product_id = $product->get_id();
 $attribute_slug = 'passengers';
 $array = wc_get_product_terms( $product_id , 'pa_' . $attribute_slug, array( 'fields' => 'names' ) );
 $text = array_shift( $array );
-echo '<div class="cars-slider_item-option car-option-' . $attribute_slug . '"><h6>passengers:<span class="attribute">' . $text . '</span></h6></div>';
+echo '<li class="cars-slider_item-option car-option-' . $attribute_slug . '"><h3>passengers:<span class="attribute">' . $text . '</span></h3></li>';
 }
 add_action( 'woocommerce_attribute', 'show_attributes_passengers', 20 );
 function show_attributes_luggages() {
@@ -166,7 +165,7 @@ $product_id = $product->get_id();
 $attribute_slug = 'luggages';
 $array = wc_get_product_terms( $product_id , 'pa_' . $attribute_slug, array( 'fields' => 'names' ) );
 $text = array_shift( $array );
-echo '<div class="cars-slider_item-option car-option-' . $attribute_slug . '"><h6>luggages:<span class="attribute">' . $text . '</span></h6></div>';
+echo '<li class="cars-slider_item-option car-option-' . $attribute_slug . '"><h3>luggages:<span class="attribute">' . $text . '</span></h3></li>';
 }
 add_action( 'woocommerce_attribute', 'show_attributes_luggages', 30 );
 function show_attributes_transmission() {
@@ -175,7 +174,7 @@ $product_id = $product->get_id();
 $attribute_slug = 'transmission';
 $array = wc_get_product_terms( $product_id , 'pa_' . $attribute_slug, array( 'fields' => 'names' ) );
 $text = array_shift( $array );
-echo '<div class="cars-slider_item-option car-option-' . $attribute_slug . '"><h6>transmission:<span class="attribute">' . $text . '</span></h6></div>';
+echo '<li class="cars-slider_item-option car-option-' . $attribute_slug . '"><h3>transmission:<span class="attribute">' . $text . '</span></h3></li>';
 }
 add_action( 'woocommerce_attribute', 'show_attributes_transmission', 40 );
 
@@ -185,41 +184,48 @@ function carhub_carousel_start_1(){
           'posts_per_page' => -1,
           'orderyby' => 'post_id',
           'order' => 'ASC' ));
+
   ?>
   <!--CAROUSEL SLIDER SECTION START HERE-->
-    <div id="news-carousel" class="row carousel slide text-center facetwp-template" data-ride="carousel">
+    <div id="cars-carousel" class="row carousel slide text-center facetwp-template">
       <div class="carousel-inner " role="listbox" >
         <!-- The slideshow -->
-      <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
+      <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); global $product; ?>
         <?php if ( has_post_thumbnail() ) { ?>
-
+<?php $price = get_post_meta( get_the_ID(), '_regular_price', true ); ?>
 
                  <div class="carousel-item item <?php if($count == '0'){ echo 'active'; } ?>" data-slide-number="<?php echo $count ?>" data-url="<?php the_permalink(); ?>" >
                   <div class="row">
                    <div class="col-3 p-0 text-right">
-                       <h2 class="car_title"><a href="<?php the_permalink(); ?>">
-                         <?php
+                     <ul class="list-unstyled">
+                      <li class="car_title">
+                        <h2>
+                          <?php
+                           $financialYear = get_the_title();
+                           $test = explode(' ',$financialYear);
+                           echo $test[0]; //
+                           echo "<br>";
+                           echo $test[1]; //
+                           echo "<br>";
+                         //  echo $test[2]; //
+                            ?>
+                        </h2>
+                      </li>
+                      <li class="price_from">From:</li>
+                      <li class="car_price"><?php echo $product->get_price_html(); ?></li>
+                      <li class="price_from">/Day</li>
+                      <li class="pt-2"><button type="button" class="btn btn-primary btn-lg">Book Now!</button></li>
+                    </ul>
 
-
-
-                          $financialYear = get_the_title();
-                          $test = explode(' ',$financialYear);
-                          echo $test[0]; //
-                          echo "<br>";
-                          echo $test[1]; //
-                          echo "<br>";
-                        //  echo $test[2]; //
-
-                           ?>
-
-                       </a></h2>
                    </div>
 
                 <div class="col-6 p-0">
                     <?php the_post_thumbnail( 'large' ); ?>
                 </div>
                 <div class="col-3 p-0 text-left">
+                  <ul class="list-unstyled">
                     <?php do_action ( 'woocommerce_attribute' );?>
+                  </ul>
                 </div>
               </div><!-- /item -->
           </div><!-- /carousel column -->
@@ -233,9 +239,9 @@ function carhub_carousel_start_1(){
 </div>
 <!-- // End The slideshow -->
    <!-- Left and right controls -->
-         <a class="carousel-control-prev" href="#news-carousel" role="button" data-slide="prev">
+         <a class="carousel-control-prev" href="#cars-carousel" role="button" data-slide="prev">
              <i class="fa fa-chevron-left"></i> </a>
-         <a class="carousel-control-next" href="#news-carousel" role="button" data-slide="next">
+         <a class="carousel-control-next" href="#cars-carousel" role="button" data-slide="next">
              <i style="color: black;" class="fa fa-chevron-right"></i> </a>
 
  </div> <!-- Carousel 1 -->
@@ -244,7 +250,7 @@ function carhub_carousel_start_1(){
 
   <div class="row carousel-indicators pt-5" id="ads">
   <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
-      <div data-target="#news-carousel" data-slide-to="<?php echo $count ?>" class="col-md-2 col-sm-6 <?php if($count == '0'){ echo 'active'; } ?>">
+      <div data-target="#cars-carousel" data-slide-to="<?php echo $count ?>" class="col-md-2 col-sm-6 <?php if($count == '0'){ echo 'active'; } ?>">
 
       <?php wc_get_template_part( 'content', 'single-product' );?>
     </div>
