@@ -13,7 +13,7 @@
   z-index: 3001;
   display: none;
   font-family: arial;
-  font-size: 15px;
+  font-size: 2rem;
   line-height: 1em;
 }
 
@@ -152,7 +152,7 @@
   width: 32px;
   height: 24px;
   line-height: 24px;
-  font-size: 12px;
+  font-size: 1rem;
   border-radius: 4px;
   border: 1px solid transparent;
   white-space: nowrap;
@@ -325,7 +325,7 @@
 /*  Larger Screen Styling */
 @media (min-width: 564px) {
   .daterangepicker {
-    width: auto; }
+    width: 26%; }
     .daterangepicker .ranges ul {
       width: 140px; }
     .daterangepicker.single .ranges ul {

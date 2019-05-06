@@ -105,6 +105,7 @@
 
           $(document).on('facetwp-loaded', function() {
             carouselitemactive();
+            
             var str1 = $("input.facetwp-date").val(),
                   str2 = str1.slice(5, 7),
                    str3 = str1.slice(8, 11),
@@ -116,11 +117,6 @@
             // $('.booking_date_day').focus();
              $('.booking_to_date_month').val(str4);
              $('.booking_to_date_day').val(str5);
-
-
-
-
-
 
              console.log(str1);
          if (FWP.loaded) { // after the initial pageload

@@ -286,8 +286,7 @@ class FacetWP_Facet_Availability
         FWP()->display->assets['daterangepicker.js'] = FACETWP_BOOKINGS_URL . '/assets/vendor/daterangepicker/daterangepicker.min.js';
         FWP()->display->assets['daterangepicker.css'] = FACETWP_BOOKINGS_URL . '/assets/vendor/daterangepicker/daterangepicker.css';
         FWP()->display->assets['bootstrap.css'] = FACETWP_BOOKINGS_URL . '/assets/vendor/daterangepicker/bootstrap.css';
-      //  FWP()->display->assets['wc-bookings-booking-form'] = WC_BOOKINGS_PLUGIN_URL . '/assets/js/booking-form' . $suffix . '.js';
-      //  FWP()->display->assets['wc-bookings-date-picker'] = WC_BOOKINGS_PLUGIN_URL . '/assets/js/date-picker.js';
+
 
 ?>
 <script>
