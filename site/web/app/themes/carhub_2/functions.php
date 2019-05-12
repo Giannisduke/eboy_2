@@ -184,7 +184,6 @@ function carhub_carousel_start_1(){
           'posts_per_page' => -1,
           'orderyby' => 'post_id',
           'order' => 'ASC' ));
-
   ?>
   <!--CAROUSEL SLIDER SECTION START HERE-->
     <div id="cars-carousel" class="row carousel slide text-center facetwp-template">
@@ -193,7 +192,6 @@ function carhub_carousel_start_1(){
       <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); global $product; ?>
         <?php if ( has_post_thumbnail() ) { ?>
 <?php $price = get_post_meta( get_the_ID(), '_regular_price', true ); ?>
-
                  <div class="carousel-item item <?php if($count == '0'){ echo 'active'; } ?>" data-slide-number="<?php echo $count ?>" data-url="<?php the_permalink(); ?>" >
                   <div class="row">
                    <div class="col-3 p-0 text-right">
@@ -214,7 +212,10 @@ function carhub_carousel_start_1(){
                       <li class="price_from">From:</li>
                       <li class="car_price"><?php echo $product->get_price_html(); ?></li>
                       <li class="price_from">/Day</li>
-                      <li class="pt-2"><button type="button" class="btn btn-primary btn-lg">Book Now!</button></li>
+                      <li class="pt-2">
+                        <button type="button" class="btn btn-primary btn-lg">Book Now!</button>
+                        <button class="my-custom-add-to-cart-button" data-product-id="<?php echo $product->get_id(); ?>">add to cart</button>
+                      </li>
                     </ul>
 
                    </div>
@@ -276,3 +277,52 @@ function carhub_template_loop_product_link_close() {
   echo '</div>';
 }
 add_action( 'woocommerce_after_shop_loop_item', 'carhub_template_loop_product_link_close', 5 );
+
+//ADD TO CART FUNCTION
+add_action('wp_footer', 'my_custom_wc_button_script');
+function my_custom_wc_button_script() {
+	?>
+
+	<?php
+}
+add_action('wp_ajax_my_custom_add_to_cart', "my_custom_add_to_cart");
+add_action('wp_ajax_nopriv_my_custom_add_to_cart', "my_custom_add_to_cart");
+function my_custom_add_to_cart() {
+	$retval = array(
+		'success' => false,
+		'message' => ""
+	);
+	if( !function_exists( "WC" ) ) {
+		$retval['message'] = "woocommerce not installed";
+	} elseif( empty( $_POST['product_id'] ) ) {
+		$retval['message'] = "no product id provided";
+	} else {
+		$product_id = $_POST['product_id'];
+		if( my_custom_cart_contains( $product_id ) ) {
+			$retval['message'] = "product already in cart";
+		} else {
+			$cart = WC()->cart;
+			$retval['success'] = $cart->add_to_cart( $product_id );
+			if( !$retval['success'] ) {
+				$retval['message'] = "product could not be added to cart";
+			} else {
+				$retval['message'] = "product added to cart";
+			}
+		}
+	}
+	echo json_encode( $retval );
+	wp_die();
+}
+function my_custom_cart_contains( $product_id ) {
+	$cart = WC()->cart;
+	$cart_items = $cart->get_cart();
+	if( $cart_items ) {
+		foreach( $cart_items as $item ) {
+			$product = $item['data'];
+			if( $product_id == $product->id ) {
+				return true;
+			}
+		}
+	}
+	return false;
+}

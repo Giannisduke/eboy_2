@@ -104,8 +104,9 @@
           }
 
           $(document).on('facetwp-loaded', function() {
+
             carouselitemactive();
-            
+
             var str1 = $("input.facetwp-date").val(),
                   str2 = str1.slice(5, 7),
                    str3 = str1.slice(8, 11),
@@ -117,6 +118,30 @@
             // $('.booking_date_day').focus();
              $('.booking_to_date_month').val(str4);
              $('.booking_to_date_day').val(str5);
+
+
+             var ajaxurl = singleprojectajax.ajaxurl;
+             $( document.body).on('click', '.my-custom-add-to-cart-button', function(e) {
+               e.preventDefault();
+               var $this = $(this);
+               if( $this.is(':disabled') ) {
+                 return;
+               }
+               var id = $(this).data("product-id");
+               var data = {
+                 action     : 'my_custom_add_to_cart',
+                 product_id : id
+               };
+               $.post(ajaxurl, data, function(response) {
+                 if( response.success ) {
+                   $this.text("added to cart");
+                   $this.attr('disabled', 'disabled');
+                   $( document.body ).trigger( 'wc_fragment_refresh' );
+
+                   alert('I hate tomatoes.');
+                 }
+               }, 'json');
+             });
 
              console.log(str1);
          if (FWP.loaded) { // after the initial pageload
