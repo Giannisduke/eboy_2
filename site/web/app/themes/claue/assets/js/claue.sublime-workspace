@@ -1,0 +1,364 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"text",
+				"text-indent\tproperty"
+			],
+			[
+				"max",
+				"max-width\tproperty"
+			],
+			[
+				"portfolio_cle",
+				"portfolio_clients"
+			],
+			[
+				"ma",
+				"margin-bottom\tproperty"
+			],
+			[
+				"border-top",
+				"border-top-width\tproperty"
+			],
+			[
+				"bo",
+				"border-width\tproperty"
+			],
+			[
+				"pad",
+				"padding-bottom\tproperty"
+			],
+			[
+				"in",
+				"inline-block\tdisplay"
+			],
+			[
+				"end",
+				"endif"
+			],
+			[
+				"i",
+				"important"
+			],
+			[
+				"w",
+				"width\tproperty"
+			],
+			[
+				"mar",
+				"margin-top\tproperty"
+			],
+			[
+				"font-s",
+				"font-size\tproperty"
+			],
+			[
+				"l",
+				"left\tproperty"
+			],
+			[
+				"hi",
+				"hidden-sm"
+			],
+			[
+				"li",
+				"list-style-type\tproperty"
+			],
+			[
+				"jas-c",
+				"jas-col-xs-12"
+			],
+			[
+				"di",
+				"display\tproperty"
+			],
+			[
+				"ta",
+				"target"
+			],
+			[
+				"margin",
+				"margin-bottom\tproperty"
+			],
+			[
+				"no",
+				"nowrap\twhite-space"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/dangquocanh/Downloads/theme.js",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child2/functions.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/post/content.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/post/content-masonry.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/includes/wc-template-hooks.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/style.css",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/includes/currency/init.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/includes/currency/views/backend.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/single-product/product-thumbnails.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/wcvs/init.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/single-product/up-sells.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1-lobster/woocommerce/single-product/product-image__.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1-lobster/functions.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/single-product/related.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/includes/shortcodes/products.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/jas-addons.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/tgmpa/init.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/functions.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child2/woocommerce/single-product/product-image.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/includes/wc-template-functions.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/assets/js/theme.js",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child2/style.css",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/init.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/janstudio/hooks/helper.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/janstudio/hooks/action.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/comments.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/cart/cross-sells.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child2/views/header/layout-3.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-config.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/loop/sale-flash.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/aq-resizer/init.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/includes/portfolio/init.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/admin/config/framework.config.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1-lobster/style.css",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1-lobster/views/header/layout-5.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/templates/checkout/terms.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/checkout/terms.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/archive-product.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/content-quickview-product.php",
+		"/Users/quocanhdang/Desktop/product-image.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/includes/portfolio/views/archive.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/debug.log",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child2/woocommerce/cart.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/core/libraries/vendors/woocommerce/templates/archive-product.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/assets/js/theme.js",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/core/libraries/vendors/woocommerce/templates/single-product/related.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/core/libraries/vendors/woocommerce/templates/cart/cross-sells.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/core/libraries/vendors/woocommerce/templates/single-product/up-sells.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/single-product/sale-flash.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/templates/cart/mini-cart.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/core/libraries/vendors/woocommerce/init.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/single-product/add-to-cart/variable.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/includes/portfolio/views/clients.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/includes/portfolio/views/tags.php",
+		"/Users/quocanhdang/Desktop/content-single.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/janstudio/hooks/filter.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/extras/single/layout-3.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/header/layout-6.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/header/layout-7.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/header/layout-5.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/header/layout-4.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/header/layout-3.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/header/layout-2.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/views/header/layout-1.php",
+		"/Users/quocanhdang/Desktop/style.css",
+		"/Users/quocanhdang/Desktop/archive-product.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/views/header/layout-5.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child2/views/header/layout-5.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/style.css",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/plugins/jas-addons/includes/shortcodes/promotion.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1-lobster/woocommerce/checkout/form-checkout1.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1-lobster/woocommerce/cart/cart.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1-lobster/views/post/content-single.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/views/post/content-single.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko/functions.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/templates/myaccount/form-edit-address.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/single-product/product-image.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/includes/admin/meta-boxes/views/html-variation-admin.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-product-data.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1-lobster/custom-script.js",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/loop/add-to-cart.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1/functions.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1/style.css",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-includes/post-template.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/themes/gecko-child1/views/header/layout-5.php",
+		"/Volumes/DATA/server/vvv/vvv-custom.yml",
+		"/Volumes/DATA/server/vvv/www/gecko/provision/vvv-nginx.conf",
+		"/Volumes/DATA/server/vvv/www/gecko/build.xml",
+		"/Users/quocanhdang/Desktop/cacadad.css",
+		"/Users/quocanhdang/Dropbox/vagrant.conf",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/janstudio/widgets/instagram.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/openswatch/templates/variable.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/templates/cart/cart.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/dev/wp-content/plugins/woocommerce/templates/cart/cross-sells.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/admin/classes/framework.class.php",
+		"/Volumes/DATA/server/localhost/gecko/wp-config.php",
+		"/Volumes/DATA/server/localhost/gecko/wp-content/themes/gecko/core/libraries/vendors/woocommerce/init.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/fashion/fashion.sql",
+		"/Volumes/DATA/server/localhost/gecko/wp-content/themes/gecko/core/libraries/vendors/woocommerce/templates/global/quantity-input.php",
+		"/Volumes/DATA/server/vvv/www/gecko/htdocs/core/themes/gecko/core/libraries/vendors/woocommerce/templates/global/quantity-input.php",
+		"/Volumes/DATA/server/vvv/config/nginx-config/sites/default.conf",
+		"/Users/quocanhdang/Dropbox/Apps/Transmit/Favorites/Favorites.xml",
+		"/Volumes/DATA/server/vvv/www/gecko/public_html/wp-content/themes/gecko/core/libraries/vendors/wcvs/init.php",
+		"/Users/quocanhdang/Desktop/layout-3.php",
+		"/Volumes/DATA/server/vvv/www/gecko/public_html/wp-config.php",
+		"/Volumes/DATA/server/vvv/www/gecko/provision/vvv-init.sh",
+		"/Volumes/DATA/server/vvv/www/gecko/provision/vvv-nginx.conf.tmpl",
+		"/Volumes/DATA/server/vvv/config/nginx-config/sites/local-nginx-example.conf-sample"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 151.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/custom.sublime-build",
+	"project": "claue.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"/Volumes/DATA/server/vvv/www/claue/htdocs/core/themes/claue/assets/js/claue.sublime-workspace"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 366.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
