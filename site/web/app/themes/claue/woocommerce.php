@@ -19,4 +19,3 @@ if ( is_singular( 'product' ) ) {
 }
 
 get_footer();
-

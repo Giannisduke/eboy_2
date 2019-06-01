@@ -427,3 +427,286 @@ function eboy_products_cats_girls() {
 		wp_reset_postdata();
 }
 add_action ('eboy_products', 'eboy_products_cats_girls', 15 );
+
+function eboy_products_cats_baby() {
+	$args = array(
+			'post_type' => 'product',
+		//	'product_cat' => 'μπλούζες',
+			's' => 'Βρεφικά',
+			'posts_per_page' => -1
+
+			);
+		$loop = new WP_Query( $args );
+
+		if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) : $loop->the_post();
+				wc_get_template_part( 'content', 'product' );
+		//		wp_update_term(31, 'product_cat', array(
+		//		  'name' => 'Κορίτσι',
+		//		  'slug' => 'κορίτσι'
+		//		));
+		// An array of IDs of categories we to add to this post.
+		$cat_ids = array( 121 );
+
+
+		$address_post_id = get_the_ID() ;
+		/*
+		 * If this was coming from the database or another source, we would need to make sure
+		 * these were integers:
+
+		$cat_ids = array_map( 'intval', $cat_ids );
+		$cat_ids = array_unique( $cat_ids );
+
+		 */
+
+		// Add these categories, note the last argument is true.
+		$term_taxonomy_ids = wp_set_object_terms( $address_post_id, $cat_ids, 'product_cat', true );
+
+		if ( is_wp_error( $term_taxonomy_ids ) ) {
+			// There was an error somewhere and the terms couldn't be set.
+		} else {
+			// Success! These categories were added to the post.
+		}
+			endwhile;
+		} else {
+			echo __( 'No products found' );
+		}
+		wp_reset_postdata();
+}
+add_action ('eboy_products', 'eboy_products_cats_baby', 20 );
+
+function eboy_products_tag_sorts() {
+	$args = array(
+			'post_type' => 'product',
+		//	'product_cat' => 'μπλούζες',
+			's' => 'σορτς',
+			'posts_per_page' => -1
+
+			);
+		$loop = new WP_Query( $args );
+
+		if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) : $loop->the_post();
+				wc_get_template_part( 'content', 'product' );
+		//		wp_update_term(31, 'product_cat', array(
+		//		  'name' => 'Κορίτσι',
+		//		  'slug' => 'κορίτσι'
+		//		));
+		// An array of IDs of categories we to add to this post.
+		$cat_ids = array( 122 );
+
+
+		$address_post_id = get_the_ID() ;
+		/*
+		 * If this was coming from the database or another source, we would need to make sure
+		 * these were integers:
+
+		$cat_ids = array_map( 'intval', $cat_ids );
+		$cat_ids = array_unique( $cat_ids );
+
+		 */
+
+		// Add these categories, note the last argument is true.
+		$term_taxonomy_ids = wp_set_object_terms( $address_post_id, $cat_ids, 'product_tag', true );
+
+		if ( is_wp_error( $term_taxonomy_ids ) ) {
+			// There was an error somewhere and the terms couldn't be set.
+		} else {
+			// Success! These categories were added to the post.
+		}
+			endwhile;
+		} else {
+			echo __( 'No products found' );
+		}
+		wp_reset_postdata();
+}
+add_action ('eboy_products', 'eboy_products_tag_sorts', 25 );
+
+
+function eboy_products_tag_trouser() {
+	$args = array(
+			'post_type' => 'product',
+		//	'product_cat' => 'μπλούζες',
+			's' => 'παντελόνι',
+			'posts_per_page' => -1
+
+			);
+		$loop = new WP_Query( $args );
+
+		if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) : $loop->the_post();
+				wc_get_template_part( 'content', 'product' );
+		//		wp_update_term(31, 'product_cat', array(
+		//		  'name' => 'Κορίτσι',
+		//		  'slug' => 'κορίτσι'
+		//		));
+		// An array of IDs of categories we to add to this post.
+		$cat_ids = array( 123 );
+
+
+		$address_post_id = get_the_ID() ;
+		/*
+		 * If this was coming from the database or another source, we would need to make sure
+		 * these were integers:
+
+		$cat_ids = array_map( 'intval', $cat_ids );
+		$cat_ids = array_unique( $cat_ids );
+
+		 */
+
+		// Add these categories, note the last argument is true.
+		$term_taxonomy_ids = wp_set_object_terms( $address_post_id, $cat_ids, 'product_tag', true );
+
+		if ( is_wp_error( $term_taxonomy_ids ) ) {
+			// There was an error somewhere and the terms couldn't be set.
+		} else {
+			// Success! These categories were added to the post.
+		}
+			endwhile;
+		} else {
+			echo __( 'No products found' );
+		}
+		wp_reset_postdata();
+}
+add_action ('eboy_products', 'eboy_products_tag_trouser', 30 );
+
+function eboy_products_tag_mplouza() {
+	$args = array(
+			'post_type' => 'product',
+		//	'product_cat' => 'μπλούζες',
+			's' => 'μπλούζα',
+			'posts_per_page' => -1
+
+			);
+		$loop = new WP_Query( $args );
+
+		if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) : $loop->the_post();
+				wc_get_template_part( 'content', 'product' );
+		//		wp_update_term(31, 'product_cat', array(
+		//		  'name' => 'Κορίτσι',
+		//		  'slug' => 'κορίτσι'
+		//		));
+		// An array of IDs of categories we to add to this post.
+		$cat_ids = array( 124 );
+
+
+		$address_post_id = get_the_ID() ;
+		/*
+		 * If this was coming from the database or another source, we would need to make sure
+		 * these were integers:
+
+		$cat_ids = array_map( 'intval', $cat_ids );
+		$cat_ids = array_unique( $cat_ids );
+
+		 */
+
+		// Add these categories, note the last argument is true.
+		$term_taxonomy_ids = wp_set_object_terms( $address_post_id, $cat_ids, 'product_tag', true );
+
+		if ( is_wp_error( $term_taxonomy_ids ) ) {
+			// There was an error somewhere and the terms couldn't be set.
+		} else {
+			// Success! These categories were added to the post.
+		}
+			endwhile;
+		} else {
+			echo __( 'No products found' );
+		}
+		wp_reset_postdata();
+}
+add_action ('eboy_products', 'eboy_products_tag_mplouza', 35 );
+
+function eboy_products_tag_set() {
+	$args = array(
+			'post_type' => 'product',
+		//	'product_cat' => 'μπλούζες',
+			's' => 'σετ',
+			'posts_per_page' => -1
+
+			);
+		$loop = new WP_Query( $args );
+
+		if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) : $loop->the_post();
+				wc_get_template_part( 'content', 'product' );
+		//		wp_update_term(31, 'product_cat', array(
+		//		  'name' => 'Κορίτσι',
+		//		  'slug' => 'κορίτσι'
+		//		));
+		// An array of IDs of categories we to add to this post.
+		$cat_ids = array( 125 );
+
+
+		$address_post_id = get_the_ID() ;
+		/*
+		 * If this was coming from the database or another source, we would need to make sure
+		 * these were integers:
+
+		$cat_ids = array_map( 'intval', $cat_ids );
+		$cat_ids = array_unique( $cat_ids );
+
+		 */
+
+		// Add these categories, note the last argument is true.
+		$term_taxonomy_ids = wp_set_object_terms( $address_post_id, $cat_ids, 'product_tag', true );
+
+		if ( is_wp_error( $term_taxonomy_ids ) ) {
+			// There was an error somewhere and the terms couldn't be set.
+		} else {
+			// Success! These categories were added to the post.
+		}
+			endwhile;
+		} else {
+			echo __( 'No products found' );
+		}
+		wp_reset_postdata();
+}
+add_action ('eboy_products', 'eboy_products_tag_set', 40 );
+
+function eboy_products_tag_forema() {
+	$args = array(
+			'post_type' => 'product',
+		//	'product_cat' => 'μπλούζες',
+				's' => 'φόρεμα',
+			'posts_per_page' => -1
+
+			);
+		$loop = new WP_Query( $args );
+
+		if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) : $loop->the_post();
+				wc_get_template_part( 'content', 'product' );
+		//		wp_update_term(31, 'product_cat', array(
+		//		  'name' => 'Κορίτσι',
+		//		  'slug' => 'κορίτσι'
+		//		));
+		// An array of IDs of categories we to add to this post.
+		$cat_ids = array( 126 );
+
+
+		$address_post_id = get_the_ID() ;
+		/*
+		 * If this was coming from the database or another source, we would need to make sure
+		 * these were integers:
+
+		$cat_ids = array_map( 'intval', $cat_ids );
+		$cat_ids = array_unique( $cat_ids );
+
+		 */
+
+		// Add these categories, note the last argument is true.
+		$term_taxonomy_ids = wp_set_object_terms( $address_post_id, $cat_ids, 'product_tag', true );
+
+		if ( is_wp_error( $term_taxonomy_ids ) ) {
+			// There was an error somewhere and the terms couldn't be set.
+		} else {
+			// Success! These categories were added to the post.
+		}
+			endwhile;
+		} else {
+			echo __( 'No products found' );
+		}
+		wp_reset_postdata();
+}
+add_action ('eboy_products', 'eboy_products_tag_forema', 45 );

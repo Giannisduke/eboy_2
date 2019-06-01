@@ -56,7 +56,7 @@ if ( isset( $options['page-sidebar'] ) ) {
 			<div class="<?php echo esc_attr( $content_class ); ?>" role="main" <?php jas_claue_schema_metadata( array( 'context' => 'entry' ) ); ?>>
 				<?php
 					while ( have_posts() ) : the_post();
-						the_content();
+					
 
 						// If comments are open or we have at least one comment, load up the comment template.
 						if ( comments_open() || get_comments_number() ) {
@@ -70,7 +70,7 @@ if ( isset( $options['page-sidebar'] ) ) {
 					wp_link_pages();
 				?>
 			</div><!-- $classes -->
-			
+
 			<?php if ( isset( $options['page-layout'] ) && $options['page-layout'] != 'no-sidebar' ) { ?>
 				<div class="<?php echo esc_attr( $sidebar_class ); ?>" role="main">
 					<?php
