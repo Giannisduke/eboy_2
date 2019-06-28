@@ -26,3 +26,27 @@ foreach ($sage_includes as $file) {
   require_once $filepath;
 }
 unset($file, $filepath);
+
+function cc_mime_types( $mimes ){
+    $mimes['svg'] = 'image/svg+xml';
+
+    return $mimes;
+}
+add_filter( 'upload_mimes', 'cc_mime_types' );
+
+function themeslug_theme_customizer( $wp_customize ) {
+    $wp_customize->add_section( 'themeslug_logo_section' , array(
+    'title'       => __( 'Logo', 'paidikarouxaonline' ),
+    'priority'    => 30,
+    'description' => 'Upload a logo to replace the default site name and description     in the header',
+) );
+$wp_customize->add_setting( 'themeslug_logo' );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'themeslug_logo', array(
+    'label'    => __( 'Logo', 'paidikarouxaonline' ),
+    'section'  => 'themeslug_logo_section',
+    'settings' => 'themeslug_logo',
+    'extensions' => array( 'jpg', 'jpeg', 'gif', 'png', 'svg' ),
+) ) );
+}
+
+add_action ('customize_register', 'themeslug_theme_customizer');
