@@ -55,7 +55,7 @@ add_action('after_setup_theme', __NAMESPACE__ . '\\setup');
  */
 function widgets_init() {
   register_sidebar([
-    'name'          => __('Primary', 'sage'),
+    'name'          => __('Primary', 'paidikarouxaonline'),
     'id'            => 'sidebar-primary',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -64,15 +64,40 @@ function widgets_init() {
   ]);
 
   register_sidebar([
-    'name'          => __('Footer', 'sage'),
+    'name'          => __('Footer', 'paidikarouxaonline'),
     'id'            => 'sidebar-footer',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
   ]);
+  register_sidebar([
+    'name'          => __('Header', 'paidikarouxaonline'),
+    'id'            => 'header-center',
+    'before_widget' => '<div class="px-5 w-50">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>'
+  ]);
+  register_sidebar([
+    'name'          => __('Upper Header Left', 'paidikarouxaonline'),
+    'id'            => 'upper-header-left',
+    'before_widget' => '<div class="px-5">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>'
+  ]);
+  register_sidebar([
+    'name'          => __('Upper Header Right', 'paidikarouxaonline'),
+    'id'            => 'upper-header-right',
+    'before_widget' => '<div class="px-5 ml-auto">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>'
+  ]);
 }
 add_action('widgets_init', __NAMESPACE__ . '\\widgets_init');
+
 
 /**
  * Determine which pages should NOT display the sidebar

@@ -50,3 +50,30 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 }
 
 add_action ('customize_register', 'themeslug_theme_customizer');
+
+
+class images_with_link extends WP_Widget {
+
+	function __construct() {
+		// Instantiate the parent object
+		parent::__construct( false, 'Images with link' );
+	}
+
+	function widget( $args, $instance ) {
+		// Widget output
+	}
+
+	function update( $new_instance, $old_instance ) {
+		// Save widget options
+	}
+
+	function form( $instance ) {
+		// Output admin widget options form
+	}
+}
+
+function myplugin_register_widgets() {
+	register_widget( 'images_with_link' );
+}
+
+add_action( 'widgets_init', 'myplugin_register_widgets' );
