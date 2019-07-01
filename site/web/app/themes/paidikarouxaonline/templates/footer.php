@@ -12,7 +12,8 @@
       <div class="p-2 test">Flex item 3</div>
 
     </div>
-
+    <div class="d-flex justify-content-between">
     <?php dynamic_sidebar('sidebar-footer'); ?>
+    </div>
   </div>
 </footer>
