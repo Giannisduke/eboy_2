@@ -147,8 +147,15 @@ remove_action ( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_p
 function paidikarouxa_template_loop_product_title() {
 
 
- the_title( '<h3 class=”product_title entry-title”>', '</h3>' ); 
+ the_title( '<h3 class=”product_title entry-title”>', '</h3>' );
 
 
 }
 add_action ( 'paidikarouxa_shop_loop_item_title', 'paidikarouxa_template_loop_product_title', 20 );
+
+add_filter( 'loop_shop_per_page', 'bbloomer_redefine_products_per_page', 9999 );
+
+function bbloomer_redefine_products_per_page( $per_page ) {
+  $per_page = 12;
+  return $per_page;
+}

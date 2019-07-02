@@ -82,4 +82,4 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 
 </div>
 
-<?php if($woocommerce_loop['loop'] % 4 === 0) {  echo '</div><div class="d-flex flex-row">';} ?>
+<?php if($woocommerce_loop['loop'] % 4 === 0) {  echo '</div><div class="row">';} ?>

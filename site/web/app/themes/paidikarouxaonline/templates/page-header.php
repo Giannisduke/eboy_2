@@ -1,5 +1,6 @@
 <?php use Roots\Sage\Titles; ?>
 
 <div class="page-header">
-  <h1><?= Titles\title(); ?></h1>
+  <h3><?= Titles\title(); ?></h3>
+
 </div>

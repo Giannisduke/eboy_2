@@ -19,5 +19,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="products">
-<div class="d-flex flex-row">
+<div class="row">
