@@ -5,10 +5,8 @@
             <div class="d-flex flex-row">
               <div class="p-2">
                 <img src="<?= get_template_directory_uri(); ?>/dist/images/ico_fb.svg">
-                <img src="<?= get_template_directory_uri(); ?>/dist/images/ico_twitter.svg">
-                <img src="<?= get_template_directory_uri(); ?>/dist/images/ico_instagram.svg">
+
                 <img src="<?= get_template_directory_uri(); ?>/dist/images/ico_gplus.svg">
-                <img src="<?= get_template_directory_uri(); ?>/dist/images/ico_youtube.svg">
               </div>
               <?php dynamic_sidebar('upper-header-left'); ?>
               <?php dynamic_sidebar('upper-header-right'); ?>
