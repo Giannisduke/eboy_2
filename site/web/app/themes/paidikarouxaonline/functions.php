@@ -140,3 +140,15 @@ add_filter('widget_text','do_shortcode');
         <?php
     }
 add_shortcode ('paidikarouxaonline_top_cart', 'paidikarouxaonline_wc_print_mini_cart');
+
+
+remove_action ( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title' );
+
+function paidikarouxa_template_loop_product_title() {
+
+
+ the_title( '<h3 class=”product_title entry-title”>', '</h3>' ); 
+
+
+}
+add_action ( 'paidikarouxa_shop_loop_item_title', 'paidikarouxa_template_loop_product_title', 20 );
