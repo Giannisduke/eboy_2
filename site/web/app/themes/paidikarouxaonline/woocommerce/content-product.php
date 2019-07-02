@@ -32,7 +32,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 ?>
 
 
-<div <?php post_class('col-sm-6 col-md-6 col-lg-3 col-xl-3'); ?>>
+<div <?php wc_product_class('col-sm-6 col-md-6 col-lg-3 col-xl-3'); ?>>
 
     <?php
 
@@ -81,5 +81,3 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 
 
 </div>
-
-<?php if($woocommerce_loop['loop'] % 4 === 0) {  echo '</div><div class="row">';} ?>

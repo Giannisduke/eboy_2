@@ -15,6 +15,7 @@ function setup() {
   add_theme_support('soil-nice-search');
   add_theme_support('soil-jquery-cdn');
   add_theme_support('soil-relative-urls');
+  add_theme_support('woocommerce');
 
   // Make theme available for translation
   // Community translations can be found at https://github.com/roots/sage-translations
@@ -43,6 +44,8 @@ function setup() {
   // Enable HTML5 markup support
   // http://codex.wordpress.org/Function_Reference/add_theme_support#HTML5
   add_theme_support('html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']);
+
+  add_post_type_support( 'page', 'excerpt' );
 
   // Use main stylesheet for visual editor
   // To add custom styles edit /assets/styles/layouts/_tinymce.scss

@@ -19,4 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="row">
+
+
+<div class="row ">
+<div class="col-3 test">
+<?php  echo facetwp_display( 'facet', 'product_categories' ); ?>
+</div>
+<div class="col-9 test">
+	<div class="row facetwp-template">

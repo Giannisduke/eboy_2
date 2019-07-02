@@ -56,35 +56,15 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 add_action ('customize_register', 'themeslug_theme_customizer');
 
 
-
-
-class images_with_link extends WP_Widget {
-
-	function __construct() {
-		// Instantiate the parent object
-		parent::__construct( false, 'Images with link' );
+add_filter( 'facetwp_is_main_query', function( $is_main_query, $query ) {
+	if ( isset( $query->query_vars['facetwp'] ) ) {
+		$is_main_query = (bool) $query->query_vars['facetwp'];
 	}
-
-	function widget( $args, $instance ) {
-		// Widget output
-	}
-
-	function update( $new_instance, $old_instance ) {
-		// Save widget options
-	}
-
-	function form( $instance ) {
-		// Output admin widget options form
-	}
-}
-
-function myplugin_register_widgets() {
-	register_widget( 'images_with_link' );
-}
+	return $is_main_query;
+}, 10, 2 );
 
 
 
-add_action( 'widgets_init', 'myplugin_register_widgets' );
 
 remove_action('welcome_panel', 'wp_welcome_panel');
 
@@ -155,7 +135,48 @@ add_action ( 'paidikarouxa_shop_loop_item_title', 'paidikarouxa_template_loop_pr
 
 add_filter( 'loop_shop_per_page', 'bbloomer_redefine_products_per_page', 9999 );
 
-function bbloomer_redefine_products_per_page( $per_page ) {
-  $per_page = 12;
-  return $per_page;
+add_action( 'init', 'wpse325327_add_excerpts_to_pages' );
+function wpse325327_add_excerpts_to_pages() {
+    add_post_type_support( 'page', 'excerpt' );
+}
+
+add_filter( 'the_content', 'bts_filter_content_sample' );
+function bts_filter_content_sample( $content ) {
+  $html_segment_start = '<section class="content"><div class="collapse content" id="linkcollapse">>';
+  $html_segment_end = '</div></section>';
+  $content = $html_segment_start . $content . $html_segment_end;
+return $content;
+}
+
+
+function woocommerce_facet_template_loop() {
+echo 'test';
+}
+add_action ('woocommerce_before_shop_loop', 'woocommerce_facet_template_loop', 5 );
+
+add_action( 'pre_get_posts', 'iconic_hide_out_of_stock_products' );
+
+function iconic_hide_out_of_stock_products( $q ) {
+
+    if ( ! $q->is_main_query() || is_admin() ) {
+        return;
+    }
+
+    if ( $outofstock_term = get_term_by( 'name', 'outofstock', 'product_visibility' ) ) {
+
+        $tax_query = (array) $q->get('tax_query');
+
+        $tax_query[] = array(
+            'taxonomy' => 'product_visibility',
+            'field' => 'term_taxonomy_id',
+            'terms' => array( $outofstock_term->term_taxonomy_id ),
+            'operator' => 'NOT IN'
+        );
+
+        $q->set( 'tax_query', $tax_query );
+
+    }
+
+    remove_action( 'pre_get_posts', 'iconic_hide_out_of_stock_products' );
+
 }
