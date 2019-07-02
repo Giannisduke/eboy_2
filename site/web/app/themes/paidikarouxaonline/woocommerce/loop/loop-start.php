@@ -25,11 +25,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="col-3 test">
 	<div class="row">
 		<div class="col-12">
+			<h4>Φύλλο</h4>
 <?php  echo facetwp_display( 'facet', 'product_categories' ); ?>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-12">
+			<h4>Ηλικία</h4>
+<?php  echo facetwp_display( 'facet', 'product_age' ); ?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<h4>Χρώμα</h4>
 <?php  echo facetwp_display( 'facet', 'product_color' ); ?>
 		</div>
 	</div>
