@@ -23,7 +23,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="row ">
 <div class="col-3 test">
+	<div class="row">
+		<div class="col-12">
 <?php  echo facetwp_display( 'facet', 'product_categories' ); ?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+<?php  echo facetwp_display( 'facet', 'product_color' ); ?>
+		</div>
+	</div>
 </div>
 <div class="col-9 test">
 	<div class="row facetwp-template">
