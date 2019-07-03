@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 <div class="row ">
-<div class="col-3 test">
+<div class="col-3">
 	<div class="row">
 		<div class="col-12">
 			<h4>Φύλλο</h4>
@@ -42,5 +42,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
-<div class="col-9 test">
+<div class="col-9">
 	<div class="row facetwp-template">
