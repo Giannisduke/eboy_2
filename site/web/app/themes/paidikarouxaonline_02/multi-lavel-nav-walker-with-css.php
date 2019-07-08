@@ -168,7 +168,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
             $id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
             $id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
 
-            $output .= $indent . '<li' . $id . $class_names . '><h2>';
+            $output .= $indent . '<li' . $id . $class_names . '>';
 
             // initialize array for holding the $atts for the link item.
             $atts = array();
