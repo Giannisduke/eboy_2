@@ -151,7 +151,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
             $classes = apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth );
 
             // Form a string of classes in format: class="class_names".
-            $class_names = join( ' ', $classes );
+            $class_names = join( ' ', $classes);
             $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
 
             /**
@@ -212,7 +212,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
             foreach ( $atts as $attr => $value ) {
                 if ( ! empty( $value ) ) {
                     $value       = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
-                    $attributes .= 'test2' . $attr . '="' . $value . '"' . 'test3';
+                    $attributes .= ' ' . $attr . '="' . $value . '"';
                 }
             }
 
