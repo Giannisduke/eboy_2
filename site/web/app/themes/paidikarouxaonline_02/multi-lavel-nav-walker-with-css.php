@@ -48,7 +48,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
             }
             $indent = str_repeat( $t, $depth );
             // Default class to add to the file.
-            $classes = array( 'dropdown-menu' );
+            $classes = array( 'dropdown-menu d-flex flex-row' );
             /**
              * Filters the CSS class(es) applied to a menu list element.
              *
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
                 // build a string to use as aria-labelledby.
                 $labelledby = 'aria-labelledby="' . end( $matches[2] ) . '"';
             }
-            $output .= "{$n}{$indent}<ul$class_names $labelledby role=\"menu\">{$n}";
+            $output .= "{$n}{$indent}<ul$class_names $labelledby role=\"menu\"><div class=\"container d-flex flex-row\">{$n}";
         }
 
         /**
@@ -168,7 +168,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
             $id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
             $id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
 
-            $output .= $indent . '<li' . $id . $class_names . '>';
+            $output .= $indent . '<li' . $id . $class_names . '><h2>';
 
             // initialize array for holding the $atts for the link item.
             $atts = array();
@@ -186,14 +186,14 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
             // If item has_children add atts to <a>.
 
             if ( isset( $args->has_children ) && $args->has_children) {
-                $atts['href']          = '#';
+                $atts['href']          = $item->url;
                 $atts['data-toggle']   = 'dropdown';
-                $atts['aria-haspopup'] = 'true';
+                $atts['aria-haspopup'] = 'false';
                 $atts['aria-expanded'] = 'false';
                 $atts['class']         = 'dropdown-toggle nav-link' ;
                 $atts['id']            = 'menu-item-dropdown-' . $item->ID;
             } else {
-                $atts['href'] = ! empty( $item->url ) ? $item->url : '#';
+                $atts['href'] = ! empty( $item->url ) ? $item->url : $item->url;
                 // Items in dropdowns use .dropdown-item instead of .nav-link.
                 if ( $depth > 0 ) {
                     $atts['class'] = 'dropdown-item';
@@ -212,7 +212,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
             foreach ( $atts as $attr => $value ) {
                 if ( ! empty( $value ) ) {
                     $value       = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
-                    $attributes .= ' ' . $attr . '="' . $value . '"';
+                    $attributes .= 'test2' . $attr . '="' . $value . '"' . 'test3';
                 }
             }
 
@@ -366,7 +366,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
                 if ( $menu_class ) {
                     $fallback_output .= ' class="' . esc_attr( $menu_class ) . '"'; }
                 $fallback_output .= '>';
-                $fallback_output .= '<li><a href="' . esc_url( home_url('/') ) . '" title="' . esc_attr__( 'Home Page', 'eboy' ) . '">' . esc_html__( 'Home Page', 'eboy'  ) . '</a></li>';
+                $fallback_output .= '<div><a href="' . esc_url( home_url('/') ) . '" title="' . esc_attr__( 'Home Page', 'eboy' ) . '">' . esc_html__( 'Home Page', 'eboy'  ) . '</a></div>';
                 $fallback_output .= '</ul>';
                 if ( $container ) {
                     $fallback_output .= '</' . esc_attr( $container ) . '>';
