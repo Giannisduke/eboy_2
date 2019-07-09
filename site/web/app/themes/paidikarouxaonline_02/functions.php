@@ -27,6 +27,9 @@ foreach ($sage_includes as $file) {
 }
 unset($file, $filepath);
 
+// Register Custom Navigation Walker
+require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
+
 remove_action('welcome_panel', 'wp_welcome_panel');
 
 add_filter('widget_text','do_shortcode');
@@ -61,8 +64,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 ) ) );
 }
 
-// Register Custom Navigation Walker (Soil)
-require_once('multi-lavel-nav-walker-with-css.php');
+
 
 function woocommerce_facet_template_loop() {
 echo facetwp_display('selections');

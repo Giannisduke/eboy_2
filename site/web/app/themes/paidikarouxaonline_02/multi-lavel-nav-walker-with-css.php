@@ -151,7 +151,7 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
             $classes = apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth );
 
             // Form a string of classes in format: class="class_names".
-            $class_names = join( ' ', $classes);
+            $class_names = join( ' ', $classes );
             $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
 
             /**
@@ -190,10 +190,10 @@ if ( ! class_exists( 'Marrrion_Navwalker' ) ) {
                 $atts['data-toggle']   = 'dropdown';
                 $atts['aria-haspopup'] = 'false';
                 $atts['aria-expanded'] = 'false';
-                $atts['class']         = 'dropdown-toggle nav-link' ;
+                $atts['class']         = 'nav-link' ;
                 $atts['id']            = 'menu-item-dropdown-' . $item->ID;
             } else {
-                $atts['href'] = ! empty( $item->url ) ? $item->url : $item->url;
+                $atts['href'] = ! empty( $item->url ) ? $item->url : '#';
                 // Items in dropdowns use .dropdown-item instead of .nav-link.
                 if ( $depth > 0 ) {
                     $atts['class'] = 'dropdown-item';
