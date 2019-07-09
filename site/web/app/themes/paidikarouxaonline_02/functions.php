@@ -160,6 +160,7 @@ remove_action ('woocommerce_archive_description', 'woocommerce_product_archive_d
 
 
 function woocommerce_taxonomy_archive_description_custom() {
+  global $product;
   if ( is_search() ) {
     return;
   }
@@ -169,10 +170,18 @@ function woocommerce_taxonomy_archive_description_custom() {
 
     if ( $term && ! empty( $term->description ) ) {
       echo '<p class="collapse" id="collapseExample" aria-expanded="false">' . $term->description . '</p>'; // WPCS: XSS ok.
-      echo '<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>';
+
     }
   }
 
+  if ( is_shop() || is_page() ) {
+    echo 'test';
+$id = get_the_ID();
+echo $id;
+
+
+  }
+  echo '<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>';
 }
 add_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description_custom', 10 );
 
