@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
  ?>
- <header class="woocommerce-products-header">
+ <div class="woocommerce-products-header">
  	<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
  		<h3 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h3>
  	<?php endif; ?>
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  	 */
  	do_action( 'woocommerce_archive_description' );
  	?>
- </header>
+ </div>
  <?php
  if ( woocommerce_product_loop() ) {
 
