@@ -24,9 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
  ?>
- <div class="woocommerce-products-header">
+ <div class="container text-center" id="module">
  	<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
- 		<h3 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h3>
+ 		<h3 class="page-title"><?php woocommerce_page_title(); ?></h3>
  	<?php endif; ?>
 
  	<?php

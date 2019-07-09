@@ -147,3 +147,33 @@ function pqrc_display_qr_code( $content ) {
     return $content;
 }
 add_action( 'woocommerce_before_shop_loop_item_title', 'pqrc_display_qr_code', 5 );
+
+foreach ( array( 'pre_term_description' ) as $filter ) {
+    remove_filter( $filter, 'wp_filter_kses' );
+}
+foreach ( array( 'term_description' ) as $filter ) {
+    remove_filter( $filter, 'wp_kses_data' );
+}
+
+remove_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10 );
+remove_action ('woocommerce_archive_description', 'woocommerce_product_archive_description', 10 );
+
+
+function woocommerce_taxonomy_archive_description_custom() {
+  if ( is_search() ) {
+    return;
+  }
+
+  if ( is_product_taxonomy() && 0 === absint( get_query_var( 'paged' ) ) ) {
+    $term = get_queried_object();
+
+    if ( $term && ! empty( $term->description ) ) {
+      echo '<p class="collapse" id="collapseExample" aria-expanded="false">' . $term->description . '</p>'; // WPCS: XSS ok.
+      echo '<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>';
+    }
+  }
+
+}
+add_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description_custom', 10 );
+
+remove_filter('the_content', 'wpautop');
