@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
+	<div class="container">
 <div class="row">
 	<div class="col-12">
 <p class="woocommerce-result-count">
@@ -34,5 +35,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/* translators: 1: first result 2: last result 3: total results */
 		printf( _nx( 'Showing the single result', 'Showing %1$d&ndash;%2$d of %3$d results', $total, 'with first and last result', 'woocommerce' ), $first, $last, $total );
 	}
+	echo facetwp_display('selections');
 	?>
 </p>

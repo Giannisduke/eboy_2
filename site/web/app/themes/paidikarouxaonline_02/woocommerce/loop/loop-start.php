@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-
-<div class="row ">
+<div class="container">
+<div class="row">
 <div class="col-3">
 	<div class="row">
 		<div class="col-12">

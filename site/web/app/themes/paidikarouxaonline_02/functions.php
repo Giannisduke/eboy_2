@@ -66,10 +66,6 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 
 
 
-function woocommerce_facet_template_loop() {
-echo facetwp_display('selections');
-}
-add_action ('woocommerce_before_shop_loop', 'woocommerce_facet_template_loop', 5 );
 
 remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
 add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle', 10 );
@@ -175,11 +171,13 @@ function woocommerce_taxonomy_archive_description_custom() {
   }
 
   if ( is_shop() || is_page() ) {
-    echo 'test';
-$id = get_the_ID();
-echo $id;
-
-
+    echo '<p class="collapse" id="collapseExample" aria-expanded="false">';
+  //  $id=3594;
+    $id=210;
+    $post = get_post($id);
+    $content = apply_filters('the_content', $post->post_content);
+    echo $content;
+    echo '</p>';
   }
   echo '<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>';
 }
