@@ -18,10 +18,12 @@ class FacetWP_Facet_Search extends FacetWP_Facet
         $value = empty( $value ) ? '' : stripslashes( $value[0] );
         $placeholder = isset( $params['facet']['placeholder'] ) ? $params['facet']['placeholder'] : __( 'Enter keywords', 'fwp-front' );
         $placeholder = facetwp_i18n( $placeholder );
+        $output .= '<div class="input-group">';
         $output .= '<span class="facetwp-search-wrap">';
-        //$output .= '<i class="facetwp-btn"></i>';
-        $output .= '#<input type="text" class="facetwp-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr( $placeholder ) . '" />';
+        $output .= '<i class="facetwp-btn"></i>';
+        $output .= '<input type="text" class="facetwp-search form-control" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr( $placeholder ) . '" />';
         $output .= '</span>';
+        $output .= '</div>';
         return $output;
     }
 
