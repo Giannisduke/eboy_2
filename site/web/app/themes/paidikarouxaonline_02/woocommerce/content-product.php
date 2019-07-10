@@ -27,16 +27,10 @@ if ( empty( $product ) || ! $product->is_visible() ) {
     return;
 }
 
-
-
 ?>
-
-
 <div <?php wc_product_class('col-sm-6 col-md-6 col-lg-3 col-xl-3'); ?>>
 
     <?php
-
-
     /**
      * woocommerce_before_shop_loop_item hook.
      *

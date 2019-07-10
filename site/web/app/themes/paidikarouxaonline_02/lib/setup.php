@@ -69,7 +69,7 @@ function widgets_init() {
   register_sidebar([
     'name'          => __('Header', 'paidikarouxaonline'),
     'id'            => 'header-center',
-    'before_widget' => '<div class="p-2 text-center">',
+    'before_widget' => '<div class="p-2 w-100">',
     'after_widget'  => '</div>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'

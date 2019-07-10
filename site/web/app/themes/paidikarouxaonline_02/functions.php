@@ -80,62 +80,6 @@ function abChangeProductsTitle() {
     echo '<h5 class="woocommerce-loop-product_title"><a href="'.get_the_permalink().'">' . get_the_title() . '</a></h5>';
 }
 
-/* Custom Shoping Cart in the top */
-    function paidikarouxaonline_wc_print_mini_cart() {
-        ?>
-        <div class="p-2">
-            <?php if ( sizeof( WC()->cart->get_cart() ) > 0 ) : ?>
-                <ul class="paidikarouxaonline-minicart-top-products">
-                    <?php foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) :
-                    $_product = $cart_item['data'];
-                    // Only display if allowed
-                    if ( ! apply_filters('woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key ) || ! $_product->exists() || $cart_item['quantity'] == 0 ) continue;
-                    // Get price
-                    $product_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? $_product->get_price_excluding_tax() : $_product->get_price_including_tax();
-                    $product_price = apply_filters( 'woocommerce_cart_item_price_html', woocommerce_price( $product_price ), $cart_item, $cart_item_key );
-                    ?>
-                    <li class="paidikarouxaonline-mini-cart-product clearfix">
-                        <span class="paidikarouxaonline-mini-cart-thumbnail">
-                            <?php echo $_product->get_image(); ?>
-                        </span>
-                        <span class="paidikarouxaonline-mini-cart-info">
-                            <a class="paidikarouxaonline-mini-cart-title" href="<?php echo get_permalink( $cart_item['product_id'] ); ?>">
-                                <h4><?php echo apply_filters('woocommerce_widget_cart_product_title', $_product->get_title(), $_product ); ?></h4>
-                            </a>
-                            <?php echo apply_filters( 'woocommerce_widget_cart_item_price', '<span class="woffice-mini-cart-price">' . __('Unit Price', 'paidikarouxaonline') . ':' . $product_price . '</span>', $cart_item, $cart_item_key ); ?>
-                            <?php echo apply_filters( 'woocommerce_widget_cart_item_quantity', '<span class="paidikarouxaonline-mini-cart-quantity">' . __('Quantity', 'woffice') . ':' . $cart_item['quantity'] . '</span>', $cart_item, $cart_item_key ); ?>
-                        </span>
-                    </li>
-                    <?php endforeach; ?>
-                </ul><!-- end .paidikarouxaonline-mini-cart-products -->
-            <?php else : ?>
-
-              <div class="d-flex flex-column justify-content-center text-center">
-                  <div class=""><img src="<?= get_template_directory_uri(); ?>/dist/images/ico_cart_e.svg"></div>
-                  <div class=""><?php _e( 'Empty cart.', 'paidikarouxaonline' ); ?></div>
-              </div>
-
-            <?php endif; ?>
-            <?php if (sizeof( WC()->cart->get_cart()) > 0) : ?>
-                <h4 class="text-center paidikarouxaonline-mini-cart-subtotal"><?php _e( 'Cart Subtotal', 'paidikarouxaonline' ); ?>: <?php echo WC()->cart->get_cart_subtotal(); ?></h4>
-                <div class="text-center">
-                    <a href="<?php echo WC()->cart->get_cart_url(); ?>" class="cart btn btn-default">
-                        <i class="fa fa-shopping-cart" /> <?php _e( 'Cart', 'paidikarouxaonline' ); ?>
-                    </a>
-                    <a href="<?php echo WC()->cart->get_checkout_url(); ?>" class="alt checkout btn btn-default">
-                        <i class="fa fa-credit-card" /> <?php _e( 'Checkout', 'paidikarouxaonline' ); ?>
-                    </a>
-                </div>
-            <?php endif; ?>
-</div>
-        <?php
-    }
-add_shortcode ('paidikarouxaonline_top_cart', 'paidikarouxaonline_wc_print_mini_cart', 10 );
-
-
-
-
-
 
 function pqrc_display_qr_code( $content ) {
     $current_post_id    = get_the_ID();
@@ -206,7 +150,7 @@ remove_filter('the_content', 'wpautop');
 function lar_text_strings( $translated_text, $text, $domain ) {
 switch ( $translated_text ) {
 case 'No products in the cart.' :
-$translated_text = __( 'new text here', 'woocommerce' );
+$translated_text = __( 'Αδειο Καλάθι', 'woocommerce' );
 break;
 }
 return $translated_text;

@@ -36,7 +36,7 @@
           <div class="d-flex flex-row justify-content-between align-items-center">
 
           <?php dynamic_sidebar('header-center'); ?>
-          <?php //do_action ('paidikarouxaonline_top_cart', 'paidikarouxaonline_wc_print_mini_cart');?>
+          <div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(); ?></div>
 
         </div>
         </nav>
