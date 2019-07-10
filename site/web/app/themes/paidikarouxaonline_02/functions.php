@@ -49,6 +49,13 @@ add_filter( 'facetwp_is_main_query', function( $is_main_query, $query ) {
 	return $is_main_query;
 }, 10, 2 );
 
+add_filter( 'get_search_query', function( $query ) {
+    if ( function_exists( 'FWP' ) && '' == $query ) {
+        return FWP()->facet->http_params['get']['s'];
+    }
+    return $query;
+});
+
 function themeslug_theme_customizer( $wp_customize ) {
     $wp_customize->add_section( 'eboy_theme_logo_section' , array(
     'title'       => __( 'Logo', 'paidikarouxaonline' ),
@@ -76,6 +83,7 @@ function abChangeProductsTitle() {
 /* Custom Shoping Cart in the top */
     function paidikarouxaonline_wc_print_mini_cart() {
         ?>
+        <div class="p-2">
             <?php if ( sizeof( WC()->cart->get_cart() ) > 0 ) : ?>
                 <ul class="paidikarouxaonline-minicart-top-products">
                     <?php foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) :
@@ -119,10 +127,15 @@ function abChangeProductsTitle() {
                     </a>
                 </div>
             <?php endif; ?>
-
+</div>
         <?php
     }
-add_shortcode ('paidikarouxaonline_top_cart', 'paidikarouxaonline_wc_print_mini_cart');
+add_shortcode ('paidikarouxaonline_top_cart', 'paidikarouxaonline_wc_print_mini_cart', 10 );
+
+
+
+
+
 
 function pqrc_display_qr_code( $content ) {
     $current_post_id    = get_the_ID();
@@ -172,8 +185,8 @@ function woocommerce_taxonomy_archive_description_custom() {
 
   if ( is_shop() || is_page() ) {
     echo '<p class="collapse" id="collapseExample" aria-expanded="false">';
-  //  $id=3594;
-    $id=210;
+    $id=3594;
+  //  $id=210;
     $post = get_post($id);
     $content = apply_filters('the_content', $post->post_content);
     echo $content;
@@ -184,3 +197,18 @@ function woocommerce_taxonomy_archive_description_custom() {
 add_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description_custom', 10 );
 
 remove_filter('the_content', 'wpautop');
+
+/**
+* Change the “No products in the cart” message when hovering over the mini-cart
+*
+*/
+
+function lar_text_strings( $translated_text, $text, $domain ) {
+switch ( $translated_text ) {
+case 'No products in the cart.' :
+$translated_text = __( 'new text here', 'woocommerce' );
+break;
+}
+return $translated_text;
+}
+add_filter( 'gettext', 'lar_text_strings', 20, 3 );

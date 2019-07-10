@@ -32,6 +32,13 @@
 
 
         </div>
+        <div class="col-7 p-0">
+          <div class="d-flex flex-row justify-content-between align-items-center">
+
+          <?php dynamic_sidebar('header-center'); ?>
+          <?php //do_action ('paidikarouxaonline_top_cart', 'paidikarouxaonline_wc_print_mini_cart');?>
+
+        </div>
         </nav>
 
       </div>

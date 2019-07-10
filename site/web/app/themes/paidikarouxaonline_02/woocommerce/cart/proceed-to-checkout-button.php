@@ -1,8 +1,10 @@
 <?php
 /**
- * Single product short description
+ * Proceed to checkout button
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/short-description.php.
+ * Contains the markup for the proceed to checkout button on the cart.
+ *
+ * This template can be overridden by copying it to yourtheme/woocommerce/cart/proceed-to-checkout-button.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -12,22 +14,14 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 3.3.0
+ * @version 2.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
-global $post;
-
-$short_description = apply_filters( 'woocommerce_short_description', $post->post_excerpt );
-
-if ( ! $short_description ) {
-	return;
-}
-
 ?>
-<div class="woocommerce-product-details__short-description">
-	<?php echo $short_description; // WPCS: XSS ok. ?>
-</div>
+
+<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="checkout-button button alt wc-forward">
+	<?php esc_html_e( 'Proceed to checkout', 'woocommerce' ); ?>
+</a>
