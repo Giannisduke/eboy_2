@@ -12,6 +12,7 @@ get_template_part( 'views/common/page', 'head' );
 
 if ( is_singular( 'product' ) ) {
 	echo '<div id="jas-content">';
+
 		woocommerce_content();
 	echo '</div>';
 } else {

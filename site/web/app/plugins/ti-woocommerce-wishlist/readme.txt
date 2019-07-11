@@ -1,10 +1,10 @@
-﻿=== WooCommerce Wishlist Plugin ===
+=== TI WooCommerce Wishlist Plugin ===
 Contributors: templateinvaders
-Donate link: https://templateinvaders.com/?utm_source=wordpressorg&utm_content=donate
-Tags: wishlist, woocommerce, woocommerce wishlist, e-commerce, shop, ecommerce wishlist, shop wishlist, wishlist for Woocommerce
+Donate link: https://templateinvaders.com/product/ti-woocommerce-wishlist-wordpress-plugin/?utm_source=wordpressorg&utm_content=donate
+Tags: wishlist, woocommerce, woocommerce wishlist, e-commerce, ecommerce
 Requires at least: 4.5
-Tested up to: 4.9
-Stable tag: 1.6.2
+Tested up to: 5.2
+Stable tag: 1.12.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,30 +16,22 @@ Add Wishlist functionality to your store for free.
 = Increase Sales and Conversions =
 WooCommerce Wishlist is a simple but powerful tool that can help you to convert your site visitors into loyal customers. There are many situations when customers can’t buy a product at this time or simply don’t want. Possibility to save products for later encourages users to return to your site and after all, make a purchase. Adding products to Wishlist is easy and convenient so it may also force your customers to buy even more products than they planned. Users can share their wishlist, for example, to help their friends choose a gift for upcoming holiday and so on. By sharing their Wishlists, they are bringing you, new potential customers. All in all this increasing amount of your site visitors, conversion and as a result sales. 
 
-[Live Preview](https://woocommercewishlist.com/preview/?utm_source=wordpressorg&utm_content=preview)
+🔗 [Live Preview](https://templateinvaders.com/product/ti-woocommerce-wishlist-wordpress-plugin/preview/?utm_source=wordpressorg&utm_content=preview)
 
-[View documentation](https://templateinvaders.com/documentation/ti-woocommerce-wishlist-free/?utm_source=wordpressorg&utm_content=documentation)
+🔗 [View documentation](https://templateinvaders.com/documentation/ti-woocommerce-wishlist-free/?utm_source=wordpressorg&utm_content=documentation)
 
-= Features List =
+= Basic Features =
 
 + Select Wishlist page and Name
 + Remove product from wishlist automatically, after adding it to cart
 + Position of "Add to wishlist" button on product page and catalog
 + Shortcode for "Add to wishlist" button to place it anywhere on the page.
 + "Add to wishlist" Button or Link on product page
-+ Predefined icons for "Add to Wishlist" button in two colors
++ Predefined icons for "Add to Wishlist" button
 + Upload your custom "Add to Wishlist" button icon
 + Redirect to wishlist page after adding items to the wishlist
-+ Customize wishlist table columns:
- + Show "Add to Cart" button
- + Show "Add all to cart" button
- + Show "Add selected to cart" button
- + Show unit price
- + Show stock status
- + Show the date when the product has been added to the wishlist
- + Show bulk actions
- + Show checkboxes
-+ Share wishlist on social channels (Facebook, Twitter, Pinterest, Google+, email)
++ Customizable wishlist table columns
++ Share wishlist on social channels (Facebook, Twitter, Pinterest, Google+, WhatsApp, email)
 + Fully Customizable Appearance 
 + Custom CSS styles 
 + Responsive & Retina Ready
@@ -47,8 +39,29 @@ WooCommerce Wishlist is a simple but powerful tool that can help you to convert 
 + [WPML](https://wpml.org/?aid=9393&affiliate_key=9xzbMQnIyxHE) Support
 + Product variations Support
 
+= Premium Features =
+
+TI WooCommerce Wishlist Premium version is a powerful marketing tool on top of a wishlist functionality!
+
+➡ <strong>[GET PREMIUM VERSION NOW!](https://templateinvaders.com/product/ti-woocommerce-wishlist-wordpress-plugin/?utm_source=wordpressorg&utm_content=get_premium)</strong>
+
+🔹 Multi-wishlists per user
+🔹 Wishlist privacy settings
+🔹 Products quantity
+🔹 Product analytics for admin
+🔹 Promotional emails
+🔹 Ask for an estimate feature
+🔹 Following wishlist feature
+🔹 Advanced settings almost for all basic features
+🔹 Additional shortcodes and widgets
+🔹 Premium predefined styles skin
+
+🔗 [See the difference between free and premium versions](https://templateinvaders.com/free-vs-premium-woocommerce-wishlist-comparison/?utm_source=wordpressorg&utm_content=compare) of the most powerful Wishlist solution for WooCommerce.
+
+💰 <strong>[100% Money Back Guarantee](https://templateinvaders.com/product/ti-woocommerce-wishlist-wordpress-plugin/?utm_source=wordpressorg&utm_content=money_back)</strong>
+
 = COMPATIBILITY WITH MOST USED PLUGINS/ADDONS  =
-We understand that our plugin is not the only one that you are going to use for your WooCommerce store and how it is important for different plugins to work well with each others. That is why we have added compatibility with the most used WooCommerce add-ons: [WooCommerce Bookings](https://woocommerce.com/products/woocommerce-bookings/?aff=3955), [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/?aff=3955), [WooCommerce Composite Products](https://woocommerce.com/products/composite-products/?aff=3955), [WooCommerce Product Bundles](https://woocommerce.com/products/product-bundles/?aff=3955), [WooCommerce Mix and Match](https://woocommerce.com/products/woocommerce-mix-and-match-products/?aff=3955), [WooCommerce Gravity Forms Product Add-Ons](https://woocommerce.com/products/gravity-forms-add-ons/?aff=3955), [WooCommerce Gift Cards](https://wordpress.org/plugins/gift-cards-for-woocommerce/), [WooCommerce TM Extra Product Options](https://codecanyon.net/item/woocommerce-extra-product-options/7908619?ref=olegnax).
+We understand that our plugin is not the only one that you are going to use for your WooCommerce store and how it is important for different plugins to work well with each others. That is why we have added compatibility with the most used WooCommerce add-ons: [WooCommerce Bookings](https://woocommerce.com/products/woocommerce-bookings/?aff=3955), [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/?aff=3955), [WooCommerce Composite Products](https://woocommerce.com/products/composite-products/?aff=3955), [WooCommerce Product Bundles](https://woocommerce.com/products/product-bundles/?aff=3955), [WooCommerce Mix and Match](https://woocommerce.com/products/woocommerce-mix-and-match-products/?aff=3955), [WooCommerce Gravity Forms Product Add-Ons](https://woocommerce.com/products/gravity-forms-add-ons/?aff=3955), [WooCommerce Gift Cards](https://wordpress.org/plugins/gift-cards-for-woocommerce/), [WooCommerce TM Extra Product Options](https://codecanyon.net/item/woocommerce-extra-product-options/7908619?ref=olegnax), [WooCommerce Product Add-ons](https://woocommerce.com/products/product-add-ons/?aff=3955).
 It is also very important for any WordPress website to use cache plugins, so we make sure that our WooCommerce Wishlist works well with [WP Rocket](https://wp-rocket.me/), [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/) and [W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/) plugins.
 
 = Add to Wishlist button =
@@ -62,13 +75,14 @@ You can show/hide any column in wishlist table on wishlist page. So it is for yo
 WooCommerce Wishlist Plugin comes with over 60 appearance options such as colors, font size, borders, etc. Not enough? You can add your custom CSS styles directly in admin panel.
 
 = Translation Ready =
-
 You can easily translate WooCommerce Wishlist Plugin to any language. Simply choose the most convenient way for you: using poEdit tool, [Loco Translate](https://wordpress.org/plugins/loco-translate/), [WP Multilang](https://wordpress.org/plugins/wp-multilang/) or [WPML](https://wpml.org/?aid=9393&affiliate_key=9xzbMQnIyxHE).
 
 = Responsive & Retina Ready =
 We know how important responsive website for the online store in nowadays.
 That is why we made sure that Wishlist looks and works perfectly on any devices and the layouts are user-friendly. Simply check screenshots or preview.
 
+= GDPR Ready =
+The WooCommerce Wishlist plugin does not collect any personal data from website visitors which makes it GDPR compliant.
 
 == Installation ==
 
@@ -128,6 +142,350 @@ If you get stuck, you can ask for help in the [Plugin Forum](https://wordpress.o
 
 
 == Changelog ==
+= 1.12.3 =
+*Release Date - 17 May 2019*
+
+* Fixed wishlist products issue with WPML plugin
+
+= 1.12.2 =
+*Release Date - 7 May 2019*
+
+* Added filter <i>tinvwl_wc_cart_fragments_refresh</i> to disable WC cart fragments refreshing
+* Fixed integration issues with Improved Product Options for WooCommerce plugin
+* Fixed issue with wishlist URL for sharing buttons
+
+= 1.12.1 =
+*Release Date - 2 May 2019*
+
+* Improved performance of wishlist page
+* Added method tinvwl_get_wishlist_products() to get wishlist products by wishlist ID or SHAREKEY
+* Fixed URI rewrites issue
+* Fixed issue with auto removing grouped products from wishlist
+
+= 1.12.0 =
+*Release Date - 22 April 2019*
+
+* Greatly improved frontend performance
+* Fixed wishlist analytics issues
+* Code cleanup
+
+= 1.11.1 =
+*Release Date - 19 April 2019*
+
+* Fixed a hook for [myCRED](https://wordpress.org/plugins/mycred/) plugin when purchased product from a wishlist
+* Plugin display name changed to "TI WooCommerce Wishlist Plugin"
+
+= 1.11.0 =
+*Release Date - 18 April 2019*
+
+* WooCommerce 3.6.x support
+* Added integration with Improved Product Options for WooCommerce plugin
+* Added custom hook for [myCRED](https://wordpress.org/plugins/mycred/) plugin
+* Minor PHP fixes and improvements
+
+= 1.10.1 =
+*Release Date - 14 April 2019*
+
+* [WooCommerce PPOM](https://wordpress.org/plugins/woocommerce-product-addon/) plugin integration updated
+* Fixed analytics purchase count issue
+
+= 1.10.0 =
+*Release Date - 9 April 2019*
+
+* Added Force permalinks rewrite feature
+* Added numeric pagination on a Wishlist page
+* Added analytic tracking feature for compatibility with the premium version of plugin
+* Improved compatibility with TM Extra Product Options plugin
+* Fixed pagination issue on a Wishlist page for all actions
+* Fixed minor PHP issues
+* Fixed minor CSS issues
+
+= 1.9.18 =
+*Release Date - 4 April 2019*
+
+* Fixed an issue with removing products from wishlist when added to cart for WooCommerce prior 3.x versions.
+* Fixed an issue when the wizard add multiple shortcodes to an exists page
+
+= 1.9.17 =
+*Release Date - 2 April 2019*
+
+* Fixed HTML W3C validation for the Add to Wishlist button
+* Fixed a limit for Add all to cart function
+* Fixed public JS error
+* Added filter <i>tinvwl-allow_parent_variable</i> that allows to add parent variable product without selected variation from a 3rd party code.
+* Improved the Setup Wizard to prepend the Wishlist Page shortcode to existing page content.
+
+= 1.9.16 =
+*Release Date - 7 March 2019*
+
+* Fixed an issue in case of NULL in a product price field
+* Updated Share settings in the install wizard
+
+= 1.9.15 =
+*Release Date - 5 March 2019*
+
+* Fixed templates path issue
+* Added compatibility with [Woocommerce Product Addons](https://wordpress.org/plugins/woo-custom-product-addons/) plugin by acowebs
+* Improved compatibility with WooCommerce Advanced Quantity plugin
+* Minor CSS fixes
+
+= 1.9.14 =
+*Release Date - 22 February 2019*
+
+* Added compatibility with WooCommerce Advanced Quantity plugin
+* Fixed an issue with dependencies in the wp_register_script function
+
+= 1.9.13 =
+*Release Date - 16 February 2019*
+
+* Improved "add to wishlist" button behavior for variable products
+* Improved compatibility with WooCommerce Custom Fields plugin
+
+= 1.9.12 =
+*Release Date - 11 February 2019*
+
+* Fixed compatibility with [WooCommerce Multilingual](https://wordpress.org/plugins/woocommerce-multilingual/) plugin version greater 4.3.7
+
+= 1.9.11 =
+*Release Date - 10 February 2019*
+
+* Fixed compatibility with [WooCommerce Multilingual](https://wordpress.org/plugins/woocommerce-multilingual/) plugin version greater 4.3.7
+* Added 'tinvwl-wc-cart-fragments' filter to disable wc-cart-fragments from 3rd party code
+* Added unique IDs for Wishlist menu options to avoid any incompatibility issues with another plugin options
+
+= 1.9.10 =
+*Release Date - 1 February 2019*
+
+* Fixed compatibility issue for WooCommerce prior 3.2 version
+* Added compatibility with WooCommerce Custom Fields plugin
+
+= 1.9.9 =
+*Release Date - 9 January 2019*
+
+* Added the ability to apply Wishlist on a front page and a shop page
+* Added share Wishlist via WhatsApp option
+* Added "Copy Wishlist URL to clipboard" option
+
+= 1.9.8 =
+*Release Date - 2 January 2019*
+
+* Updated add to cart error description
+* Fixed PHP 7.3 notices
+
+= 1.9.7 =
+*Release Date - 7 December 2018*
+
+* WordPress 5.0 compatibility
+
+= 1.9.6 =
+*Release Date - 30 November 2018*
+
+* Restrict WooCommerce templates filter to plugin templates only 
+
+= 1.9.5 =
+*Release Date - 20 November 2018*
+
+* Fixed product counter state 
+* Fixed an issue with infinite loop if the default WooCommerce My Account page was applied as a Wishlist page
+
+= 1.9.4 =
+*Release Date - 12 November 2018*
+
+* Added parameters for "add to wishlist" button markup filter
+
+= 1.9.3 =
+*Release Date - 1 November 2018*
+
+* Fixed an issue with product name in WooCommerce notice if add to cart validation failed
+* Improved compatibility with [WooCommerce Product Add-ons](https://woocommerce.com/products/product-add-ons/?aff=3955) plugin
+
+= 1.9.2 =
+*Release Date - 24 October 2018*
+
+* WooCommerce 3.5.x support
+* Improved compatibility with [WooCommerce Product Bundles](https://woocommerce.com/products/product-bundles/?aff=3955) plugin
+
+= 1.9.1 =
+*Release Date - 23 October 2018*
+
+* Removed button hidden inputs for better compatibility with custom themes
+* Added a new option to hide zero value in a counter if wishlist is empty
+
+= 1.9.0 =
+*Release Date - 17 October 2018*
+
+* Fixed no cache issue for WooCommerce versions below 3.2.4
+* Added redirect to a previous page after login when "Require Login" option is enabled
+* Added an option to add the wishlist counter into a menu
+* Improved compatibility with [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/?aff=3955) plugin
+* Improved compatibility with [WooCommerce Product Bundles](https://woocommerce.com/products/product-bundles/?aff=3955) plugin
+* Improved compatibility with [WooCommerce Composite Products](https://woocommerce.com/products/composite-products/?aff=3955) plugin
+
+= 1.8.17 =
+*Release Date - 16 September 2018*
+
+* Improved compatibility with [YITH WooCommerce Product Add-Ons](https://wordpress.org/plugins/yith-woocommerce-product-add-ons/) plugin
+
+= 1.8.16 =
+*Release Date - 14 September 2018*
+
+* Fixed an issue with cart and checkout redirect during bulk add to cart process from a wishlist
+* Fixed an issue with loading main frontend javascript file when button loaded with AJAX
+* Improved compatibility with [YITH WooCommerce Product Add-Ons](https://wordpress.org/plugins/yith-woocommerce-product-add-ons/) plugin
+
+= 1.8.15 =
+*Release Date - 04 September 2018*
+
+* Fixed an issue with trashed and deleted products count
+* Fixed mobile menu wishlist products counter issue for OceanWP theme
+* Minor CSS fixes
+
+= 1.8.14 =
+*Release Date - 29 August 2018*
+
+* Fixed fatal errors when 3rd party code using global product object outside a loop
+
+= 1.8.13 =
+*Release Date - 25 August 2018*
+
+* Fixed database fields type issue
+
+= 1.8.12 =
+*Release Date - 16 August 2018*
+
+* Fixed PHP fatal error on plugin activation
+
+= 1.8.11 =
+*Release Date - 15 August 2018*
+
+* Fixed pluggable function load order
+* Added icon animation on wishlist events loading
+* Improved product counter synchronization between browser windows
+
+= 1.8.10 =
+*Release Date - 13 August 2018*
+
+* Fixed "wishlist not found" issue when a guest browsing empty wishlist page
+* Fixed "product in wishlist" button state for a variable product type
+* Fixed issue with products counter update on product(s) removed from a wishlist
+* Fixed fatal errors when 3rd party code using global product object outside a loop
+* Fixed fatal error in upgrading method for PHP prior 5.5 versions 
+
+= 1.8.9 =
+*Release Date - 30 July 2018*
+
+* Added  "add to wishlist" button type settings backward compatibility
+
+= 1.8.8 =
+*Release Date - 29 July 2018*
+
+* Added wishlist button custom CSS class options
+* Added "Use font color" option for buttons icon color options
+* Added compatibility with [Google Tag Manager for WordPress](https://wordpress.org/plugins/duracelltomi-google-tag-manager/) plugin
+* Added filter `tinvwl_wishlist_products_counter` to allow change the value of wishlist products counter from a 3rd party code
+* Added `tinvwl-load_frontend` filter to conditionally load wishlist frontend from 3rd party plugins.
+* Improved loading of front-end assets
+* Removed button type options
+
+= 1.8.7 =
+*Release Date - 25 July 2018*
+
+* Added a prefix for wishlist button class name for better compatibility with themes
+
+
+= 1.8.6 =
+*Release Date - 18 July 2018*
+
+* Added custom capabilities for dashboard pages
+
+= 1.8.5 =
+*Release Date - 16 July 2018*
+
+* Fixed a wishlist button issue for out of stock variable products
+
+= 1.8.4 =
+*Release Date - 10 July 2018*
+
+* Fixed above thumbnail hook priority on a product listing page
+* Fixed an issue when "Add to Cart" button displayed for products without selected variations in a Wishlist table
+* Added a notice with instructions if Setup Wizard was skipped
+
+= 1.8.3 =
+*Release Date - 04 July 2018*
+
+* Improved "Style Options":
+ * Removed some options related to Premium version
+ * Fixed some options
+ * Added styles for Share buttons
+ * Added options to change the "Add to Wishlist" Button Icon size and color
+* Overall code cleanup
+
+= 1.8.2 =
+*Release Date - 01 July 2018*
+
+* Fixed an issue with "add to wishlist" button on product listing in OceanWP theme
+* Fixed issues with predefined skin
+* Added "add to wishlist" icon size option to predefined skin
+
+= 1.8.1 =
+*Release Date - 30 June 2018*
+
+* Fixed "add to wishlist" icons position
+* Code cleanup 
+
+= 1.8.0 =
+*Release Date - 28 June 2018*
+
+* Icon images replaced with custom webfont
+* Code cleanup 
+
+= 1.7.4 =
+*Release Date - 26 June 2018*
+
+* Added an option to redirect directly to the checkout page when product(s) added to cart from a wishlist
+* Added is_wishlist() conditional function that returns true on a wishlist page
+* Added hooks for different events:
+ * `tinvwl_wishlist_created` - triggering when a wishlist created
+ * `tinvwl_product_added` - triggering when product added to a wishlist
+ * `tinvwl_product_removed` - triggering  when product removed from a wishlist
+ * `tinvwl_product_added_to_cart` - triggering  when product added to cart from a wishlist
+ * `tinvwl_product_purchased` - triggering when product purchased from a wishlist
+
+= 1.7.3 =
+*Release Date - 22 June 2018*
+
+* Fixed WC_Cache method compatibility for WooCommerce prior to 3.2.0
+
+= 1.7.2 =
+*Release Date - 21 June 2018*
+
+* Fixed WooCommerce templates location issue
+* Fixed JavaScript condition for products custom attributes
+* Improved compatibility with [WooCommerce Composite Products](https://woocommerce.com/products/composite-products/?aff=3955) plugin
+* Improved compatibility with [WooCommerce Product Add-ons](https://woocommerce.com/products/product-add-ons/?aff=3955) plugin
+* Improved compatibility with [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/), [W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/), [WP Rocket](https://wp-rocket.me/) plugins
+
+= 1.7.1 =
+*Release Date - 01 June 2018*
+
+* WooCommerce 3.4.x support
+* Fixed compatibility issue with Font-Awesome 5+ library used in some themes
+* Fixed JS issue with WooCommerce plugin versions less than 3.0.0
+* Improved compatibility with [Personalized Product Option Manager](https://wordpress.org/plugins/woocommerce-product-addon/) plugin:
+ * Fixed "Add to Wishlist" button position issue
+ * Fixed PHP notices
+* Added support for [WooCommerce Catalog Visibility Options](https://woocommerce.com/products/catalog-visibility-options/?aff=3955) plugin
+* Added support for [WooCommerce Product Add-ons](https://woocommerce.com/products/product-add-ons/?aff=3955) plugin
+
+= 1.7.0 =
+*Release Date - 10 May 2018*
+
+* Fixed an Issue when "Remove Product" button disappears on mobile devices and tablets
+* Fixed "input-group" class compatibility issue with Bootstratp 4
+* Date of products addition changed to WP local time instead of server time
+* Freemius SDK removed completely from plugin
+* Added an alert when items or action are not selected before applying bulk actions on a Wishlist page
+* Improved compatibility with OceanWP WordPress theme
 
 = 1.6.2 =
 *Release Date - 04 March 2018*
@@ -135,6 +493,7 @@ If you get stuck, you can ask for help in the [Plugin Forum](https://wordpress.o
 * Added support for [YITH WooCommerce Product Add-Ons](https://wordpress.org/plugins/yith-woocommerce-product-add-ons/) plugin
 * Removed background checks for missed actions inside WooCommerce templates. 
 
+= 1.6.1 =
 *Release Date - 01 March 2018*
 
 * Fixed an issue with deprecated function create_function(); on PHP 7.2+
@@ -467,6 +826,3 @@ You are excited from the "WooCommerce Wishlist" plugin and want to contribute? G
 == Documentation ==
 Full documentation is available [here](https://templateinvaders.com/documentation/ti-woocommerce-wishlist-free/?utm_source=wordpressorg&utm_content=documentation).
 
-== Upgrade Notice ==
-= 1.5 =
-Improved frontend performance. Added plugin support for [WooCommerce Gift Cards](https://wordpress.org/plugins/gift-cards-for-woocommerce/), [WooCommerce Bookings](https://woocommerce.com/products/woocommerce-bookings/?aff=3955), [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/?aff=3955), [WooCommerce Composite Products](https://woocommerce.com/products/composite-products/?aff=3955), [WooCommerce Product Bundles](https://woocommerce.com/products/product-bundles/?aff=3955), [WooCommerce Mix and Match](https://woocommerce.com/products/woocommerce-mix-and-match-products/?aff=3955), [WooCommerce Gravity Forms Product Add-Ons](https://woocommerce.com/products/gravity-forms-add-ons/?aff=3955).

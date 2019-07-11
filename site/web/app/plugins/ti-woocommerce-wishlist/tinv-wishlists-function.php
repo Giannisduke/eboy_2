@@ -11,121 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( function_exists( 'spl_autoload_register' ) ) {
-
-	/**
-	 * Autoloader class. If no function spl_autoload_register, then all the files will be required
-	 *
-	 * @param string $_class Required class name.
-	 *
-	 * @return boolean
-	 */
-	function autoload_tinv_wishlist( $_class ) {
-		$preffix = 'TInvWL';
-		$ext     = '.php';
-		$class   = explode( '_', $_class );
-		$object  = array_shift( $class );
-		if ( $preffix !== $object ) {
-			return false;
-		}
-		if ( empty( $class ) ) {
-			$class = array( $preffix );
-		}
-		$basicclass = $class;
-		array_unshift( $class, 'includes' );
-		$classs = array(
-			TINVWL_PATH . strtolower( implode( DIRECTORY_SEPARATOR, $basicclass ) ),
-			TINVWL_PATH . strtolower( implode( DIRECTORY_SEPARATOR, $class ) ),
-		);
-		foreach ( $classs as $class ) {
-			foreach ( array( '.class', '.helper' ) as $suffix ) {
-				$filename = $class . $suffix . $ext;
-				if ( file_exists( $filename ) ) {
-					require_once $filename;
-
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	spl_autoload_register( 'autoload_tinv_wishlist' );
-} // End if().
-
-if ( ! function_exists( 'tinv_array_merge' ) ) {
-
-	/**
-	 * Function to merge arrays with replacement options
-	 *
-	 * @param array $array1 Array.
-	 * @param array $_ Array.
-	 *
-	 * @return array
-	 */
-	function tinv_array_merge( $array1, $_ = null ) {
-		if ( ! is_array( $array1 ) ) {
-			return $array1;
-		}
-		$args = func_get_args();
-		array_shift( $args );
-		foreach ( $args as $array2 ) {
-			if ( is_array( $array2 ) ) {
-				foreach ( $array2 as $key => $value ) {
-					$array1[ $key ] = $value;
-				}
-			}
-		}
-
-		return $array1;
-	}
-}
-
-if ( ! function_exists( 'tinv_get_option_defaults' ) ) {
-
-	/**
-	 * Extract default options from settings class
-	 *
-	 * @param string $category Name category settings.
-	 *
-	 * @return array
-	 */
-	function tinv_get_option_defaults( $category ) {
-		$dir = TINVWL_PATH . 'admin/settings/';
-		if ( ! file_exists( $dir ) || ! is_dir( $dir ) ) {
-			return array();
-		}
-		$files = scandir( $dir );
-		foreach ( $files as $key => $value ) {
-			if ( preg_match( '/\.class\.php$/i', $value ) ) {
-				$files[ $key ] = preg_replace( '/\.class\.php$/i', '', $value );
-			} else {
-				unset( $files[ $key ] );
-			}
-		}
-		$defaults = array();
-		foreach ( $files as $file ) {
-			$class         = 'TInvWL_Admin_Settings_' . ucfirst( $file );
-			$class         = new $class( '', '' );
-			$class_methods = get_class_methods( $class );
-			foreach ( $class_methods as $method ) {
-				if ( preg_match( '/_data$/i', $method ) ) {
-					$settings = $class->get_defaults( $class->$method() );
-					$defaults = tinv_array_merge( $defaults, $settings );
-				}
-			}
-		}
-		if ( 'all' === $category ) {
-			return $defaults;
-		}
-		if ( array_key_exists( $category, $defaults ) ) {
-			return $defaults[ $category ];
-		}
-
-		return array();
-	}
-} // End if().
 
 if ( ! function_exists( 'tinv_get_option' ) ) {
 
@@ -269,9 +154,15 @@ if ( ! function_exists( 'tinv_wishlist_locate_template' ) ) {
 	 * @param string $template_path Template path.
 	 * @param string $default_path Template default path.
 	 *
-	 * @return string
+	 * @return mixed
 	 */
 	function tinv_wishlist_locate_template( $template_name, $template_path = '', $default_path = '' ) {
+		$prefix = 'ti-';
+
+		if ( substr( basename( $template_name ), 0, strlen( $prefix ) ) !== $prefix ) {
+			return;
+		}
+
 		if ( ! $template_path ) {
 			$template_path = WC()->template_path();
 		}
@@ -486,26 +377,28 @@ if ( ! function_exists( 'tinv_url_wishlist_by_key' ) ) {
 		$paged = absint( $paged );
 		$paged = 1 < $paged ? $paged : 1;
 		$link  = tinv_url_wishlist_default();
-		if ( empty( $link ) || empty( $share_key ) ) {
+		if ( empty( $link ) ) {
 			return $link;
 		}
 
-		if ( get_option( 'permalink_structure' ) ) {
-			$suffix = '';
-			if ( preg_match( '/([^\?]+)\?*?(.*)/i', $link, $_link ) ) {
-				$link   = $_link[1];
-				$suffix = $_link[2];
-			}
-			if ( ! preg_match( '/\/$/', $link ) ) {
-				$link .= '/';
-			}
-			$link .= $share_key . '/' . $suffix;
-		} else {
-			$link = add_query_arg( 'tinvwlID', $share_key, $link );
+		if ( 1 < $paged ) {
+			$link = add_query_arg( 'wl_paged', $paged, $link );
 		}
 
-		if ( 1 < $paged ) {
-			$link = add_query_arg( 'paged', $paged, $link );
+		if ( $share_key ) {
+			if ( get_option( 'permalink_structure' ) ) {
+				$suffix = '';
+				if ( preg_match( '/([^\?]+)\?*?(.*)/i', $link, $_link ) ) {
+					$link   = $_link[1];
+					$suffix = $_link[2];
+				}
+				if ( ! preg_match( '/\/$/', $link ) ) {
+					$link .= '/';
+				}
+				$link .= $share_key . '/' . $suffix;
+			} else {
+				$link = add_query_arg( 'tinvwlID', $share_key, $link );
+			}
 		}
 
 		return $link;
@@ -539,13 +432,13 @@ if ( ! function_exists( 'tinv_wishlist_status' ) ) {
 	/**
 	 * Check status free or premium plugin and disable free
 	 *
-	 * @global string $status
-	 * @global string $page
-	 * @global string $s
-	 *
 	 * @param string $transient Plugin transient name.
 	 *
 	 * @return string
+	 * @global string $s
+	 *
+	 * @global string $status
+	 * @global string $page
 	 */
 	function tinv_wishlist_status( $transient ) {
 		if ( TINVWL_LOAD_FREE === $transient ) {
@@ -647,7 +540,7 @@ if ( ! function_exists( 'tinvwl_shortcode_products_counter' ) ) {
 	 * @return string
 	 */
 	function tinvwl_shortcode_products_counter( $atts = array() ) {
-		$class = TInvWL_Public_TopWishlist::instance();
+		$class = TInvWL_Public_WishlistCounter::instance();
 
 		return $class->shortcode( $atts );
 	}
@@ -709,28 +602,43 @@ if ( ! function_exists( 'tinvwl_add_to_cart_need_redirect' ) ) {
 	 * Check if the product is third-party, or has another link added to the cart then redirect to the product page.
 	 *
 	 * @param boolean $redirect Default value to redirect.
-	 * @param \WC_Product $product Product data.
+	 * @param \WC_Product $_product Product data.
 	 * @param string $redirect_url Current url for redirect.
 	 *
 	 * @return boolean
 	 */
-	function tinvwl_add_to_cart_need_redirect( $redirect, $product, $redirect_url ) {
+	function tinvwl_add_to_cart_need_redirect( $redirect, $_product, $redirect_url ) {
 		if ( $redirect ) {
 			return true;
 		}
-		if ( 'external' === ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $product->product_type : $product->get_type() ) ) {
+
+		if ( 'external' === ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $_product->product_type : $_product->get_type() ) ) {
 			return true;
 		}
 
-		$need_url_data = array_filter( array_merge( array(
-			'variation_id' => ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $product->variation_id : ( $product->is_type( 'variation' ) ? $product->get_id() : 0 ) ),
-			'add-to-cart'  => ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $product->get_id() : ( $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id() ) ),
-		), array_map( 'urlencode', ( version_compare( WC_VERSION, '3.0.0', '<' ) ? ( is_array( $product->variation_data ) ? $product->variation_data : array() ) : array() ) ) ) );
-		$need_url      = apply_filters( 'woocommerce_product_add_to_cart_url', remove_query_arg( 'added-to-cart', add_query_arg( $need_url_data ) ), $product );
-		$need_url_full = apply_filters( 'woocommerce_product_add_to_cart_url', remove_query_arg( 'added-to-cart', add_query_arg( $need_url_data, $product->get_permalink() ) ), $product );
+		$need_url_data = array_merge( array(
+			'variation_id' => ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $_product->variation_id : ( $_product->is_type( 'variation' ) ? $_product->get_id() : 0 ) ),
+			'add-to-cart'  => ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $_product->id : ( $_product->is_type( 'variation' ) ? $_product->get_parent_id() : $_product->get_id() ) ),
+		), array_map( 'urlencode', ( version_compare( WC_VERSION, '3.0.0', '<' ) ? ( is_array( $_product->variation_data ) ? $_product->variation_data : array() ) : array() ) ) );
+
+		$need_url_data = version_compare( WC_VERSION, '3.0.0', '<' ) ? $need_url_data : array_filter( $need_url_data );
+
+		$need_url      = apply_filters( 'tinvwl_product_add_to_cart_redirect_slug_original', remove_query_arg( 'added-to-cart', add_query_arg( $need_url_data ) ), $_product );
+		$need_url_full = apply_filters( 'tinvwl_product_add_to_cart_redirect_url_original', remove_query_arg( 'added-to-cart', add_query_arg( $need_url_data, $_product->get_permalink() ) ), $_product );
+
+		global $product;
+		// store global product data.
+		$_product_tmp = $product;
+		// override global product data.
+		$product = $_product;
+
 		add_filter( 'clean_url', 'tinvwl_clean_url', 10, 2 );
-		$_redirect_url = apply_filters( 'tinvwl_product_add_to_cart_redirect_url', $product->add_to_cart_url(), $product );
+		$_redirect_url = apply_filters( 'tinvwl_product_add_to_cart_redirect_url', $_product->add_to_cart_url(), $_product );
 		remove_filter( 'clean_url', 'tinvwl_clean_url', 10 );
+
+		// restore global product data.
+		$product = $_product_tmp;
+
 		if ( $_redirect_url !== $need_url && $_redirect_url !== $need_url_full ) {
 			return true;
 		}
@@ -760,7 +668,7 @@ if ( ! function_exists( 'tinvwl_meta_validate_cart_add' ) ) {
 
 			$wl_product        = apply_filters( 'tinvwl_addproduct_tocart', $wl_product );
 			$product_id        = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $wl_product['product_id'] ) );
-			$quantity          = empty( $wl_quantity ) ? 1 : wc_stock_amount( $wl_quantity );
+			$quantity          = empty( $wl_product['quantity'] ) ? 1 : wc_stock_amount( $wl_product['quantity'] );
 			$variation_id      = $wl_product['variation_id'];
 			$variations        = ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $product->variation_data : ( $product->is_type( 'variation' ) ? wc_get_product_variation_attributes( $product->get_id() ) : array() ) );
 			$passed_validation = $product->is_purchasable() && ( $product->is_in_stock() || $product->backorders_allowed() ) && 'external' !== ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $product->product_type : $product->get_type() );
@@ -833,7 +741,9 @@ if ( ! function_exists( 'tinv_wishlist_print_meta' ) ) {
 				echo esc_html( $data['key'] ) . ': ' . wp_kses_post( $data['display'] ) . '<br>';
 			}
 		} else {
-			tinv_wishlist_template( 'ti-wishlist-item-data.php', array( 'item_data' => $item_data ) );
+			if ( $item_data ) {
+				tinv_wishlist_template( 'ti-wishlist-item-data.php', array( 'item_data' => $item_data ) );
+			}
 		}
 
 		return apply_filters( 'tinvwl_wishlist_item_meta_wishlist', ob_get_clean() );
@@ -852,11 +762,10 @@ if ( ! function_exists( 'tinv_wishlistmeta' ) ) {
 	 * @return string
 	 */
 	function tinv_wishlistmeta( $meta = '', $wl_product, $product ) {
-		if ( empty( $meta ) ) {
-			if ( array_key_exists( 'meta', $wl_product ) ) {
-				$meta = apply_filters( 'tinvwl_wishlist_item_meta_wishlist_output', tinv_wishlist_print_meta( $wl_product['meta'] ), $wl_product, $product );
-			}
+		if ( array_key_exists( 'meta', $wl_product ) ) {
+			$wlmeta = apply_filters( 'tinvwl_wishlist_item_meta_wishlist_output', tinv_wishlist_print_meta( $wl_product['meta'] ), $wl_product, $product );
 		}
+		$meta .= $wlmeta;
 
 		return $meta;
 	}
@@ -904,75 +813,6 @@ if ( ! function_exists( 'tinvwl_add_to_cart_item_meta_post' ) ) {
 	add_action( 'woocommerce_add_cart_item', 'tinvwl_add_to_cart_item_meta_post', 10, 2 );
 } // End if().
 
-if ( ! function_exists( 'tinvwl_rating_notice_template' ) ) {
-
-	/**
-	 * Show admin notice.
-	 *
-	 * @param string $output String.
-	 * @param string $key Unique notification key.
-	 * @param string $message Text message.
-	 *
-	 * @return string
-	 */
-	function tinvwl_rating_notice_template( $output, $key, $message ) {
-
-		TInvWL_View::view( 'notice-rating', array(
-			'name'    => 'rating',
-			'message' => $message,
-			'key'     => $key,
-		) );
-
-		return '';
-	}
-
-	add_filter( 'tinv_notice_rating', 'tinvwl_rating_notice_template', 10, 3 );
-}
-
-if ( ! function_exists( 'tinvwl_rating_notice_hide' ) ) {
-
-	/**
-	 * Action for disable notice
-	 */
-	function tinvwl_rating_notice_hide() {
-		$data = filter_input( INPUT_GET, 'ti-redirect' );
-		if ( $data ) {
-			wp_redirect( 'https://wordpress.org/support/plugin/ti-woocommerce-wishlist/reviews/#new-post' );
-		}
-	}
-
-	add_action( 'tinv_notice_hide_rating', 'tinvwl_rating_notice_hide' );
-}
-
-if ( ! function_exists( 'tinvwl_rating_notice_trigger_30' ) ) {
-
-	/**
-	 * Trigger for reset notice
-	 *
-	 * @return boolean
-	 */
-	function tinvwl_rating_notice_trigger_30() {
-		$tw       = new TInvWL_Wishlist();
-		$wishlist = $tw->get( array(
-			'count'    => 1,
-			'order_by' => 'date',
-		) );
-		$wishlist = array_shift( $wishlist );
-		if ( empty( $wishlist ) ) {
-			return false;
-		}
-		$date = $wishlist['date'];
-		$date = mysql2date( 'G', $date );
-		$date = floor( ( time() - $date ) / DAY_IN_SECONDS );
-		$step = floor( $date / 30 );
-		if ( 0 >= $step ) {
-			return false;
-		}
-
-		return $step;
-	}
-}
-
 if ( ! function_exists( 'tinvwl_set_utm' ) ) {
 
 	/**
@@ -1014,3 +854,39 @@ if ( ! function_exists( 'tinvwl_set_utm' ) ) {
 		define( 'TINVWL_UTM_CAMPAIGN', $campaign );
 	}
 } // End if().
+
+if ( ! function_exists( 'is_wishlist' ) ) {
+
+	/**
+	 * is_wishlist - Returns true when viewing the wishlist page.
+	 *
+	 * @return bool
+	 */
+	function is_wishlist() {
+		return ( is_page( apply_filters( 'wpml_object_id', tinv_get_option( 'page', 'wishlist' ), 'page', true ) ) );
+	}
+}
+
+if ( ! function_exists( 'tinvwl_get_wishlist_products' ) ) {
+	/**
+	 * Get wishlist products for default user wishlist or by ID or SHAREKEY
+	 *
+	 * @param int $wishlist_id by ID or SHAREKEY, 0 = default wishlist of current user
+	 *
+	 * @return array|bool
+	 */
+	function tinvwl_get_wishlist_products( $wishlist_id = 0 ) {
+		$wishlist = tinv_wishlist_get( $wishlist_id );
+		if ( empty( $wishlist ) ) {
+			return false;
+		}
+		$wlp      = new TInvWL_Product( $wishlist );
+		$products = $wlp->get_wishlist();
+
+		if ( empty( $products ) ) {
+			return false;
+		}
+
+		return $products;
+	}
+}

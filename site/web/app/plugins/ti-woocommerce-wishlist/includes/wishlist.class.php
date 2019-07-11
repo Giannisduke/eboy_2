@@ -27,7 +27,7 @@ class TInvWL_Wishlist {
 	 *
 	 * @var string
 	 */
-	private $_n;
+	private $_name;
 	/**
 	 * User id
 	 *
@@ -69,8 +69,8 @@ class TInvWL_Wishlist {
 	function __construct( $plugin_name = TINVWL_PREFIX ) {
 		global $wpdb;
 
-		$this->_n              = $plugin_name;
-		$this->table           = sprintf( '%s%s_%s', $wpdb->prefix, $this->_n, 'lists' );
+		$this->_name              = $plugin_name;
+		$this->table           = sprintf( '%s%s_%s', $wpdb->prefix, $this->_name, 'lists' );
 		$this->default_name    = apply_filters( 'tinvwl-general-default_title', tinv_get_option( 'general', 'default_title' ) );
 		$this->default_privacy = 'share';
 		$this->privacy         = array( 'public', 'share', 'private' );
@@ -172,7 +172,7 @@ class TInvWL_Wishlist {
 
 		$default = array(
 			'author'    => $user_id,
-			'date'      => date( 'Y-m-d H:i:s' ),
+			'date'      => current_time( 'Y-m-d H:i:s' ),
 			'status'    => $this->default_privacy,
 			'share_key' => $this->unique_share_key(),
 			'title'     => $this->default_name,
@@ -194,6 +194,12 @@ class TInvWL_Wishlist {
 		global $wpdb;
 		if ( $wpdb->insert( $this->table, $data ) ) { // @codingStandardsIgnoreLine WordPress.VIP.DirectDatabaseQuery.DirectQuery
 			$data['ID'] = $wpdb->insert_id;
+
+			/* Run a 3rd party code when a new wishlist created.
+			 *
+			 * @param array $data A wishlist data.
+			 * */
+			do_action( 'tinvwl_wishlist_created', $data );
 
 			return $data;
 		}

@@ -1,28 +1,34 @@
 <?php
 /**
- * The Template for displaying user wishlist.
+ * The Template for displaying wishlist if a current user not an owner.
  *
- * @version             1.6.1
+ * @version             1.12.0
  * @package           TInvWishlist\Template
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
+wp_enqueue_script( 'tinvwl' );
 ?>
 <div class="tinv-wishlist woocommerce tinv-wishlist-clear">
 	<?php do_action( 'tinvwl_before_wishlist', $wishlist ); ?>
 	<?php if ( function_exists( 'wc_print_notices' ) ) {
 		wc_print_notices();
 	} ?>
-	<form action="<?php echo esc_url( tinv_url_wishlist() ); ?>" method="post" autocomplete="off">
+	<?php
+	$wl_paged = get_query_var( 'wl_paged' );
+	$form_url = tinv_url_wishlist( $wishlist['share_key'], $wl_paged, true );
+	?>
+	<form action="<?php echo esc_url( $form_url ); ?>" method="post" autocomplete="off">
 		<?php do_action( 'tinvwl_before_wishlist_table', $wishlist ); ?>
 		<table class="tinvwl-table-manage-list">
 			<thead>
 			<tr>
 				<?php if ( isset( $wishlist_table['colm_checkbox'] ) && $wishlist_table['colm_checkbox'] ) { ?>
-					<th class="product-cb"><input type="checkbox" class="global-cb"></th>
+					<th class="product-cb"><input type="checkbox" class="global-cb"
+					                              title="<?php _e( 'Select all for bulk action', 'ti-woocommerce-wishlist' ) ?>">
+					</th>
 				<?php } ?>
 				<th class="product-thumbnail">&nbsp;</th>
 				<th class="product-name"><span
@@ -46,8 +52,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php do_action( 'tinvwl_wishlist_contents_before' ); ?>
 
 			<?php
+
+			global $product, $post;
+			// store global product data.
+			$_product_tmp = $product;
+			// store global post data.
+			$_post_tmp = $post;
+
 			foreach ( $products as $wl_product ) {
+
+				// override global product data.
 				$product = apply_filters( 'tinvwl_wishlist_item', $wl_product['data'] );
+				// override global post data.
+				$post = get_post( $product->get_id() );
+
 				unset( $wl_product['data'] );
 				if ( $wl_product['quantity'] > 0 && apply_filters( 'tinvwl_wishlist_item_visible', true, $wl_product, $product ) ) {
 					$product_url = apply_filters( 'tinvwl_wishlist_item_url', $product->get_permalink(), $wl_product, $product );
@@ -58,7 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<td class="product-cb">
 								<?php
 								echo apply_filters( 'tinvwl_wishlist_item_cb', sprintf( // WPCS: xss ok.
-									'<input type="checkbox" name="wishlist_pr[]" value="%d">', esc_attr( $wl_product['ID'] )
+									'<input type="checkbox" name="wishlist_pr[]" value="%d" title="%s">', esc_attr( $wl_product['ID'] ), __( 'Select for bulk action', 'ti-woocommerce-wishlist' )
 								), $wl_product, $product );
 								?>
 							</td>
@@ -111,7 +129,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								if ( ! array_key_exists( 'class', $availability ) ) {
 									$availability['class'] = '';
 								}
-								$availability_html = empty( $availability['availability'] ) ? '<p class="stock ' . esc_attr( $availability['class'] ) . '"><span><i class="fa fa-check"></i></span><span class="tinvwl-txt">' . esc_html__( 'In stock', 'ti-woocommerce-wishlist' ) . '</span></p>' : '<p class="stock ' . esc_attr( $availability['class'] ) . '"><span><i class="fa fa-check"></i></span><span>' . esc_html( $availability['availability'] ) . '</span></p>';
+								$availability_html = empty( $availability['availability'] ) ? '<p class="stock ' . esc_attr( $availability['class'] ) . '"><span><i class="ftinvwl ftinvwl-check"></i></span><span class="tinvwl-txt">' . esc_html__( 'In stock', 'ti-woocommerce-wishlist' ) . '</span></p>' : '<p class="stock ' . esc_attr( $availability['class'] ) . '"><span><i class="ftinvwl ftinvwl-' . ( ( 'out-of-stock' === esc_attr( $availability['class'] ) ? 'times' : 'check' ) ) . '"></i></span><span>' . esc_html( $availability['availability'] ) . '</span></p>';
 
 								echo apply_filters( 'tinvwl_wishlist_item_status', $availability_html, $availability['availability'], $wl_product, $product ); // WPCS: xss ok.
 								?>
@@ -123,8 +141,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 								if ( apply_filters( 'tinvwl_wishlist_item_action_add_to_cart', $wishlist_table_row['add_to_cart'], $wl_product, $product ) ) {
 									?>
 									<button class="button alt" name="tinvwl-add-to-cart"
-									        value="<?php echo esc_attr( $wl_product['ID'] ); ?>"><i
-											class="fa fa-shopping-cart"></i><span
+									        value="<?php echo esc_attr( $wl_product['ID'] ); ?>"
+									        title="<?php echo esc_html( apply_filters( 'tinvwl_wishlist_item_add_to_cart', $wishlist_table_row['text_add_to_cart'], $wl_product, $product ) ); ?>">
+										<i
+											class="ftinvwl ftinvwl-shopping-cart"></i><span
 											class="tinvwl-txt"><?php echo esc_html( apply_filters( 'tinvwl_wishlist_item_add_to_cart', $wishlist_table_row['text_add_to_cart'], $wl_product, $product ) ); ?></span>
 									</button>
 								<?php } ?>
@@ -135,6 +155,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 					do_action( 'tinvwl_wishlist_row_after', $wl_product, $product );
 				} // End if().
 			} // End foreach().
+			// restore global product data.
+			$product = $_product_tmp;
+			// restore global post data.
+			$post = $_post_tmp;
 			?>
 			<?php do_action( 'tinvwl_wishlist_contents_after' ); ?>
 			</tbody>

@@ -21,14 +21,14 @@ class TInvWL_Wizard {
 	 *
 	 * @var string
 	 */
-	public $_n;
+	public $_name;
 
 	/**
 	 * Plugin version
 	 *
 	 * @var string
 	 */
-	public $_v;
+	public $_version;
 
 	/**
 	 * Constructor
@@ -37,12 +37,12 @@ class TInvWL_Wizard {
 	 * @param string $version Plugin version.
 	 */
 	function __construct( $plugin_name, $version ) {
-		$this->_n = $plugin_name;
-		$this->_v = $version;
-		if ( apply_filters( $this->_n . '_enable_wizard', true ) ) {
+		$this->_name    = $plugin_name;
+		$this->_version = $version;
+		if ( apply_filters( $this->_name . '_enable_wizard', true ) ) {
 			$this->define_hooks();
 		}
-		update_option( $this->_n . '_wizard', true );
+		update_option( $this->_name . '_wizard', true );
 	}
 
 	/**
@@ -110,12 +110,13 @@ class TInvWL_Wizard {
 			}
 			if ( method_exists( $this, $method ) ) {
 				$nonce = filter_input( 0, '_wpnonce' );
-				if ( $nonce && wp_verify_nonce( $nonce, sprintf( '%s-setup-%s', $this->_n, $url_attr['step'] ) ) ) {
+				if ( $nonce && wp_verify_nonce( $nonce, sprintf( '%s-setup-%s', $this->_name, $url_attr['step'] ) ) ) {
 					$this->$method();
 				}
 			}
 		}
 
+		ob_start();
 		$this->load_header();
 		$this->load_content();
 		$this->load_footer();
@@ -173,20 +174,19 @@ class TInvWL_Wizard {
 	 */
 	function enqueue_styles() {
 		wp_enqueue_style( 'gfonts', ( is_ssl() ? 'https' : 'http' ) . '://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800', '', null, 'all' );
-		wp_enqueue_style( $this->_n, TINVWL_URL . 'asset/css/admin.css', array(), $this->_v, 'all' );
-		wp_enqueue_style( $this->_n . '-form', TINVWL_URL . 'asset/css/admin-form.css', array(), $this->_v, 'all' );
-		wp_enqueue_style( $this->_n . '-setup', TINVWL_URL . 'asset/css/admin-setup.css', array(
+		wp_enqueue_style( $this->_name, TINVWL_URL . 'assets/css/admin.css', array(), $this->_version, 'all' );
+		wp_enqueue_style( $this->_name . '-form', TINVWL_URL . 'assets/css/admin-form.css', array(), $this->_version, 'all' );
+		wp_enqueue_style( $this->_name . '-setup', TINVWL_URL . 'assets/css/admin-setup.css', array(
 			'dashicons',
-			'install'
-		), $this->_v, 'all' );
-		wp_enqueue_style( $this->_n . '-font-awesome', TINVWL_URL . 'asset/css/font-awesome.min.css', array(), $this->_v, 'all' );
+			'install',
+		), $this->_version, 'all' );
 	}
 
 	/**
 	 * Load javascript
 	 */
 	function enqueue_scripts() {
-		wp_enqueue_script( $this->_n, TINVWL_URL . 'asset/js/admin.js', array( 'jquery' ), $this->_v, 'all' );
+		wp_enqueue_script( $this->_name, TINVWL_URL . 'assets/js/admin.js', array( 'jquery' ), $this->_version, 'all' );
 	}
 
 	/**
@@ -194,14 +194,14 @@ class TInvWL_Wizard {
 	 */
 	function load_content() {
 		?>
-		<div class="<?php echo esc_attr( sprintf( '%s-content', $this->_n ) ); ?>">
+		<div class="<?php echo esc_attr( sprintf( '%s-content', $this->_name ) ); ?>">
 			<form method="POST" action="<?php echo esc_url( admin_url( $this->next_page() ) ) ?>">
 				<?php
 				$method = $this->method;
 				if ( method_exists( $this, $method ) ) {
 					$this->$method();
 				}
-				wp_nonce_field( sprintf( '%s-setup-%s', $this->_n, $this->page ) );
+				wp_nonce_field( sprintf( '%s-setup-%s', $this->_name, $this->page ) );
 				?>
 			</form>
 		</div>
@@ -324,7 +324,7 @@ class TInvWL_Wizard {
 		$data            = array(
 			'general_default_title' => FILTER_SANITIZE_STRING,
 		);
-		foreach ( $title_pages as $key => $text ) {
+		foreach ( array_keys( $title_pages ) as $key ) {
 			$data[ 'page_' . $key ]           = FILTER_VALIDATE_INT;
 			$data[ 'page_' . $key . '_new' ]  = FILTER_SANITIZE_STRING;
 			$data[ 'page_' . $key . '_auto' ] = FILTER_VALIDATE_BOOLEAN;
@@ -369,7 +369,7 @@ class TInvWL_Wizard {
 
 			if ( 0 < $the_page_id ) {
 				$the_page               = get_post( $the_page_id );
-				$the_page->post_content = $shortcode;
+				$the_page->post_content = ( strpos( $the_page->post_content, $shortcode ) !== false ) ? $the_page->post_content : $shortcode . $the_page->post_content;
 				$the_page->post_status  = 'publish';
 				$the_page_id            = wp_update_post( $the_page );
 				tinv_update_option( 'page', $key, $the_page_id );
@@ -381,7 +381,8 @@ class TInvWL_Wizard {
 			}
 		} // End foreach().
 		if ( ! empty( $required_notsets ) ) {
-			wp_redirect( wp_get_referer() ); // @codingStandardsIgnoreLine WordPress.VIP.RestrictedFunctions.wp_redirect
+			wp_safe_redirect( wp_get_referer() );
+			exit;
 		} else {
 			TInvWL_Public_TInvWL::update_rewrite_rules();
 		}
@@ -484,6 +485,8 @@ class TInvWL_Wizard {
 			'social_twitter_value'   => tinv_get_option( 'social', 'twitter' ),
 			'social_pinterest_value' => tinv_get_option( 'social', 'pinterest' ),
 			'social_google_value'    => tinv_get_option( 'social', 'google' ),
+			'social_whatsapp_value'  => tinv_get_option( 'social', 'whatsapp' ),
+			'social_clipboard_value' => tinv_get_option( 'social', 'clipboard' ),
 			'social_email_value'     => tinv_get_option( 'social', 'email' ),
 		);
 		TInvWL_View::view( 'step-social', $data, 'wizard' );
@@ -498,12 +501,16 @@ class TInvWL_Wizard {
 			'social_twitter'   => FILTER_VALIDATE_BOOLEAN,
 			'social_pinterest' => FILTER_VALIDATE_BOOLEAN,
 			'social_google'    => FILTER_VALIDATE_BOOLEAN,
+			'social_whatsapp'  => FILTER_VALIDATE_BOOLEAN,
+			'social_clipboard' => FILTER_VALIDATE_BOOLEAN,
 			'social_email'     => FILTER_VALIDATE_BOOLEAN,
 		) );
 		tinv_update_option( 'social', 'facebook', (bool) $data['social_facebook'] );
 		tinv_update_option( 'social', 'twitter', (bool) $data['social_twitter'] );
 		tinv_update_option( 'social', 'pinterest', (bool) $data['social_pinterest'] );
 		tinv_update_option( 'social', 'google', (bool) $data['social_google'] );
+		tinv_update_option( 'social', 'whatsapp', (bool) $data['social_whatsapp'] );
+		tinv_update_option( 'social', 'clipboard', (bool) $data['social_clipboard'] );
 		tinv_update_option( 'social', 'email', (bool) $data['social_email'] );
 	}
 

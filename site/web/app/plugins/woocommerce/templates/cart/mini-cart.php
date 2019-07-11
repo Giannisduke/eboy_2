@@ -13,7 +13,6 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
- * @author  WooThemes
  * @package WooCommerce/Templates
  * @version 3.5.0
  */
@@ -76,6 +75,7 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 
 <?php else : ?>
 
+ <img src="<?= get_template_directory_uri(); ?>/dist/images/ico_cart_e.svg">
 	<p class="woocommerce-mini-cart__empty-message"><?php _e( 'No products in the cart.', 'woocommerce' ); ?></p>
 
 <?php endif; ?>

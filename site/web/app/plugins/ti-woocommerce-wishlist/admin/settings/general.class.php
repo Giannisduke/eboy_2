@@ -31,10 +31,26 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 	 */
 	function menu() {
 		return array(
-			'title'  => __( 'General Settings', 'ti-woocommerce-wishlist' ),
-			'method' => array( $this, '_print_' ),
-			'slug'   => '',
+			'title'      => __( 'General Settings', 'ti-woocommerce-wishlist' ),
+			'method'     => array( $this, '_print_' ),
+			'slug'       => '',
+			'capability' => 'tinvwl_general_settings',
 		);
+	}
+
+	/**
+	 * Get WP menus
+	 *
+	 * @return array
+	 */
+	public function get_wp_menus() {
+		$menus     = array( esc_html__( 'Select Your Menu', 'ti-woocommerce-wishlist' ) );
+		$get_menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+		foreach ( $get_menus as $menu ) {
+			$menus[ $menu->term_id ] = $menu->name;
+		}
+
+		return $menus;
 	}
 
 	/**
@@ -43,18 +59,19 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 	 * @return array
 	 */
 	function constructor_data() {
-		add_action( $this->_n . '_section_general_before', array( $this, 'premium_features' ) );
+		add_action( $this->_name . '_section_before', array( $this, 'premium_features' ), 9 );
 		$lists     = get_pages( array( 'number' => 999999 ) ); // @codingStandardsIgnoreLine WordPress.VIP.RestrictedFunctions.get_pages
 		$page_list = array( '' => '' );
+		$menus     = $this->get_wp_menus();
 		foreach ( $lists as $list ) {
 			$page_list[ $list->ID ] = $list->post_title;
 		}
 
-		return array(
+		$settings = array(
 			array(
 				'id'         => 'general',
 				'title'      => __( 'General Settings', 'ti-woocommerce-wishlist' ),
-				'desc'       => __( 'Wishlist page need to be selected so the plugin knows where it is. This page should have been created upon installation of the plugin, if not you will need to create it manually.', 'ti-woocommerce-wishlist' ),
+				'desc'       => __( 'Wishlist page needs to be selected so the plugin knows where it is. This page should be created upon installation of the plugin, if not you will need to create it manually.', 'ti-woocommerce-wishlist' ),
 				'show_names' => true,
 				'fields'     => array(
 					array(
@@ -101,6 +118,12 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 						'text'  => __( 'Remove Product from Wishlist if added to cart', 'ti-woocommerce-wishlist' ),
 						'std'   => true,
 						'extra' => array( 'tiwl-show' => '.tiwl-processing-autoremove-anyone' ),
+					),
+					array(
+						'type' => 'checkboxonoff',
+						'name' => 'processing_redirect_checkout',
+						'text' => __( 'Redirect to the checkout page from Wishlist if added to cart', 'ti-woocommerce-wishlist' ),
+						'std'  => false,
 					),
 					array(
 						'type'  => 'checkboxonoff',
@@ -175,6 +198,20 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 				),
 			),
 			array(
+				'id'         => 'permalinks',
+				'title'      => __( 'Permalinks Settings', 'ti-woocommerce-wishlist' ),
+				'show_names' => false,
+				'fields'     => array(
+					array(
+						'type' => 'checkboxonoff',
+						'name' => 'force',
+						'text' => __( 'Force permalinks rewrite', 'ti-woocommerce-wishlist' ),
+						'desc' => __( 'This option should be enabled to avoid any issues with URL rewrites between other plugins and Wishlist', 'ti-woocommerce-wishlist' ),
+						'std'  => false,
+					),
+				),
+			),
+			array(
 				'id'         => 'page',
 				'title'      => __( 'Wishlist Page Options', 'ti-woocommerce-wishlist' ),
 				'desc'       => __( 'Coming soon', 'ti-woocommerce-wishlist' ),
@@ -217,6 +254,13 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 					),
 					array(
 						'type'  => 'checkboxonoff',
+						'name'  => 'redirect_checkout',
+						'text'  => __( 'Redirect to the checkout page from Wishlist if added to cart', 'ti-woocommerce-wishlist' ),
+						'std'   => false,
+						'class' => 'tiwl-processing-redirect-checkout',
+					),
+					array(
+						'type'  => 'checkboxonoff',
 						'name'  => 'autoremove_anyone',
 						'text'  => __( 'Remove by anyone', 'ti-woocommerce-wishlist' ),
 						'std'   => false,
@@ -242,13 +286,13 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 						),
 					),
 					array(
-						'type'    => 'select',
-						'name'    => 'type',
-						'text'    => __( 'Button type', 'ti-woocommerce-wishlist' ),
-						'std'     => 'link',
-						'options' => array(
-							'link'   => __( 'Link', 'ti-woocommerce-wishlist' ),
-							'button' => __( 'Button', 'ti-woocommerce-wishlist' ),
+						'type'  => 'text',
+						'name'  => 'class',
+						'text'  => __( 'Button custom CSS class', 'ti-woocommerce-wishlist' ),
+						'desc'  => __( 'You can add custom CSS classes to button markup separated by spaces. Most of themes using <code>button</code> class for this type of buttons.', 'ti-woocommerce-wishlist' ),
+						'std'   => '',
+						'extra' => array(
+							'placeholder' => 'button btn-primary',
 						),
 					),
 					array(
@@ -256,7 +300,7 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 						'name'    => 'icon',
 						'text'    => __( '"Add to Wishlist" Icon', 'ti-woocommerce-wishlist' ),
 						'desc'    => __( 'You can choose from our predefined icons or upload your custom icon. Custom icon size is limited to 16x16 px.', 'ti-woocommerce-wishlist' ),
-						'std'     => '',
+						'std'     => 'heart',
 						'options' => array(
 							''           => __( 'None', 'ti-woocommerce-wishlist' ),
 							'heart'      => __( 'Heart', 'ti-woocommerce-wishlist' ),
@@ -286,28 +330,36 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 					array(
 						'type'    => 'select',
 						'name'    => 'icon_style',
-						'std'     => 'black',
+						'std'     => '',
 						'text'    => __( '"Add to Wishlist" Icon Color', 'ti-woocommerce-wishlist' ),
 						'options' => array(
+							''      => __( 'Use font color', 'ti-woocommerce-wishlist' ),
 							'black' => __( 'Black', 'ti-woocommerce-wishlist' ),
 							'white' => __( 'White', 'ti-woocommerce-wishlist' ),
 						),
 						'class'   => 'tiwl-button-icon-style',
 					),
 					array(
-						'type'	 => 'checkboxonoff',
-						'name'	 => 'show_text',
-						'text'	 => __( 'Show button text', 'ti-woocommerce-wishlist-premium' ),
-						'std'	 => true,
-						'extra'	 => array(
+						'type' => 'checkboxonoff',
+						'name' => 'show_preloader',
+						'text' => __( 'Show preloader', 'ti-woocommerce-wishlist' ),
+						'desc' => __( 'If enabled, applies animation for the button icon until product adding or removing processed. (Usable for servers with slow connection mostly.)', 'ti-woocommerce-wishlist' ),
+						'std'  => false,
+					),
+					array(
+						'type'  => 'checkboxonoff',
+						'name'  => 'show_text',
+						'text'  => __( 'Show button text', 'ti-woocommerce-wishlist' ),
+						'std'   => true,
+						'extra' => array(
 							'tiwl-show' => '.tiwl-button-text',
 						),
 					),
 					array(
-						'type'	 => 'group',
-						'id'	 => 'show_text_single',
-						'class'	 => 'tiwl-button-text',
-						'style'	 => 'border-top: 0px; padding-top: 0px;',
+						'type'  => 'group',
+						'id'    => 'show_text_single',
+						'class' => 'tiwl-button-text',
+						'style' => 'border-top: 0px; padding-top: 0px;',
 					),
 					array(
 						'type' => 'text',
@@ -359,20 +411,20 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 						'desc'    => __( 'Note: if "Custom position with code" option is applied, the "Add to Wishlist" button should be added into template using <code>do_shortcode()</code> function like this:<br /><code>do_shortcode("[ti_wishlists_addtowishlist loop=yes]")</code>', 'ti-woocommerce-wishlist' ),
 					),
 					array(
-						'type'    => 'select',
-						'name'    => 'type',
-						'text'    => __( 'Button type', 'ti-woocommerce-wishlist' ),
-						'std'     => 'button',
-						'options' => array(
-							'link'   => __( 'Link', 'ti-woocommerce-wishlist' ),
-							'button' => __( 'Button', 'ti-woocommerce-wishlist' ),
+						'type'  => 'text',
+						'name'  => 'class',
+						'text'  => __( 'Button custom CSS class', 'ti-woocommerce-wishlist' ),
+						'desc'  => __( 'You can add custom CSS classes to button markup separated by spaces. Most of themes using <code>button</code> class for this type of buttons.', 'ti-woocommerce-wishlist' ),
+						'std'   => '',
+						'extra' => array(
+							'placeholder' => 'button btn-primary',
 						),
 					),
 					array(
 						'type'    => 'select',
 						'name'    => 'icon',
 						'text'    => __( '"Add to Wishlist" Icon', 'ti-woocommerce-wishlist' ),
-						'std'     => '',
+						'std'     => 'heart',
 						'options' => array(
 							''           => __( 'None', 'ti-woocommerce-wishlist' ),
 							'heart'      => __( 'Heart', 'ti-woocommerce-wishlist' ),
@@ -401,28 +453,36 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 					array(
 						'type'    => 'select',
 						'name'    => 'icon_style',
-						'std'     => 'black',
+						'std'     => '',
 						'text'    => __( '"Add to Wishlist" Icon Color', 'ti-woocommerce-wishlist' ),
 						'options' => array(
+							''      => __( 'Use font color', 'ti-woocommerce-wishlist' ),
 							'black' => __( 'Black', 'ti-woocommerce-wishlist' ),
 							'white' => __( 'White', 'ti-woocommerce-wishlist' ),
 						),
 						'class'   => 'tiwl-buttoncat-icon-style',
 					),
 					array(
-						'type'	 => 'checkboxonoff',
-						'name'	 => 'show_text',
-						'text'	 => __( 'Show button text', 'ti-woocommerce-wishlist-premium' ),
-						'std'	 => true,
-						'extra'	 => array(
+						'type' => 'checkboxonoff',
+						'name' => 'show_preloader',
+						'text' => __( 'Show preloader', 'ti-woocommerce-wishlist' ),
+						'desc' => __( 'If enabled, applies animation for the button icon until product adding or removing processed. (Usable for servers with slow connection mostly.)', 'ti-woocommerce-wishlist' ),
+						'std'  => false,
+					),
+					array(
+						'type'  => 'checkboxonoff',
+						'name'  => 'show_text',
+						'text'  => __( 'Show button text', 'ti-woocommerce-wishlist' ),
+						'std'   => true,
+						'extra' => array(
 							'tiwl-show' => '.tiwl-button-text-catalog',
 						),
 					),
 					array(
-						'type'	 => 'group',
-						'id'	 => 'show_text_single',
-						'class'	 => 'tiwl-button-text-catalog',
-						'style'	 => 'border-top: 0px; padding-top: 0px;',
+						'type'  => 'group',
+						'id'    => 'show_text_single',
+						'class' => 'tiwl-button-text-catalog',
+						'style' => 'border-top: 0px; padding-top: 0px;',
 					),
 					array(
 						'type' => 'text',
@@ -580,6 +640,18 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 					),
 					array(
 						'type' => 'checkboxonoff',
+						'name' => 'whatsapp',
+						'text' => __( 'Show "WhatsApp" Button', 'ti-woocommerce-wishlist' ),
+						'std'  => true,
+					),
+					array(
+						'type' => 'checkboxonoff',
+						'name' => 'clipboard',
+						'text' => __( 'Show "Copy to clipboard" Button', 'ti-woocommerce-wishlist' ),
+						'std'  => true,
+					),
+					array(
+						'type' => 'checkboxonoff',
 						'name' => 'email',
 						'text' => __( 'Show "Share by Email" Button', 'ti-woocommerce-wishlist' ),
 						'std'  => true,
@@ -594,7 +666,9 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 						'type'     => 'select',
 						'name'     => 'icon_style',
 						'text'     => __( 'Social Icons Color', 'ti-woocommerce-wishlist' ),
+						'std'      => '',
 						'options'  => array(
+							''      => __( 'Use font color', 'ti-woocommerce-wishlist' ),
 							'dark'  => __( 'Dark', 'ti-woocommerce-wishlist' ),
 							'white' => __( 'White', 'ti-woocommerce-wishlist' ),
 						),
@@ -604,15 +678,15 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 			),
 			array(
 				'id'         => 'topline',
-				'title'      => __( 'Wishlist Products Counter', 'ti-woocommerce-wishlist' ),
+				'title'      => __( 'Wishlist Product Counter', 'ti-woocommerce-wishlist' ),
 				'desc'       => sprintf( __( 'Add this shortcode <code>[ti_wishlist_products_counter]</code> anywhere into a page content to show Wishlist Counter.<br/><br/>It can be also added as a widget <code>Wishlist Products Counter</code> under the <a href="%s">Appearance -> Widgets</a> section.', 'ti-woocommerce-wishlist' ), esc_url( admin_url( 'widgets.php' ) ) ),
 				'show_names' => true,
 				'fields'     => array(
 					array(
 						'type'    => 'select',
 						'name'    => 'icon',
-						'text'    => __( '"Wishlist" Icon', 'ti-woocommerce-wishlist' ),
-						'std'     => '',
+						'text'    => __( '"Wishlist" Counter Icon', 'ti-woocommerce-wishlist' ),
+						'std'     => 'heart',
 						'options' => array(
 							''           => __( 'None', 'ti-woocommerce-wishlist' ),
 							'heart'      => __( 'Heart', 'ti-woocommerce-wishlist' ),
@@ -642,9 +716,10 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 					array(
 						'type'    => 'select',
 						'name'    => 'icon_style',
-						'std'     => 'black',
-						'text'    => __( '"Wishlist" Icon Color', 'ti-woocommerce-wishlist' ),
+						'std'     => '',
+						'text'    => __( '"Wishlist" Counter Icon Color', 'ti-woocommerce-wishlist' ),
 						'options' => array(
+							''      => __( 'Use font color', 'ti-woocommerce-wishlist' ),
 							'black' => __( 'Black', 'ti-woocommerce-wishlist' ),
 							'white' => __( 'White', 'ti-woocommerce-wishlist' ),
 						),
@@ -653,7 +728,7 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 					array(
 						'type'  => 'checkboxonoff',
 						'name'  => 'show_text',
-						'text'  => __( 'Show counter text', 'ti-woocommerce-wishlist' ),
+						'text'  => __( 'Show "Wishlist" Counter Text', 'ti-woocommerce-wishlist' ),
 						'std'   => true,
 						'extra' => array(
 							'tiwl-show' => '.tiwl-dropdown-text',
@@ -662,37 +737,98 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 					array(
 						'type'  => 'text',
 						'name'  => 'text',
-						'text'  => __( 'Counter Text', 'ti-woocommerce-wishlist' ),
+						'text'  => __( '"Wishlist" Counter Text', 'ti-woocommerce-wishlist' ),
 						'std'   => __( 'Wishlist - ', 'ti-woocommerce-wishlist' ),
 						'class' => 'tiwl-dropdown-text',
 					),
-				),
-			),
-			array(
-				'id'     => 'save_buttons',
-				'class'  => 'only-button',
-				'noform' => true,
-				'fields' => array(
 					array(
-						'type'  => 'button_submit',
-						'name'  => 'setting_save',
-						'std'   => '<span><i class="fa fa-check"></i></span>' . __( 'Save Settings', 'ti-woocommerce-wishlist' ),
-						'extra' => array( 'class' => 'tinvwl-btn split status-btn-ok' ),
+						'type'    => 'select',
+						'name'    => 'menu',
+						'text'    => __( 'Add counter to menu', 'ti-woocommerce-wishlist' ),
+						'options' => $menus,
+						'desc'    => __( 'You can add a wishlist products counter as item to the selected menu.', 'ti-woocommerce-wishlist' ),
+						'extra'   => array(
+							'tiwl-value' => '0',
+							'tiwl-hide'  => '.tiwl-menu-position',
+						),
 					),
 					array(
-						'type'  => 'button_submit',
-						'name'  => 'setting_reset',
-						'std'   => '<span><i class="fa fa-times"></i></span>' . __( 'Reset', 'ti-woocommerce-wishlist' ),
-						'extra' => array( 'class' => 'tinvwl-btn split status-btn-ok tinvwl-confirm-reset' ),
+						'type'  => 'number',
+						'name'  => 'menu_order',
+						'text'  => __( 'Counter position (Menu item order)', 'ti-woocommerce-wishlist' ),
+						'desc'  => __( 'Allows you to add the wishlist counter as a menu item and apply its position.', 'ti-woocommerce-wishlist' ),
+						'std'   => 100,
+						'class' => 'tiwl-menu-position',
+						'extra' => array(
+							'step' => '1',
+							'min'  => '1',
+						),
 					),
 					array(
-						'type' => 'button_submit_quick',
-						'name' => 'setting_save_quick',
-						'std'  => '<span><i class="fa fa-floppy-o"></i></span>' . __( 'Save', 'ti-woocommerce-wishlist' ),
+						'type'  => 'checkboxonoff',
+						'name'  => 'show_counter',
+						'text'  => __( 'Show number of products in counter', 'ti-woocommerce-wishlist' ),
+						'std'   => true,
+						'extra' => array(
+							'tiwl-show' => '.tiwl-zero-counter',
+						),
+					),
+					array(
+						'type'  => 'checkboxonoff',
+						'name'  => 'hide_zero_counter',
+						'text'  => __( 'Hide zero value', 'ti-woocommerce-wishlist' ),
+						'desc'  => __( 'Do not show the "0" value in a counter if wishlist is empty.', 'ti-woocommerce-wishlist' ),
+						'class' => 'tiwl-zero-counter',
+						'std'   => false,
 					),
 				),
 			),
 		);
+
+		if ( ! empty( $_GET['chat'] ) ) {
+			$settings[] = array(
+				'id'         => 'chat',
+				'title'      => __( 'Support chat settings', 'ti-woocommerce-wishlist' ),
+				'desc'       => '',
+				'show_names' => true,
+				'fields'     => array(
+					array(
+						'type' => 'checkboxonoff',
+						'name' => 'disabled',
+						'text' => __( 'Disable support chat', 'ti-woocommerce-wishlist' ),
+						'std'  => false,
+					),
+				),
+			);
+		}
+
+		// Buttons.
+		$settings[] = array(
+			'id'     => 'save_buttons',
+			'class'  => 'only-button',
+			'noform' => true,
+			'fields' => array(
+				array(
+					'type'  => 'button_submit',
+					'name'  => 'setting_save',
+					'std'   => '<span><i class="ftinvwl ftinvwl-check"></i></span>' . __( 'Save Settings', 'ti-woocommerce-wishlist' ),
+					'extra' => array( 'class' => 'tinvwl-btn split status-btn-ok' ),
+				),
+				array(
+					'type'  => 'button_submit',
+					'name'  => 'setting_reset',
+					'std'   => '<span><i class="ftinvwl ftinvwl-times"></i></span>' . __( 'Reset', 'ti-woocommerce-wishlist' ),
+					'extra' => array( 'class' => 'tinvwl-btn split status-btn-ok tinvwl-confirm-reset' ),
+				),
+				array(
+					'type' => 'button_submit_quick',
+					'name' => 'setting_save_quick',
+					'std'  => '<span><i class="ftinvwl ftinvwl-floppy-o"></i></span>' . __( 'Save', 'ti-woocommerce-wishlist' ),
+				),
+			),
+		);
+
+		return $settings;
 	}
 
 	/**
@@ -707,6 +843,7 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 		$data['general']['page_wishlist']                = $data['page']['wishlist'];
 		$data['general']['processing_autoremove']        = $data['processing']['autoremove'];
 		$data['general']['processing_autoremove_anyone'] = $data['processing']['autoremove_anyone'];
+		$data['general']['processing_redirect_checkout'] = $data['processing']['redirect_checkout'];
 
 		return $data;
 	}
@@ -724,9 +861,10 @@ class TInvWL_Admin_Settings_General extends TInvWL_Admin_BaseSection {
 		tinv_update_option( 'page', 'wishlist', $data['general']['page_wishlist'] );
 		tinv_update_option( 'processing', 'autoremove', $data['general']['processing_autoremove'] );
 		tinv_update_option( 'processing', 'autoremove_anyone', $data['general']['processing_autoremove_anyone'] );
+		tinv_update_option( 'processing', 'redirect_checkout', $data['general']['processing_redirect_checkout'] );
 		tinv_update_option( 'processing', 'autoremove_status', 'tinvwl-addcart' );
 		if ( filter_input( INPUT_POST, 'save_buttons-setting_reset' ) ) {
-			foreach ( $data as $key => $value ) {
+			foreach ( array_keys( $data ) as $key ) {
 				if ( ! in_array( $key, array( 'page' ) ) ) {
 					$data[ $key ] = array();
 				}

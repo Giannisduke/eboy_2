@@ -21,13 +21,13 @@ class TInvWL_View {
 	 *
 	 * @var string
 	 */
-	static $_n;
+	static $_name;
 	/**
 	 * Plugin version
 	 *
 	 * @var string
 	 */
-	static $_v;
+	static $_version;
 	/**
 	 * Redirect url
 	 *
@@ -48,8 +48,8 @@ class TInvWL_View {
 	 * @param string $version Plugin version.
 	 */
 	public static function _init( $plugin_name, $version ) {
-		self::$_n = $plugin_name;
-		self::$_v = $version;
+		self::$_name    = $plugin_name;
+		self::$_version = $version;
 	}
 
 	/**
@@ -85,7 +85,7 @@ class TInvWL_View {
 	 * @return mixed
 	 */
 	public static function get_session_arr( $name, $default = array() ) {
-		$data = get_option( self::$_n . $name, $default );
+		$data = get_option( self::$_name . $name, $default );
 		if ( empty( $data ) ) {
 			return $default;
 		}
@@ -100,7 +100,7 @@ class TInvWL_View {
 	 * @param mixed $value Value.
 	 */
 	public static function set_session_arr( $name, $value = array() ) {
-		update_option( self::$_n . $name, $value );
+		update_option( self::$_name . $name, $value );
 	}
 
 	/**
@@ -282,11 +282,7 @@ class TInvWL_View {
 			header( sprintf( 'Content-Type: %s', $_type ) );
 			self::view( $_template_name, $_data );
 		}
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			wp_die();
-		} else {
-			die;
-		}
+		wp_die();
 	}
 
 	/**
@@ -357,7 +353,7 @@ class TInvWL_View {
 	 */
 	private static function status_panel() {
 		return array(
-			sprintf( '<a class="tinvwl-btn grey w-icon md-icon smaller-txt" href="%s"><i class="fa fa-graduation-cap"></i><span class="tinvwl-txt">%s</span></a>', 'https://templateinvaders.com/documentation/ti-woocommerce-wishlist?utm_source=' . TINVWL_UTM_SOURCE . '&utm_campaign=' . TINVWL_UTM_CAMPAIGN . '&utm_medium=' . TINVWL_UTM_MEDIUM . '&utm_content=header_documentation&partner=' . TINVWL_UTM_SOURCE, __( 'read documentation', 'ti-woocommerce-wishlist' ) ),
+			sprintf( '<a class="tinvwl-btn grey w-icon md-icon smaller-txt" href="%s"><i class="ftinvwl ftinvwl-graduation-cap"></i><span class="tinvwl-txt">%s</span></a>', 'https://templateinvaders.com/documentation/ti-woocommerce-wishlist-free/?utm_source=' . TINVWL_UTM_SOURCE . '&utm_campaign=' . TINVWL_UTM_CAMPAIGN . '&utm_medium=' . TINVWL_UTM_MEDIUM . '&utm_content=header_documentation&partner=' . TINVWL_UTM_SOURCE, __( 'read documentation', 'ti-woocommerce-wishlist' ) ),
 		);
 	}
 
@@ -374,7 +370,7 @@ class TInvWL_View {
 		$protocol = is_ssl() ? 'https' : 'http';
 		$glue     = '-';
 		$params   = array(
-			'page' => implode( $glue, array_filter( array( self::$_n, $page ) ) ),
+			'page' => implode( $glue, array_filter( array( self::$_name, $page ) ) ),
 			'cat'  => $cat,
 		);
 		if ( is_array( $arg ) ) {
