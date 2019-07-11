@@ -1,0 +1,138 @@
+# Copyright (C) 2018 iconic-woo-show-single-variations
+# This file is distributed under the same license as the iconic-woo-show-single-variations package.
+msgid ""
+msgstr ""
+"Project-Id-Version: iconic-woo-show-single-variations\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: iconic-woo-show-single-variations.php:715
+msgid "Show in Search Results?"
+msgstr ""
+
+#: iconic-woo-show-single-variations.php:722
+msgid "Show in Filtered Results?"
+msgstr ""
+
+#: iconic-woo-show-single-variations.php:729
+msgid "Show in Catalog?"
+msgstr ""
+
+#: iconic-woo-show-single-variations.php:736
+msgid "Featured"
+msgstr ""
+
+#: iconic-woo-show-single-variations.php:743
+msgid "Disable \"Add to Cart\"?"
+msgstr ""
+
+#: iconic-woo-show-single-variations.php:751
+msgid "Listings Only?"
+msgstr ""
+
+#: inc/class-ajax.php:94
+msgid "Error updating visibility for %d"
+msgstr ""
+
+#: inc/class-ajax.php:98
+msgid "Error updating featured visibility for %d"
+msgstr ""
+
+#: inc/class-licence.php:90
+msgid "Manage Licence &amp; Billing"
+msgstr ""
+
+#: inc/class-licence.php:97
+msgid "Create Support Ticket"
+msgstr ""
+
+#: inc/class-licence.php:104
+msgid "Back to Settings"
+msgstr ""
+
+#: inc/class-product.php:118
+msgid "Exclude from filtered results"
+msgstr ""
+
+#: inc/admin/settings.php:52
+msgid "License & Account Settings"
+msgstr ""
+
+#: inc/admin/settings.php:58
+msgid "License &amp; Billing"
+msgstr ""
+
+#: inc/admin/settings.php:59
+msgid "Activate or sync your license, cancel your subscription, print invoices, and manage your account information."
+msgstr ""
+
+#: inc/admin/settings.php:88, inc/admin/settings.php:94
+msgid "Support"
+msgstr ""
+
+#: inc/admin/settings.php:95
+msgid "Get premium support with a valid license."
+msgstr ""
+
+#: inc/admin/settings.php:101
+msgid "Documentation"
+msgstr ""
+
+#: inc/admin/settings.php:102
+msgid "Read the plugin documentation."
+msgstr ""
+
+#: inc/admin/settings.php:113
+msgid "Works Well With..."
+msgstr ""
+
+#: inc/admin/variation-additional-fields.php:3
+msgid "Display Options"
+msgstr ""
+
+#: inc/admin/variation-additional-fields.php:8
+msgid "Title"
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:1
+msgid "Visibility"
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:2
+msgid "Toggle \"Show in Search Results\""
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:3
+msgid "Toggle \"Show in Filtered Results\""
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:4
+msgid "Toggle \"Show in Catalog\""
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:5
+msgid "Toggle \"Featured\""
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:8
+msgid "Cart"
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:9
+msgid "Toggle \"Disable 'Add to Cart'\""
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:12
+msgid "Filters"
+msgstr ""
+
+#: inc/admin/variation-bulk-edit-actions.php:13
+msgid "Update \"Filter Counts\""
+msgstr ""
