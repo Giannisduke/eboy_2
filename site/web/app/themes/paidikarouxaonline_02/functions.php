@@ -160,3 +160,168 @@ add_filter( 'gettext', 'lar_text_strings', 20, 3 );
 
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 5);
+
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 25 );
+
+
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_add_to_cart', 15 );
+
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
+
+function woocommerce_show_product_loop_sale_flash_custom() {
+  wc_get_template( 'loop/sale-flash-catalogue.php' );
+}
+
+add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash_custom', 10 );
+
+function woocommerce_template_loop_price_catalogue() {
+  wc_get_template( 'loop/price_catalogue.php' );
+}
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price_catalogue', 10 );
+
+
+function woocommerce_shop_loop_item_title_open() {
+?>
+    <div class="test">
+<?php }
+add_action( 'woocommerce_shop_loop_item_title', 'woocommerce_shop_loop_item_title_open', 5 );
+
+
+function woocommerce_shop_loop_item_title_close() {
+?>
+</div>
+<?php }
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_shop_loop_item_title_close', 20 );
+
+
+
+
+
+if (!function_exists('my_commonPriceHtml')) {
+
+    function my_commonPriceHtml($price_amt, $regular_price, $sale_price) {
+        $html_price = '<p class="price test">';
+        //if product is in sale
+        if (($price_amt == $sale_price) && ($sale_price != 0)) {
+            $html_price .= '<ins>' . wc_price($sale_price) . '</ins>';
+            $html_price .= '<del>' . wc_price($regular_price) . '</del>';
+        }
+        //in sale but free
+        else if (($price_amt == $sale_price) && ($sale_price == 0)) {
+            $html_price .= '<ins>Free!</ins>';
+            $html_price .= '<del>' . wc_price($regular_price) . '</del>';
+        }
+        //not is sale
+        else if (($price_amt == $regular_price) && ($regular_price != 0)) {
+            $html_price .= '<ins>' . wc_price($regular_price) . '</ins>';
+        }
+        //for free product
+        else if (($price_amt == $regular_price) && ($regular_price == 0)) {
+            $html_price .= '<ins>Free!</ins>';
+        }
+        $html_price .= '</p>';
+        return $html_price;
+    }
+
+}
+
+add_filter('woocommerce_get_price_html', 'my_simple_product_price_html', 100, 2);
+
+function my_simple_product_price_html($price, $product) {
+    if ($product->is_type('simple')) {
+        $regular_price = $product->get_regular_price();
+        $sale_price = $product->get_sale_price();
+        $price_amt = $product->get_price();
+        return my_commonPriceHtml($price_amt, $regular_price, $sale_price);
+    } else {
+        return $price;
+    }
+}
+
+add_filter('woocommerce_variation_sale_price_html', 'my_variable_product_price_html', 10, 2);
+add_filter('woocommerce_variation_price_html', 'my_variable_product_price_html', 10, 2);
+
+function my_variable_product_price_html($price, $variation) {
+    $variation_id = $variation->variation_id;
+    //creating the product object
+    $variable_product = new WC_Product($variation_id);
+
+    $regular_price = $variable_product->get_regular_price();
+    $sale_price = $variable_product->get_sale_price();
+    $price_amt = $variable_product->get_price();
+
+    return my_commonPriceHtml($price_amt, $regular_price, $sale_price);
+}
+
+add_filter('woocommerce_variable_sale_price_html', 'my_variable_product_minmax_price_html', 10, 2);
+add_filter('woocommerce_variable_price_html', 'my_variable_product_minmax_price_html', 10, 2);
+
+function my_variable_product_minmax_price_html($price, $product) {
+    $variation_min_price = $product->get_variation_price('min', true);
+    $variation_max_price = $product->get_variation_price('max', true);
+    $variation_min_regular_price = $product->get_variation_regular_price('min', true);
+    $variation_max_regular_price = $product->get_variation_regular_price('max', true);
+
+    if (($variation_min_price == $variation_min_regular_price) && ($variation_max_price == $variation_max_regular_price)) {
+        $html_min_max_price = $price;
+    } else {
+        $html_price = '<p class="price">';
+        $html_price .= '<ins>' . wc_price($variation_min_price) . '</ins>';
+        $html_price .= '<del>' . wc_price($variation_min_regular_price) .'</del>';
+        $html_min_max_price = $html_price;
+    }
+
+    return $html_min_max_price;
+}
+
+
+function catalogue_price() {
+    global $product;
+    if( $product->is_on_sale() ) {
+        return $product->get_sale_price();
+
+    }
+    return $product->get_sale_price();
+}
+
+function catalogue_sale_price() {
+    global $product;
+    if( $product->is_on_sale() ) {
+        return $product->get_regular_price();
+
+    }
+    return $product->get_regular_price();
+}
+
+/**
+* shows percentage in flash sales
+*/
+add_filter( 'woocommerce_sale_flash', 'ask_percentage_sale', 11, 3 );
+function ask_percentage_sale( $text, $post, $product ) {
+    $discount = 0;
+    if ( $product->get_type() == 'variable' ) {
+        $available_variations = $product->get_available_variations();
+        $maximumper = 0;
+        for ($i = 0; $i < count($available_variations); ++$i) {
+            $variation_id=$available_variations[$i]['variation_id'];
+            $variable_product1= new WC_Product_Variation( $variation_id );
+            $regular_price = $variable_product1->get_regular_price();
+            $sales_price = $variable_product1->get_sale_price();
+            if( $sales_price ) {
+                $percentage= round( ( ( $regular_price - $sales_price ) / $regular_price ) * 100 ) ;
+                if ($percentage > $maximumper) {
+                    $maximumper = $percentage;
+                }
+            }
+        }
+        $text = '<span class="onsale">' . $maximumper  . '%</span>';
+    } elseif ( $product->get_type() == 'simple' ) {
+        $percentage = round( ( ( $product->get_regular_price() - $product->get_sale_price() ) / $product->get_regular_price() ) * 100 );
+        $text = '<span class="onsale">' . $percentage . '%</span>';
+    }
+    return $text;
+}
