@@ -73,11 +73,10 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 
 
 
-
 remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
 add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle', 10 );
 function abChangeProductsTitle() {
-    echo '<div class="d-flex flex-row test"><div class="w-75 test"><h5 class="woocommerce-loop-product_title">' . get_the_title() . '</h5></div>';
+    echo '<div class="d-flex flex-row product-info"><div class="w-75"><h5 class="woocommerce-loop-product_title">' . get_the_title() . '</h5></div>';
 }
 
 
