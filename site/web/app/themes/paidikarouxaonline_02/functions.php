@@ -77,7 +77,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
 add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle', 10 );
 function abChangeProductsTitle() {
-    echo '<h5 class="woocommerce-loop-product_title"><a href="'.get_the_permalink().'">' . get_the_title() . '</a></h5>';
+    echo '<div class="d-flex flex-row test"><div class="w-75 test"><h5 class="woocommerce-loop-product_title">' . get_the_title() . '</h5></div>';
 }
 
 
@@ -183,19 +183,6 @@ function woocommerce_template_loop_price_catalogue() {
 }
 add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price_catalogue', 10 );
 
-
-function woocommerce_shop_loop_item_title_open() {
-?>
-    <div class="test">
-<?php }
-add_action( 'woocommerce_shop_loop_item_title', 'woocommerce_shop_loop_item_title_open', 5 );
-
-
-function woocommerce_shop_loop_item_title_close() {
-?>
-</div>
-<?php }
-add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_shop_loop_item_title_close', 20 );
 
 
 

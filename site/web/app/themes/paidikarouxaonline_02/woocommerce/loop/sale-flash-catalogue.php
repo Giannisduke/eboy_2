@@ -23,8 +23,16 @@ global $post, $product;
 
 ?>
 <?php if ( $product->is_on_sale() ) : ?>
+	<?php echo '<span class="discount">';
+				 echo esc_html__( 'Προσφορά!', 'woocommerce' );
+				 echo '</br><p class="sales_price">';
+				 echo esc_html__(catalogue_sale_price());
+				 echo esc_html__(get_woocommerce_currency_symbol());
+				 echo '</p>';
+				 echo '</span>';
 
-	<?php echo apply_filters( 'woocommerce_sale_flash', '<span class="onsale">' . esc_html__( 'Προσφορά!', 'woocommerce' ) . esc_html__(catalogue_sale_price()) . esc_html__(get_woocommerce_currency_symbol()) . '</span>', $post, $product ); ?>
+	 ?>
+
 
 <?php endif;
 

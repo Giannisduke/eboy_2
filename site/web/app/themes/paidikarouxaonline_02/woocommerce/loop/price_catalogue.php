@@ -21,7 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 ?>
-<div class="product_price test">
 
-<p class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) );?>"><?php echo catalogue_price();  ?><?php echo get_woocommerce_currency_symbol();  ?></p>
+
+<div class="w-25 <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) );?>"><?php echo catalogue_price();  ?><?php echo get_woocommerce_currency_symbol();  ?></p>
+</div>
 </div>
