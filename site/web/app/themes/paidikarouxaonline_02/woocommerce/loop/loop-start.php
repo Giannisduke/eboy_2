@@ -23,12 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="container">
 <div class="row">
 <div class="col-3 pr-5">
-	<div class="row">
-		<div class="col-12 filter">
-			<h4>Φύλλο</h4>
-<?php  echo facetwp_display( 'facet', 'product_categories' ); ?>
-		</div>
-	</div>
+
 	<div class="row">
 		<div class="col-12 filter">
 			<h4>Ηλικία</h4>

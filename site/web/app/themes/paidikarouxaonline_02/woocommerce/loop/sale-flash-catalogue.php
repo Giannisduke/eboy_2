@@ -23,13 +23,17 @@ global $post, $product;
 
 ?>
 <?php if ( $product->is_on_sale() ) : ?>
-	<?php echo '<span class="discount">';
+	<?php
+				 echo '<div class="green-circle">';
+				 echo '<span class="inner-text">';
 				 echo esc_html__( 'Προσφορά!', 'woocommerce' );
-				 echo '</br><p class="sales_price">';
+				 echo '<span class="sales_price">';
+				 	echo '</br>';
 				 echo esc_html__(catalogue_sale_price());
 				 echo esc_html__(get_woocommerce_currency_symbol());
-				 echo '</p>';
 				 echo '</span>';
+				 echo '</span>';
+				 echo '</div>';
 
 	 ?>
 

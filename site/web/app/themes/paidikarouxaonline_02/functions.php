@@ -135,7 +135,8 @@ function woocommerce_taxonomy_archive_description_custom() {
     echo $content;
     echo '</p>';
   }
-  echo '<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>';
+  echo '<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img class="ico svg-convert" src=" ' .get_template_directory_uri() .'/dist/images/arrow_down.svg"></a>';
+
 }
 add_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description_custom', 10 );
 
