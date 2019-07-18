@@ -86,7 +86,7 @@ function widgets_init() {
   register_sidebar([
     'name'          => __('Sidebar products', 'paidikarouxaonline'),
     'id'            => 'sidebar-products',
-    'before_widget' => '<div class="shadow-sm p-4 mb-3 bg-white rounded">',
+    'before_widget' => '<div class="shadow-sm p-4 mb-2 bg-white rounded">',
     'after_widget'  => '</div>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'

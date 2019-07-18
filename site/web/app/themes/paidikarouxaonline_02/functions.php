@@ -15,7 +15,8 @@ $sage_includes = [
   'lib/setup.php',     // Theme setup
   'lib/titles.php',    // Page titles
   'lib/wrapper.php',   // Theme wrapper class
-  'lib/customizer.php' // Theme customizer
+  'lib/customizer.php', // Theme customizer
+  'templates/facetwp-custom.php' // Theme customizer
 ];
 
 foreach ($sage_includes as $file) {
@@ -76,7 +77,8 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
 add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle', 10 );
 function abChangeProductsTitle() {
-    echo '<div class="d-flex flex-row product-info"><div class="w-75"><h5 class="woocommerce-loop-product_title">' . get_the_title() . '</h5></div>';
+    echo '<div class="card-body product-info"><h5 class="card-title">' . get_the_title() . '</h5>';
+
 }
 
 
@@ -139,8 +141,6 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 25 );
 
 
-remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
-add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_add_to_cart', 15 );
 
 remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 
@@ -157,6 +157,7 @@ function woocommerce_template_loop_price_catalogue() {
 }
 add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price_catalogue', 10 );
 
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_product_link_close', 5 );
 
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices', 10 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
@@ -164,6 +165,20 @@ remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 3
 
 add_action( 'woocommerce_before_shop_loop_navigation', 'woocommerce_result_count', 10 );
 add_action( 'woocommerce_before_shop_loop_navigation', 'woocommerce_catalog_ordering', 30 );
+
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
+
+function woocommerce_template_loop_product_thumbnail_card() {
+  global $product;
+  /* grab the url for the full size featured image */
+   $featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'woocommerce_thumbnail');
+
+
+
+   echo '<img src="'.esc_url($featured_img_url).'" class="card-img-top img-overlay" alt="...">';
+   echo '<div class="fa fa-plus project-overlay"></div>';
+}
+add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail_card', 10 );
 
 
 

@@ -21,8 +21,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 ?>
+<div class="d-flex flex-row justify-content-between align-items-end">
+  <div class="p-0 w-50">
+		<?php echo do_shortcode("[ti_wishlists_addtowishlist loop=yes]"); ?>
+	</div>
 
-
-<div class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) );?>"><?php echo catalogue_price();  ?><?php echo get_woocommerce_currency_symbol();  ?>
+  <div class="p-0 w-50 align-self-center">
+		<div class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price ml-auto' ) );?>"><?php echo catalogue_price();  ?>
+			<span class="currency">
+			<?php echo get_woocommerce_currency_symbol();  ?>
+		</span>
+		</div>
+	</div>
 </div>
+
 </div>
