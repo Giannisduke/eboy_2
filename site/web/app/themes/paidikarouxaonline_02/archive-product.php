@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
  ?>
- <div class="container text-center pb-5" id="module">
+ <div class="container text-center p-5">
  	<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
  		<h3 class="page-title"><?php woocommerce_page_title(); ?></h3>
  	<?php endif; ?>
@@ -39,6 +39,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  	do_action( 'woocommerce_archive_description' );
  	?>
  </div>
+ <div class="container-fluid p-0">
+	 	 <?php do_action( 'woocommerce_before_shop_loop_navigation'); ?>
+ </div>
+   <div class="container-fluid shop">
+		 <div class="row">
+			 <div class="col-12">
+
+			 </div>
+			 <div class="col-3">
+				 	
+					<?php dynamic_sidebar('sidebar-products'); ?>
+
+			 </div>
+			 <div class="col-9">
  <?php
  if ( woocommerce_product_loop() ) {
 
@@ -62,9 +76,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  			 *
  			 * @hooked WC_Structured_Data::generate_product_data() - 10
  			 */
- 			do_action( 'woocommerce_shop_loop' );
+ 		//	do_action( 'woocommerce_shop_loop' );
 
- 			wc_get_template_part( 'content', 'product' );
+ 		wc_get_template_part( 'content', 'product' );
 
  		}
  	}
@@ -85,3 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  	 */
  	do_action( 'woocommerce_no_products_found' );
  }
+?>
+	</div>
+ </div>
+<?php

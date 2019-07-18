@@ -20,22 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<div class="container">
-<div class="row">
-<div class="col-3 pr-5">
 
-	<div class="row">
-		<div class="col-12 filter">
-			<h4>Ηλικία</h4>
-<?php  echo facetwp_display( 'facet', 'product_age' ); ?>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-12 filter">
-			<h4>Χρώμα</h4>
-<?php  echo facetwp_display( 'facet', 'product_color' ); ?>
-		</div>
-	</div>
-</div>
-<div class="col-9">
+
+
 	<div class="row facetwp-template">

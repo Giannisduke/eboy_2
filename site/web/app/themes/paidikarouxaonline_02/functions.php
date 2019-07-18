@@ -80,32 +80,6 @@ function abChangeProductsTitle() {
 }
 
 
-function pqrc_display_qr_code( $content ) {
-    $current_post_id    = get_the_ID();
-    $current_post_title = get_the_title( $current_post_id );
-    $current_post_url   = urlencode( get_the_permalink( $current_post_id ) );
-    $current_post_type  = get_post_type( $current_post_id );
-    // Post Type Check
-    $excluded_post_types = apply_filters( 'pqrc_excluded_post_types', array() );
-    if ( in_array( $current_post_type, $excluded_post_types ) ) {
-        return $content;
-    }
-    //Dimension Hook
-    $dimension = apply_filters( 'pqrc_qrcode_dimension', '185x185' );
-    //Image Attributes
-    $image_attributes = apply_filters('pqrc_image_attributes',null);
-    $image_src = sprintf( 'https://api.qrserver.com/v1/create-qr-code/?size=%s&ecc=L&qzone=1&data=%s', $dimension, $current_post_url );
-    $content   .= sprintf( "<div class='qrcode'><img %s  src='%s' alt='%s' /></div>",$image_attributes, $image_src, $current_post_title );
-    return $content;
-}
-add_action( 'woocommerce_before_shop_loop_item_title', 'pqrc_display_qr_code', 5 );
-
-foreach ( array( 'pre_term_description' ) as $filter ) {
-    remove_filter( $filter, 'wp_filter_kses' );
-}
-foreach ( array( 'term_description' ) as $filter ) {
-    remove_filter( $filter, 'wp_kses_data' );
-}
 
 remove_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10 );
 remove_action ('woocommerce_archive_description', 'woocommerce_product_archive_description', 10 );
@@ -183,6 +157,13 @@ function woocommerce_template_loop_price_catalogue() {
 }
 add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price_catalogue', 10 );
 
+
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices', 10 );
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+
+add_action( 'woocommerce_before_shop_loop_navigation', 'woocommerce_result_count', 10 );
+add_action( 'woocommerce_before_shop_loop_navigation', 'woocommerce_catalog_ordering', 30 );
 
 
 
@@ -312,3 +293,19 @@ function ask_percentage_sale( $text, $post, $product ) {
     }
     return $text;
 }
+
+// Modify the default WooCommerce orderby dropdown
+//
+// Options: menu_order, popularity, rating, date, price, price-desc
+// In this example I'm changing the default "Sort by newness" to "Sort by date: newest to oldest"
+function patricks_woocommerce_catalog_orderby( $orderby ) {
+	$orderby["date"] = __('Νεότερα', 'woocommerce');
+  $orderby["oldest_to_recent"] = __('Παλαιότερα', 'woocommerce');
+  $orderby["popularity"] = __('Δημοφιλή', 'woocommerce');
+  $orderby["price"] = __('Φθηνότερα', 'woocommerce');
+  $orderby["price-desc"] = __('Ακριβότερα', 'woocommerce');
+  unset( $orderby['rating'] );
+  unset( $orderby['menu_order'] );
+	return $orderby;
+}
+add_filter( "woocommerce_catalog_orderby", "patricks_woocommerce_catalog_orderby", 20 );

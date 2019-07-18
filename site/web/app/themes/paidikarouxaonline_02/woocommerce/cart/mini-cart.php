@@ -74,10 +74,10 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 	<p class="woocommerce-mini-cart__buttons buttons"><?php do_action( 'woocommerce_widget_shopping_cart_buttons' ); ?></p>
 
 <?php else : ?>
-	<div class="text-center">
+	<span class="ml-auto text-right">
  <img src="<?= get_template_directory_uri(); ?>/dist/images/ico_cart_e.svg">
 	<p class="woocommerce-mini-cart__empty-message"><?php _e( 'No products in the cart.', 'woocommerce' ); ?></p>
-</div>
+</span>
 <?php endif; ?>
 
 <?php do_action( 'woocommerce_after_mini_cart' ); ?>

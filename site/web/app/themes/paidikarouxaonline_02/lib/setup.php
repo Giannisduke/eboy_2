@@ -74,14 +74,6 @@ function widgets_init() {
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
   ]);
-  register_sidebar([
-    'name'          => __('Header Right', 'paidikarouxaonline'),
-    'id'            => 'header-right',
-    'before_widget' => '<div class="p-0">',
-    'after_widget'  => '</div>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>'
-  ]);
 
   register_sidebar([
     'name'          => __('Upper Header Left', 'paidikarouxaonline'),
@@ -92,13 +84,14 @@ function widgets_init() {
     'after_title'   => '</h3>'
   ]);
   register_sidebar([
-    'name'          => __('Upper Header Right', 'paidikarouxaonline'),
-    'id'            => 'upper-header-right',
-    'before_widget' => '<div class="p-0 ml-auto">',
+    'name'          => __('Sidebar products', 'paidikarouxaonline'),
+    'id'            => 'sidebar-products',
+    'before_widget' => '<div class="shadow-sm p-4 mb-3 bg-white rounded">',
     'after_widget'  => '</div>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
   ]);
+
   register_sidebar([
     'name'          => __('Footer', 'paidikarouxaonline'),
     'id'            => 'sidebar-footer',
