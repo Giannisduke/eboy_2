@@ -22,5 +22,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 
-
-	<div class="card-deck facetwp-template">
+<div class="container facetwp-template">
+	<div class="card-deck grid">

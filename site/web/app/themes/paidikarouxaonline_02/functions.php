@@ -73,14 +73,71 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'them
 }
 
 
+function eboy_display_categories() {
+global $post;
+$brands_id = get_term_by('slug', 'αγόρι', 'product_cat');
+
+$terms = get_the_terms($post->ID, 'product_cat');
+foreach ($terms as $term) {
+    if($term->parent === $brands_id->term_id) {
+        echo $term->name;
+          echo 'test';
+        break;
+    }
+}
+}
+//add_action('woocommerce_shop_loop_item_title', 'eboy_display_categories', 5 );
+
 
 remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
-add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle', 10 );
+
 function abChangeProductsTitle() {
-    echo '<div class="card-body product-info"><h5 class="card-title">' . get_the_title() . '</h5>';
+  global $post, $product;
+  $color = $product->get_attribute( 'pa_color' );
+
+$cats = get_the_terms( $post->ID, 'product_cat' );
+    echo '<div class="card-body product-info"><h5 class="card-title">';
+
+
+//    echo get_the_title();
+//    echo $color;
+//    echo '</h5>';
 
 }
+add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle', 5 );
 
+
+function abChangeProductsTitle_2() {
+  global $post;
+  $brands_id = get_term_by('slug', 'αγόρι', 'product_cat');
+
+  $terms = get_the_terms($post->ID, 'product_cat');
+  foreach ($terms as $term) {
+      if($term->parent === $brands_id->term_id) {
+          //echo $term->name;
+          echo $term->description;
+          echo ', ';
+          break;
+      }
+  }
+
+}
+add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle_2', 10 );
+
+function abChangeProductsTitle_3() {
+  global $post, $product;
+  $color = $product->get_attribute( 'pa_color' );
+
+$cats = get_the_terms( $post->ID, 'product_cat' );
+    //echo '<div class="card-body product-info"><h5 class="card-title">';
+
+
+    echo get_the_title() . ', ';
+    echo $color;
+    echo '</h5>';
+
+}
+add_action('woocommerce_shop_loop_item_title', 'abChangeProductsTitle_3', 15 );
 
 
 remove_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10 );
@@ -267,6 +324,9 @@ function catalogue_price() {
     if( $product->is_on_sale() ) {
         return $product->get_sale_price();
 
+    }
+    else  {
+        return $product->get_regular_price();
     }
     return $product->get_sale_price();
 }

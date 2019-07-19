@@ -28,7 +28,8 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 }
 
 ?>
-<div <?php wc_product_class('card'); ?>>
+
+<div <?php wc_product_class('card grid-item'); ?>>
 
     <?php
     /**
