@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			 </div>
 			 <div class="col-3">
-				 	
+
 					<?php dynamic_sidebar('sidebar-products'); ?>
 
 			 </div>

@@ -244,7 +244,7 @@ add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loo
 if (!function_exists('my_commonPriceHtml')) {
 
     function my_commonPriceHtml($price_amt, $regular_price, $sale_price) {
-        $html_price = '<p class="price test">';
+        $html_price = '<p class="price">';
         //if product is in sale
         if (($price_amt == $sale_price) && ($sale_price != 0)) {
             $html_price .= '<ins>' . wc_price($sale_price) . '</ins>';

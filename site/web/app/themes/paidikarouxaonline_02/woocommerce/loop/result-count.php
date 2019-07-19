@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="navigation">
 
 	<div class="container">
-		<div class="d-flex flex-row justify-content-between">
+		<div class="d-flex flex-row justify-content-between align-items-center">
 	  <div class="p-2">
 			<p class="woocommerce-result-count">
 				<?php
@@ -39,7 +39,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 				}
 				?>
 			</p>
-		</div>
-	  <div class="p-2">
-				<?php echo facetwp_display('selections'); ?>
 		</div>
