@@ -259,36 +259,6 @@ add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loo
 
 
 
-if (!function_exists('my_commonPriceHtml')) {
-
-    function my_commonPriceHtml($price_amt, $regular_price, $sale_price) {
-        $html_price = '<p class="price">';
-        //if product is in sale
-        if (($price_amt == $sale_price) && ($sale_price != 0)) {
-            $html_price .= '<ins>' . wc_price($sale_price) . '</ins>';
-            $html_price .= '<del>' . wc_price($regular_price) . '</del>';
-        }
-        //in sale but free
-        else if (($price_amt == $sale_price) && ($sale_price == 0)) {
-            $html_price .= '<ins>Free!</ins>';
-            $html_price .= '<del>' . wc_price($regular_price) . '</del>';
-        }
-        //not is sale
-        else if (($price_amt == $regular_price) && ($regular_price != 0)) {
-            $html_price .= '<ins>' . wc_price($regular_price) . '</ins>';
-        }
-        //for free product
-        else if (($price_amt == $regular_price) && ($regular_price == 0)) {
-            $html_price .= '<ins>Free!</ins>';
-        }
-        $html_price .= '</p>';
-        return $html_price;
-    }
-
-}
-
-add_filter('woocommerce_get_price_html', 'my_simple_product_price_html', 100, 2);
-
 function my_simple_product_price_html($price, $product) {
     if ($product->is_type('simple')) {
         $regular_price = $product->get_regular_price();
@@ -402,3 +372,14 @@ function patricks_woocommerce_catalog_orderby( $orderby ) {
 	return $orderby;
 }
 add_filter( "woocommerce_catalog_orderby", "patricks_woocommerce_catalog_orderby", 20 );
+
+add_filter('woocommerce_product_single_add_to_cart_text', 'woo_custom_cart_button_text');
+
+function woo_custom_cart_button_text() {
+return __('Αγορά', 'woocommerce');
+}
+
+function wc_remove_all_quantity_fields( $return, $product ) {
+    return true;
+}
+add_filter( 'woocommerce_is_sold_individually', 'wc_remove_all_quantity_fields', 10, 2 );

@@ -31,11 +31,7 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
-<div class="d-flex">
-  <div class="p-2">Flex item</div>
-  <div class="p-2">Flex item</div>
-  <div class="ml-auto p-2">Flex item</div>
-</div>
+
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?> >
 
 	<?php

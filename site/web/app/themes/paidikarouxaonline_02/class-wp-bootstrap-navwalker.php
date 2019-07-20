@@ -144,6 +144,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			$classes[] = 'menu-item-' . $item->ID;
 			$classes[] = 'nav-item';
 			$classes[] = 'pl-4';
+			$classes[] = 'mt-3';
 
 			// Allow filtering the classes.
 			$classes = apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth );
@@ -291,7 +292,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 				$item_output .= self::linkmod_element_close( $linkmod_type, $attributes );
 			} else {
 				// With no link mod type set this must be a standard <a> tag.
-				$item_output .= '</a>';
+				$item_output .= '</h2></a>';
 			}
 
 			$item_output .= isset( $args->after ) ? $args->after : '';

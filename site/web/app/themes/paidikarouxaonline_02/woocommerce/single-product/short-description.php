@@ -28,7 +28,7 @@ if ( ! $short_description ) {
 }
 
 ?>
-<div class="shadow-sm bg-panel rounded mb-2">
+<div class="shadow-sm bg-panel rounded p-4 mb-2">
 	<?php echo $short_description; // WPCS: XSS ok. ?>
 
 		<?php do_action( 'woocommerce_product_meta_start' ); ?>
