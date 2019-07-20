@@ -1,7 +1,7 @@
 <?php
 
-//Override the WooCommerce wc_dropdown_variation_attribute_options function. 
-//To do this this file MUST be loaded before WooCommerce core. 
+//Override the WooCommerce wc_dropdown_variation_attribute_options function.
+//To do this this file MUST be loaded before WooCommerce core.
 function wc_dropdown_variation_attribute_options( $args = array() ) {
 	if ( is_admin() ) {
 		wc_core_dropdown_variation_attribute_options( $args );
@@ -188,7 +188,7 @@ function wc_radio_variation_attribute_options( $args = array() ) {
 		$options    = $attributes[ $attribute ];
 	}
 
-	echo '<ul id="radio_select_' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '">';
+	echo '<div id="radio_select_' . esc_attr( $id ) . '" class="radio-tile-group ' . esc_attr( $class ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '">';
 
 	if ( ! empty( $options ) ) {
 		if ( $product && taxonomy_exists( $attribute ) ) {
@@ -197,23 +197,26 @@ function wc_radio_variation_attribute_options( $args = array() ) {
 
 			foreach ( $terms as $term ) {
 				if ( in_array( $term->slug, $options ) ) {
-					echo '<li>';
-					echo '<input class="radio-option" name="' . esc_attr( $name ) . '" id="radio_' . esc_attr( $id ) . '_' . esc_attr( $term->slug ) . '" type="radio" data-value="' . esc_attr( $term->slug ) . '" value="' . esc_attr( $term->slug ) . '" ' . checked( sanitize_title( $args['selected'] ), $term->slug, false ) . ' /><label for="radio_' . esc_attr( $id ) . '_' . esc_attr( $term->slug ) . '">' . esc_html( apply_filters( 'woocommerce_variation_option_name', $term->name ) ) . '</label>';
-					echo '</li>';
+					echo '<div class="input-container">';
+					echo '<input class="radio-option radio-button" name="' . esc_attr( $name ) . '" id="radio_' . esc_attr( $id ) . '_' . esc_attr( $term->slug ) . '" type="radio" data-value="' . esc_attr( $term->slug ) . '" value="' . esc_attr( $term->slug ) . '" ' . checked( sanitize_title( $args['selected'] ), $term->slug, false ) . ' />';
+					echo '<div class="radio-tile">';
+					echo '<label class="radio-tile-label" for="radio_' . esc_attr( $id ) . '_' . esc_attr( $term->slug ) . '">' . esc_html( apply_filters( 'woocommerce_variation_option_name', $term->name ) ) . '</label>';
+					echo '</div>';
+					echo '</div>';
 				}
 			}
 		} else {
 			foreach ( $options as $option ) {
 				// This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
 				$selected = sanitize_title( $args['selected'] ) === $args['selected'] ? checked( $args['selected'], sanitize_title( $option ), false ) : checked( $args['selected'], $option, false );
-				echo '<li>';
+				echo '<li class="list-inline-item">';
 				echo '<input class="radio-option" name="' . esc_attr( $name ) . '" id="radio_' . esc_attr( $id ) . '_' . esc_attr( $option ) . '" type="radio" data-value="' . esc_attr( $option ) . '" value="' . esc_attr( $option ) . '" ' . $selected . ' /><label for="radio_' . esc_attr( $id ) . '_' . esc_attr( $option ) . '">' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option ) ) . '</label>';
 				echo '</li>';
 			}
 		}
 	}
 
-	echo '</ul>';
+	echo '</div>';
 }
 
 function woocommerce_swatches_get_template( $template_name, $args = array() ) {
