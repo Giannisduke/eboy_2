@@ -81,7 +81,7 @@ $terms = get_the_terms($post->ID, 'product_cat');
 foreach ($terms as $term) {
     if($term->parent === $brands_id->term_id) {
         echo $term->name;
-          echo 'test';
+
         break;
     }
 }
@@ -191,8 +191,26 @@ return $translated_text;
 add_filter( 'gettext', 'lar_text_strings', 20, 3 );
 
 
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
-add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 5);
+function woocommerce_before_mini_cart_open() {
+?>
+  <div class="ml-auto">
+<?php
+}
+
+add_action( 'woocommerce_before_mini_cart', 'woocommerce_before_mini_cart_open', 5 );
+
+
+function woocommerce_before_mini_cart_close() {
+?>
+</div>
+<?php
+}
+
+add_action( 'woocommerce_after_mini_cart', 'woocommerce_before_mini_cart_close', 5 );
+
+
+//remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+//add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 15);
 
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 25 );

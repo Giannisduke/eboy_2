@@ -1,4 +1,4 @@
-<div class="container test">
+<div class="container shop-single">
 
 	<?php
 		/**

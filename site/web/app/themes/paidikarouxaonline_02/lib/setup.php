@@ -69,8 +69,8 @@ function widgets_init() {
   register_sidebar([
     'name'          => __('Header', 'paidikarouxaonline'),
     'id'            => 'header-center',
-    'before_widget' => '<div class="p-2 w-100">',
-    'after_widget'  => '</div>',
+    'before_widget' => '',
+    'after_widget'  => '',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
   ]);
@@ -86,7 +86,7 @@ function widgets_init() {
   register_sidebar([
     'name'          => __('Sidebar products', 'paidikarouxaonline'),
     'id'            => 'sidebar-products',
-    'before_widget' => '<div class="shadow-sm p-4 mb-2 bg-white rounded">',
+    'before_widget' => '<div class="shadow-sm p-4 mb-2 bg-panel rounded">',
     'after_widget'  => '</div>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
