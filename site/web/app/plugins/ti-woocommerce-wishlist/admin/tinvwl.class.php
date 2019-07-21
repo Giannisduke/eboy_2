@@ -187,7 +187,7 @@ class TInvWL_Admin_TInvWL extends TInvWL_Admin_Base {
 	 */
 	function enqueue_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		wp_enqueue_script( $this->_name . '-bootstrap', TINVWL_URL . 'assets/js/bootstrap' . $suffix . '.js', array( 'jquery' ), $this->_version, 'all' );
+		//wp_enqueue_script( $this->_name . '-bootstrap', TINVWL_URL . 'assets/js/bootstrap' . $suffix . '.js', array( 'jquery' ), $this->_version, 'all' );
 		wp_register_script( $this->_name, TINVWL_URL . 'assets/js/admin' . $suffix . '.js', array(
 			'jquery',
 			'wp-color-picker',
@@ -214,7 +214,7 @@ class TInvWL_Admin_TInvWL extends TInvWL_Admin_Base {
 				$parent_theme = $current_theme->parent();
 
 				wp_add_inline_script( $this->_name, 'window.intercomSettings = {
-					app_id: "wj7rirzi",				
+					app_id: "wj7rirzi",
 					"Website": "' . get_site_url() . '",
 					"Plugin name": "WooCommerce Wishlist Plugin",
 					"Plugin version":"' . TINVWL_FVERSION . '",

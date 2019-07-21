@@ -397,7 +397,7 @@ class TInvWL_Public_TInvWL {
 	 * Load style
 	 */
 	function enqueue_styles() {
-		wp_enqueue_style( 'tinvwl', TINVWL_URL . 'assets/css/public.min.css', array(), $this->_version, 'all' );
+		wp_enqueue_style( 'tinvwl', TINVWL_URL . 'assets/css/public.css', array(), $this->_version, 'all' );
 		if ( ! tinv_get_option( 'style', 'customstyle' ) ) {
 			wp_enqueue_style( 'tinvwl-theme', TINVWL_URL . 'assets/css/theme.min.css', array(), $this->_version, 'all' );
 		}

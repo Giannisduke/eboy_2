@@ -35,7 +35,10 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 			<tbody>
 				<?php foreach ( $attributes as $attribute_name => $options ) : ?>
 					<tr>
-						<td class="label"><label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>"><h4><?php echo wc_attribute_label( $attribute_name ); // WPCS: XSS ok. ?></h4></label></td>
+						<td class="label"><label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>">
+							<h4><?php echo wc_attribute_label( $attribute_name ); // WPCS: XSS ok. ?></h4>
+						</label>
+						</td>
 						<td class="value">
 							<?php
 								wc_dropdown_variation_attribute_options( array(
@@ -43,7 +46,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 									'attribute' => $attribute_name,
 									'product'   => $product,
 								) );
-								echo end( $attribute_keys ) === $attribute_name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
+							//	echo end( $attribute_keys ) === $attribute_name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
 							?>
 						</td>
 					</tr>
@@ -51,7 +54,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 			</tbody>
 		</table>
 
-		<div class="single_variation_wrap">
+		<div class="single_variation_wrap d-flex flex-row pt-5">
 			<?php
 				/**
 				 * Hook: woocommerce_before_single_variation.
@@ -65,6 +68,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 				 * @hooked woocommerce_single_variation - 10 Empty div for variation data.
 				 * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
 				 */
+				 echo do_shortcode("[ti_wishlists_addtowishlist loop=yes]");
 				do_action( 'woocommerce_single_variation' );
 
 				/**
