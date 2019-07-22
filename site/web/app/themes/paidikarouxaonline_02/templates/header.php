@@ -50,9 +50,12 @@
           <span class="navbar-toggler-icon"></span>
       </button>
   </div>
-    <div class="navbar-collapse collapse order-3 dual-collapse2 flex-row justify-content-end">
-<?php //woocommerce_mini_cart();?>
-<?php echo do_shortcode("[jma_woo_minicart]"); ?>
+  <div class="navbar-collapse collapse order-3 dual-collapse2 flex-row justify-content-end">
+    <?php echo do_shortcode("[ti_wishlist_products_counter]"); ?>
+    </div>
+
+    <div class="navbar-collapse collapse order-4 dual-collapse2 flex-row justify-content-end">
+      <?php woocommerce_mini_cart();?>
     </div>
 
 </nav>
