@@ -212,8 +212,8 @@ add_action( 'woocommerce_after_mini_cart', 'woocommerce_before_mini_cart_close',
 //remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 //add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 15);
 
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 25 );
+//  remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+//add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 25 );
 
 
 
@@ -349,10 +349,10 @@ function ask_percentage_sale( $text, $post, $product ) {
                 }
             }
         }
-        $text = '<span class="onsale">' . $maximumper  . '%</span>';
+        $text = '<span class="onsale">-' . $maximumper  . '%</span>';
     } elseif ( $product->get_type() == 'simple' ) {
         $percentage = round( ( ( $product->get_regular_price() - $product->get_sale_price() ) / $product->get_regular_price() ) * 100 );
-        $text = '<span class="onsale">' . $percentage . '%</span>';
+        $text = '<span class="onsale">' . $percentage . 'fwf</span>';
     }
     return $text;
 }
@@ -433,6 +433,14 @@ function custom_mini_cart() {
 
 }
 add_shortcode( 'custom-mini-cart', 'custom_mini_cart' );
+
+add_filter('woocommerce_product_tabs', 'woocommerce_product_tabs_remove_qr_code', 20);
+function woocommerce_product_tabs_remove_qr_code($tabs){
+    if(isset($tabs['qr_code_tab'])){
+        unset($tabs['qr_code_tab']);
+    }
+    return $tabs;
+}
 
 function button_qr_code() {
     global $product;

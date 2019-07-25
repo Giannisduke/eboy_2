@@ -40,9 +40,13 @@ if ( ! $short_description ) {
 
 		<?php endif; ?>
 	-->
-		<?php echo wc_get_product_category_list( $product->get_id(), ', ', '<span class="posted_in">' . _n( '', '', count( $product->get_category_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
+	<div class="d-flex flex-row align-items-center">
+		<div class="p-0"><h4>Κατηγορίες:</h4></div>
+		<?php echo wc_get_product_category_list( $product->get_id(), ', ', '<div class="px-1">' . _n( '', '', count( $product->get_category_ids() ), 'woocommerce' ) . ' ', '</div>' ); ?>
+		<div class="px-2"><h4>Ετικέτες:</h4></div>
+		<?php echo wc_get_product_tag_list( $product->get_id(), ', ', '<div class="px-1">' . _n( '', '', count( $product->get_tag_ids() ), 'woocommerce' ) . ' ', '</div>' ); ?>
+</div>
 
-		<?php echo wc_get_product_tag_list( $product->get_id(), ', ', '<span class="tagged_as">' . _n( '', '', count( $product->get_tag_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
 
 		<?php do_action( 'woocommerce_product_meta_end' ); ?>
 </div>
