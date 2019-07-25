@@ -434,22 +434,58 @@ function custom_mini_cart() {
 }
 add_shortcode( 'custom-mini-cart', 'custom_mini_cart' );
 
-/**
- * Add Cart icon and count to header if WC is active
- */
-function my_wc_cart_count() {
+function button_qr_code() {
+    global $product;
+    ?>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+      Εκτύπωση Κάρτας
+    </button>
 
-    if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Εκτύπωση Κάρτας</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex flex-row">
+              <div class="p-0">
+                <?php
+                if (get_wc_product_qr_code_src($product->get_id())) {
+                    echo '<div class="wc-qr-codes-container">';
+                    echo '<img class="wcqrc-qr-code-img" src="' . get_wc_product_qr_code_src($product->get_id()) . '" alt="QR Code" />';
+                    echo '</div>';
+                } ?>
+              </div>
+              <div class="p-0"><div class="d-flex flex-column">
+                <div class="px-3"><?php the_title( '<h3 class="product_title entry-title">', '</h3>' );?></div>
+                <div class="p-0"><?php echo $product->get_price_html(); ?></div>
 
-        $count = WC()->cart->cart_contents_count;
-        ?><a class="cart-contents" href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>"><?php
-        if ( $count > 0 ) {
-            ?>
-            <span class="cart-contents-count"><?php echo esc_html( $count ); ?></span>
-            <?php
-        }
-                ?></a><?php
+              </div>
+            </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλεισιμο</button>
+            <button type="button" class="btn btn-primary">Εκτύπωση</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<?php }
+add_action('woocommerce_single_product_summary', 'button_qr_code', 10);
+
+function add_wc_product_qr_code() {
+    global $product;
+    if (get_wc_product_qr_code_src($product->get_id())) {
+        echo '<div class="wc-qr-codes-container">';
+        echo '<img class="wcqrc-qr-code-img" src="' . get_wc_product_qr_code_src($product->get_id()) . '" alt="QR Code" />';
+        echo '</div>';
     }
-
 }
-add_shortcode( 'your_theme_header_top', 'my_wc_cart_count' );
+//add_action('woocommerce_single_product_summary', 'add_wc_product_qr_code', 10);
