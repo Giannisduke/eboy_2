@@ -21,3 +21,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 ?>
+<?php if( get_field('cotton') || get_field('polyester') ): ?>
+
+	<div class="pieID--micro-skills pie-chart--wrapper shadow-sm bg-panel rounded p-4 mb-2">
+		<h4>Υλικό</h4>
+		<div class="pie-chart d-flex flex-row">
+			<div class="pie-chart__pie"></div>
+			<ul class="pie-chart__legend">
+				<?php if( get_field('cotton')): ?>
+				<li><em>Βαμβάκι: </em><span><?php the_field('cotton'); ?></span>%</li>
+				<?php endif; ?>
+				<?php if( get_field('polyester')): ?>
+				<li><em>Πολυεστέρας: </em><span><?php the_field('polyester'); ?></span>%</li>
+				<?php endif; ?>
+			</ul>
+		</div>
+	</div>
+
+
+<?php endif; ?>

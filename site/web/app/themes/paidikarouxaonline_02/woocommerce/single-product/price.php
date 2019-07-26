@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 
 ?>
-<div class="product_price shadow-sm bg-panel rounded px-4 pt-2 mb-1">
+<div class="product_price shadow-sm bg-panel rounded px-4 pt-2 mb-0">
 	<h4>Τιμή</h4>
 <?php echo $product->get_price_html(); ?>
 </div>

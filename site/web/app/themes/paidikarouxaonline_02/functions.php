@@ -211,6 +211,12 @@ add_action( 'woocommerce_after_mini_cart', 'woocommerce_before_mini_cart_close',
 
 //remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 //add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 15);
+function woocommerce_template_single_manufacturer() {
+  wc_get_template( 'single-product/manufacturer.php' );
+
+}
+
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_manufacturer', 2);
 
 //  remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 //add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 25 );
@@ -486,14 +492,4 @@ function button_qr_code() {
       </div>
     </div>
 <?php }
-add_action('woocommerce_single_product_summary', 'button_qr_code', 10);
-
-function add_wc_product_qr_code() {
-    global $product;
-    if (get_wc_product_qr_code_src($product->get_id())) {
-        echo '<div class="wc-qr-codes-container">';
-        echo '<img class="wcqrc-qr-code-img" src="' . get_wc_product_qr_code_src($product->get_id()) . '" alt="QR Code" />';
-        echo '</div>';
-    }
-}
-//add_action('woocommerce_single_product_summary', 'add_wc_product_qr_code', 10);
+//add_action('woocommerce_single_product_summary', 'button_qr_code', 10);
