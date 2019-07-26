@@ -1,0 +1,15 @@
+{
+    "name": "playground/phpqrcode",
+    "description": "QR Generate",
+
+    "authors": [
+        {
+            "name": "bugnoom",
+            "email": "noom.itsolution@gmail.com"
+        }
+    ],
+    "require": {
+        "kittinan/php-promptpay-qr": "^0.1.5",
+        "automattic/woocommerce": "^2.0"
+    }
+}
