@@ -175,20 +175,7 @@ add_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_des
 
 remove_filter('the_content', 'wpautop');
 
-/**
-* Change the “No products in the cart” message when hovering over the mini-cart
-*
-*/
 
-function lar_text_strings( $translated_text, $text, $domain ) {
-switch ( $translated_text ) {
-case 'No products in the cart.' :
-$translated_text = __( 'Καλάθι Αγορών', 'woocommerce' );
-break;
-}
-return $translated_text;
-}
-add_filter( 'gettext', 'lar_text_strings', 20, 3 );
 
 
 function woocommerce_before_mini_cart_open() {

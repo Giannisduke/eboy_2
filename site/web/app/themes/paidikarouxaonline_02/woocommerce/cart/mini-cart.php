@@ -27,17 +27,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 
-	<span class="woocommerce-mini-cart__total total"><?php echo WC()->cart->get_cart_contents_count(); ?><?php echo WC()->cart->get_cart_subtotal(); ?></span>
+	<span class="woocommerce-mini-cart__total total">
+		<?php echo WC()->cart->get_cart_contents_count(); ?>
+
+		<button type="button" class="btn btn-outline-dark">
+		<?php echo WC()->cart->get_cart_subtotal(); ?>
+	</button>
+	</span>
+	<!-- Modal -->
+	<div id="Modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	<!-- Modal content-->
+	<div class="modal-content">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal">&times;</button>
+	    <h4 class="modal-title">Modal Header</h4>
+	  </div>
+	  <div class="modal-body">
+	    <p>Some text in the modal.</p>
+	  </div>
+	  <div class="modal-footer">
+	    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	  </div>
+	</div>
+
+	  </div>
+	</div>
 
 	<?php do_action( 'woocommerce_widget_shopping_cart_before_buttons' ); ?>
 
 
 
 <?php else : ?>
-
- <img class="minicart align-self-end" src="<?= get_template_directory_uri(); ?>/dist/images/ico_cart_2_e.svg">
-	<span class="woocommerce-mini-cart__empty-message align-self-end"><?php _e( 'No products in the cart.', 'woocommerce' ); ?></span>
-
+<button type="button" class="btn btn-outline-primary">
+	<div class="d-flex flex-row">
+ <img class="minicart align-self-end svg" src="<?= get_template_directory_uri(); ?>/dist/images/ico_cart_2_e.svg">
+	<span class="cart_empty_message align-self-end"><?php _e( 'Καλαθι Αγορων.', 'woocommerce' ); ?></span>
+</div>
+</button>
 <?php endif; ?>
 
 <?php //do_action( 'woocommerce_after_mini_cart' ); ?>

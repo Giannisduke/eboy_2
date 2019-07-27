@@ -22,7 +22,7 @@
 
           <div class="mr-auto order-0">
             <a class="navbar-brand d-flex align-items-center" href="<?= esc_url(home_url('/')); ?>">
-                <img  src='<?php echo esc_url( get_theme_mod( 'themeslug_logo' ) ); ?>' alt='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>'>
+                <img class="svg" src='<?php echo esc_url( get_theme_mod( 'themeslug_logo' ) ); ?>' alt='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>'>
                 <h1><?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></h1>
             </a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
@@ -44,18 +44,17 @@
 
       ?>
   </div>
-  <div class="mx-auto order-2 w-50">
+  <div class="mx-auto order-2 w-25">
     <?php dynamic_sidebar('header-center'); ?>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
           <span class="navbar-toggler-icon"></span>
       </button>
   </div>
-  <div class="navbar-collapse collapse order-3 dual-collapse2 flex-row justify-content-end">
-    <?php echo do_shortcode("[ti_wishlist_products_counter]"); ?>
-    </div>
-
-    <div class="navbar-collapse collapse order-4 dual-collapse2 flex-row justify-content-end">
-      <?php woocommerce_mini_cart();?>
+    <div class="navbar-collapse collapse order-3 dual-collapse2 flex-row justify-content-end">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-primary"><?php echo do_shortcode("[ti_wishlist_products_counter]"); ?></button>
+        <?php woocommerce_mini_cart();?>
+      </div>
     </div>
 
 </nav>
