@@ -25,7 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php if ( ! WC()->cart->is_empty() ) : ?>
 
 
-	<button type="button" class="btn btn-outline-primary btn-lg w-50 minicart" data-toggle="modal" data-target="#CartModal">
+
+			<a class="btn btn-outline-primary btn-lg w-50 minicart" href="<?php echo get_permalink( wc_get_page_id( 'checkout' ) ); ?>" role="button">
 		<div class="d-flex flex-row align-items-center">
 			<div class="p-0 w-25">
 	 <img class="svg" src="<?= get_template_directory_uri(); ?>/dist/images/ico_cart_2_e.svg">
@@ -37,7 +38,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</span>
 		</div>
 	</div>
-	</button>
+</a>
+
 
 
 
@@ -47,7 +49,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php else : ?>
 
-<button type="button" class="btn btn-outline-primary btn-lg w-50 minicart" data-toggle="modal" data-target="#CartModal">
+
+	<a class="btn btn-outline-primary btn-lg w-50 minicart" href="#" role="button">
 	<div class="d-flex flex-row align-items-center">
 		<div class="p-0 w-25">
  <img class="svg" src="<?= get_template_directory_uri(); ?>/dist/images/ico_cart_2_e.svg">
@@ -56,28 +59,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<span class="cart_empty_message"><?php _e( 'Αγορες.', 'woocommerce' ); ?></span>
 	</div>
 </div>
-</button>
+</a>
+
 <?php endif; ?>
 
-	<!-- Modal -->
-
-		<div class="modal fade" id="CartModal" tabindex="-1" role="dialog" aria-labelledby="CartModalTitle" aria-hidden="true" data-href="<?php echo get_permalink( wc_get_page_id( 'cart' ) ); ?>">
-	  <div class="modal-dialog modal-dialog-centered modal-xl">
-
-	<!-- Modal content-->
-	<div class="modal-content">
-	  <div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal">&times;</button>
-	    <h4 class="modal-title">Modal Header</h4>
-	  </div>
-	  <div class="modal-body">
-	    <p>Some text in the modal.</p>
-
-	  </div>
-	  <div class="modal-footer">
-	    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	  </div>
-	</div>
 
 	  </div>
 	</div>

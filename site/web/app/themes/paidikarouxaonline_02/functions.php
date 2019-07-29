@@ -499,3 +499,136 @@ function product_remove() {
 }
 add_action( 'wp_ajax_product_remove', 'product_remove' );
 add_action( 'wp_ajax_nopriv_product_remove', 'product_remove' );
+
+add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
+
+function custom_remove_woo_checkout_fields( $fields ) {
+
+   unset($fields['billing']['billing_company']);
+
+    // remove order comment fields
+    unset($fields['order']['order_comments']);
+    unset($fields['billing']['billing_country']);
+    unset( $fields['billing']['billing_address_2'] );
+    unset( $fields['billing']['billing_country'] );
+    unset( $fields['billing']['billing_state'] );
+
+    return $fields;
+}
+
+/**
+ * Add Bootstrap form styling to WooCommerce fields
+ *
+ * @since  1.0
+ * @refer  http://bit.ly/2zWFMiq
+ */
+function iap_wc_bootstrap_form_field_args ($args, $key, $value) {
+
+  $args['input_class'][] = 'form-control';
+  return $args;
+}
+add_filter('woocommerce_form_field_args','iap_wc_bootstrap_form_field_args', 10, 3);
+
+
+add_filter('woocommerce_default_address_fields', 'custom_default_address_fields', 20, 1);
+function custom_default_address_fields( $address_fields ){
+  $domain = 'paidikarouxaonline';
+    if( ! is_cart()){ // <== On cart page only
+        // Change placeholder
+        $address_fields['first_name']['placeholder'] = __( 'Fornavn', $domain );
+        $address_fields['last_name']['placeholder']  = __( 'Efternavn', $domain );
+        $address_fields['address_1']['placeholder']  = __( 'Adresse', $domain );
+        $address_fields['state']['placeholder']      = __( 'Stat', $domain );
+        $address_fields['postcode']['placeholder']   = __( 'Postnummer', $domain );
+        $address_fields['city']['placeholder']       = __( 'By', $domain );
+
+        // Change class
+        $address_fields['first_name']['class'] = array('form-row-first'); //  50%
+        $address_fields['last_name']['class']  = array('form-row-last');  //  50%
+        $address_fields['address_1']['class']  = array('form-row-first');  // 100%
+        $address_fields['state']['class']      = array('form-row-last');  // 100%
+        $address_fields['postcode']['class']   = array('form-row-first'); //  50%
+        $address_fields['city']['class']       = array('form-row-last');  //  50%
+    }
+    return $address_fields;
+}
+
+/**
+ * Pre-populate Woocommerce checkout fields
+ */
+add_filter('woocommerce_checkout_get_value', function($input, $key ) {
+	global $current_user;
+	switch ($key) :
+		case 'billing_first_name':
+		case 'shipping_first_name':
+			return $current_user->first_name;
+		break;
+
+		case 'billing_last_name':
+		case 'shipping_last_name':
+			return $current_user->last_name;
+		break;
+		case 'billing_email':
+			return $current_user->user_email;
+		break;
+		case 'billing_phone':
+			return $current_user->phone;
+		break;
+	endswitch;
+}, 10, 2);
+
+
+function wc_register_guests( $order_id ) {
+  // get all the order data
+  $order = new WC_Order($order_id);
+
+  //get the user email from the order
+  $order_email = $order->billing_email;
+
+  // check if there are any users with the billing email as user or email
+  $email = email_exists( $order_email );
+  $user = username_exists( $order_email );
+
+  // if the UID is null, then it's a guest checkout
+  if( $user == false && $email == false ){
+    // perform guest user actions here
+// random password with 12 chars
+$random_password = wp_generate_password();
+
+// create new user with email as username & newly created pw
+$user_id = wp_create_user( $order_email, $random_password, $order_email );
+//WooCommerce guest customer identification
+update_user_meta( $user_id, 'guest', 'yes' );
+
+//user's billing data
+update_user_meta( $user_id, 'billing_address_1', $order->billing_address_1 );
+update_user_meta( $user_id, 'billing_address_2', $order->billing_address_2 );
+update_user_meta( $user_id, 'billing_city', $order->billing_city );
+update_user_meta( $user_id, 'billing_company', $order->billing_company );
+update_user_meta( $user_id, 'billing_country', $order->billing_country );
+update_user_meta( $user_id, 'billing_email', $order->billing_email );
+update_user_meta( $user_id, 'billing_first_name', $order->billing_first_name );
+update_user_meta( $user_id, 'billing_last_name', $order->billing_last_name );
+update_user_meta( $user_id, 'billing_phone', $order->billing_phone );
+update_user_meta( $user_id, 'billing_postcode', $order->billing_postcode );
+update_user_meta( $user_id, 'billing_state', $order->billing_state );
+
+// user's shipping data
+update_user_meta( $user_id, 'shipping_address_1', $order->shipping_address_1 );
+update_user_meta( $user_id, 'shipping_address_2', $order->shipping_address_2 );
+update_user_meta( $user_id, 'shipping_city', $order->shipping_city );
+update_user_meta( $user_id, 'shipping_company', $order->shipping_company );
+update_user_meta( $user_id, 'shipping_country', $order->shipping_country );
+update_user_meta( $user_id, 'shipping_first_name', $order->shipping_first_name );
+update_user_meta( $user_id, 'shipping_last_name', $order->shipping_last_name );
+update_user_meta( $user_id, 'shipping_method', $order->shipping_method );
+update_user_meta( $user_id, 'shipping_postcode', $order->shipping_postcode );
+update_user_meta( $user_id, 'shipping_state', $order->shipping_state );
+// link past orders to this newly created customer
+wc_update_new_customer_past_orders( $user_id );
+  }
+
+}
+
+//call our wc_register_guests() function on the thank you page
+add_action( 'woocommerce_thankyou', 'wc_register_guests', 10, 1 );
