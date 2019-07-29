@@ -44,15 +44,15 @@
 
       ?>
   </div>
-  <div class="mx-auto order-2 w-25">
+  <div class="mx-auto order-2 w-xl-45">
     <?php dynamic_sidebar('header-center'); ?>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
           <span class="navbar-toggler-icon"></span>
       </button>
   </div>
     <div class="navbar-collapse collapse order-3 dual-collapse2 flex-row justify-content-end">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-outline-primary"><?php echo do_shortcode("[ti_wishlist_products_counter]"); ?></button>
+      <div class="btn-group btn-group-lg w-100" role="group" aria-label="...">
+        <button type="button" class="btn btn-outline-primary w-50"><?php echo do_shortcode("[ti_wishlist_products_counter]"); ?></button>
         <?php woocommerce_mini_cart();?>
       </div>
     </div>

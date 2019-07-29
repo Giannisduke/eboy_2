@@ -254,7 +254,10 @@ gulp.task('images', function() {
       imagemin.gifsicle({interlaced: true}),
       imagemin.svgo({plugins: [
         {removeUnknownsAndDefaults: false},
-        {cleanupIDs: false}
+        {cleanupIDs: true},
+        {cleanupEnableBackground: true},
+        {removeViewBox: false},
+        {removeDimensions: true}
       ]})
     ]))
     .pipe(gulp.dest(path.dist + 'images'))

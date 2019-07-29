@@ -42,6 +42,11 @@ function cc_mime_types( $mimes ){
 }
 add_filter( 'upload_mimes', 'cc_mime_types' );
 
+function add_image_class($class){
+    $class .= ' additional-class';
+    return $class;
+}
+add_filter('get_image_tag_class','add_image_class');
 
 add_filter( 'facetwp_is_main_query', function( $is_main_query, $query ) {
 	if ( isset( $query->query_vars['facetwp'] ) ) {
@@ -154,7 +159,7 @@ function woocommerce_taxonomy_archive_description_custom() {
     $term = get_queried_object();
 
     if ( $term && ! empty( $term->description ) ) {
-      echo '<p class="collapse" id="collapseExample" aria-expanded="false">' . $term->description . '</p>'; // WPCS: XSS ok.
+      echo '<div class="d-flex flex-row justify-content-center"><div class="col-1 px-5"><p class="collapse" id="collapseExample" aria-expanded="false">' . $term->description . '</p></div></div>'; // WPCS: XSS ok.
 
     }
   }
@@ -168,7 +173,7 @@ function woocommerce_taxonomy_archive_description_custom() {
     echo $content;
     echo '</p>';
   }
-  echo '<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img class="ico svg-convert" src=" ' .get_template_directory_uri() .'/dist/images/arrow_down.svg"></a>';
+  echo '<div class="d-flex flex-row justify-content-center"><div class="col-1 px-5"><a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img class="ico svg" src=" ' .get_template_directory_uri() .'/dist/images/arrow_down.svg"></a></div></div>';
 
 }
 add_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description_custom', 10 );
@@ -250,7 +255,7 @@ add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loo
 
 remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 
-
+remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
 
 function my_simple_product_price_html($price, $product) {
     if ($product->is_type('simple')) {
@@ -480,3 +485,17 @@ function button_qr_code() {
     </div>
 <?php }
 //add_action('woocommerce_single_product_summary', 'button_qr_code', 10);
+
+function product_remove() {
+    global $wpdb, $woocommerce;
+    session_start();
+    $cart = WC()->instance()->cart;
+    $cart_id = $_POST['product_id']; // This info is already the result of generate_cart_id method now
+    /* $cart_id = $cart->generate_cart_id($id); // No need for this! :) */
+    $cart_item_id = $cart->find_product_in_cart($cart_id);
+    if($cart_item_id){
+       $cart->set_quantity($cart_item_id,0);
+    }
+}
+add_action( 'wp_ajax_product_remove', 'product_remove' );
+add_action( 'wp_ajax_nopriv_product_remove', 'product_remove' );
