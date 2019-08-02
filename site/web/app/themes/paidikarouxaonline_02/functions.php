@@ -422,9 +422,6 @@ function woocommerce_template_loop_product_thumbnail_card() {
   global $product;
   /* grab the url for the full size featured image */
    $featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'woocommerce_thumbnail');
-
-
-
    echo '<img src="'.esc_url($featured_img_url).'" class="card-img-top img-overlay" alt="...">';
    echo '<div class="fa fa-plus project-overlay"></div>';
 }
@@ -432,7 +429,10 @@ add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loo
 
 remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 
-remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
+//remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
+remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10  );
+add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_coupon_form', 5  );
+
 
 function my_simple_product_price_html($price, $product) {
     if ($product->is_type('simple')) {
@@ -673,7 +673,7 @@ function custom_default_address_fields( $address_fields ){
         $address_fields['city']['placeholder']       = __( 'By', $domain );
 
         // Change class
-        $address_fields['first_name']['class'] = array('form-row-first'); //  50%
+        $address_fields['first_name']['class'] = array('form-row-first test'); //  50%
         $address_fields['last_name']['class']  = array('form-row-last');  //  50%
         $address_fields['address_1']['class']  = array('form-row-first');  // 100%
         $address_fields['state']['class']      = array('form-row-last');  // 100%
