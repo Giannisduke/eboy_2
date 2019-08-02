@@ -94,6 +94,91 @@ foreach ($terms as $term) {
 //add_action('woocommerce_shop_loop_item_title', 'eboy_display_categories', 5 );
 
 
+####################################################
+#    VIDEO
+####################################################
+
+function eboy_pro_front_carousel_indicators(){
+
+?>
+<?php
+        if( have_rows('carousel') ):$counter = 0;?>
+
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+
+          <?php while( have_rows('carousel') ): the_row(); ?>
+
+            <li data-target="#video-carousel" data-slide-to="<?php echo $counter;?>" class="myCarousel-target <?php if($counter === 0){ echo "active";} ?>"></li>
+
+
+
+          <?php $counter++; endwhile; ?>
+
+        </ol>
+        <!--/.Indicators-->
+
+
+        <?php endif; ?>
+
+<?php
+}
+
+add_action('eboy_pro_front', 'eboy_pro_front_carousel_indicators', 20);
+
+
+
+
+function eboy_pro_front_carousel(){
+
+
+        if( have_rows('carousel') ):$counter = 0;?>
+        <!--Carousel Wrapper-->
+        <div id="video-carousel" class="carousel slide carousel-fade home-section" data-ride="carousel">
+
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+
+                <?php while( have_rows('carousel') ): the_row();
+                    $slide_title = get_sub_field('slide_title');
+                    $slide_subtitle = get_sub_field('slide_subtitle');
+                    $slide_image = get_sub_field('slide_image_background');
+                    $slide_video = get_sub_field('slide_video');
+                    $slide_external_video = get_sub_field('slide_external_video');
+                    ?>
+                    <div class="carousel-item <?php if($counter === 0){ echo "active";} ?>" data-slide-no="<?php echo $counter;?>" style="background: url('<?php echo $slide_image;?>') no-repeat center; background-size: cover;">
+
+                      <?php if (get_sub_field('slide_external_video')) { ?>
+                        <video class="video-fluid" loop="loop" controls="top" controlsList="nofullscreen nodownload noremoteplayback" id="player" preload="auto" playsinline controls muted>
+                            <source src="<?php echo $slide_external_video;?>"  />
+                              test
+                        </video>
+
+                        <?php
+                      }
+
+
+                      else {
+
+                      }
+                        ?>
+
+
+                    </div>
+                    <?php $counter++; endwhile; ?>
+
+
+                      </div> <!--/.Slides-->
+                    </div> <!--Carousel Wrapper-->
+
+        <?php endif; ?>
+<?php
+}
+
+add_action('eboy_pro_front', 'eboy_pro_front_carousel', 30);
+
+
+
 remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
 
 function abChangeProductsTitle() {
@@ -179,6 +264,91 @@ function woocommerce_taxonomy_archive_description_custom() {
 add_action ('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description_custom', 10 );
 
 remove_filter('the_content', 'wpautop');
+
+
+
+####################################################
+#    VIDEO
+####################################################
+
+function pro_front_carousel_indicators(){
+
+?>
+<?php
+        if( have_rows('carousel') ):$counter = 0;?>
+
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+
+          <?php while( have_rows('carousel') ): the_row(); ?>
+
+            <li data-target="#video-carousel" data-slide-to="<?php echo $counter;?>" class="myCarousel-target <?php if($counter === 0){ echo "active";} ?>"></li>
+
+
+
+          <?php $counter++; endwhile; ?>
+
+        </ol>
+        <!--/.Indicators-->
+
+
+        <?php endif; ?>
+
+<?php
+}
+
+add_action('pro_custom_front', 'pro_front_carousel_indicators', 20);
+
+
+
+
+function pro_front_carousel(){
+
+
+        if( have_rows('carousel') ):$counter = 0;?>
+        <!--Carousel Wrapper-->
+        <div id="video-carousel" class="carousel slide carousel-fade home-section" data-ride="carousel">
+
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+
+                <?php while( have_rows('carousel') ): the_row();
+                    $slide_title = get_sub_field('slide_title');
+                    $slide_subtitle = get_sub_field('slide_subtitle');
+                    $slide_image = get_sub_field('slide_image_background');
+                    $slide_video = get_sub_field('slide_video');
+                    $slide_external_video = get_sub_field('slide_external_video');
+                    ?>
+                    <div class="carousel-item <?php if($counter === 0){ echo "active";} ?>" data-slide-no="<?php echo $counter;?>" style="background: url('<?php echo $slide_image;?>') no-repeat center; background-size: cover;">
+
+                      <?php if (get_sub_field('slide_external_video')) { ?>
+                        <video class="video-fluid" controls="top" controlsList="nofullscreen nodownload noremoteplayback" id="player" preload="auto" playsinline controls muted>
+                            <source src="<?php echo $slide_external_video;?>"  />
+                        </video>
+
+                        <?php
+                      }
+
+
+                      else {
+
+                      }
+                        ?>
+
+
+                    </div>
+                    <?php $counter++; endwhile; ?>
+
+
+                      </div> <!--/.Slides-->
+                    </div> <!--Carousel Wrapper-->
+
+        <?php endif; ?>
+<?php
+}
+
+add_action('pro_custom_front', 'pro_front_carousel', 30);
+
 
 
 
@@ -500,7 +670,7 @@ function product_remove() {
 add_action( 'wp_ajax_product_remove', 'product_remove' );
 add_action( 'wp_ajax_nopriv_product_remove', 'product_remove' );
 
-add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
+//add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
 
 function custom_remove_woo_checkout_fields( $fields ) {
 
@@ -632,3 +802,109 @@ wc_update_new_customer_past_orders( $user_id );
 
 //call our wc_register_guests() function on the thank you page
 add_action( 'woocommerce_thankyou', 'wc_register_guests', 10, 1 );
+
+function mytheme_preview_email() {
+    global $woocommerce;
+    if ( ! is_admin() ) {
+        return null;
+    }
+    $mailer = $woocommerce->mailer();
+    $email_options = array();
+    foreach ( $mailer->emails as $key => $obj ) {
+        $email_options[$key] = $obj->title;
+    }
+    $in_order_id = isset( $_GET['order'] ) ? $_GET['order'] : '';
+    $in_email_type = isset( $_GET['email_type'] ) ? $_GET['email_type'] : '';
+    $order_number = is_numeric( $in_order_id ) ? (int) $in_order_id : '';
+    $email_class = isset( $email_options[ $in_email_type ] ) ? $in_email_type : '';
+    $order = $order_number ? wc_get_order( $order_number ) : false;
+    $error = '';
+    $email_html = '';
+    if ( ! $in_order_id && ! $in_email_type ) {
+        $error = '<p>Please select an email type and enter an order #</p>';
+    } elseif ( ! $email_class ) {
+        $error = '<p>Bad email type</p>';
+    } elseif ( ! $order ) {
+        $error = '<p>Bad order #</p>';
+    } else {
+        $email = $mailer->emails[$email_class];
+        $email->object = $order;
+        $email_html = apply_filters( 'woocommerce_mail_content', $email->style_inline( $email->get_content_html() ) );
+    }
+?>
+<!DOCTYPE HTML>
+<html>
+<head></head>
+<body>
+<form method="get" action="<?php echo site_url(); ?>/wp-admin/admin-ajax.php">
+    <input type="hidden" name="action" value="previewemail">
+    <select name="email_type">
+        <option value="--">Email Type</option>
+        <?php
+            foreach( $email_options as $class => $label ){
+                if ( $email_class && $class == $email_class ) {
+                    $selected = 'selected';
+                } else {
+                    $selected = '';
+                }
+            ?>
+                <option value="<?php echo $class; ?>" <?php echo $selected; ?> ><?php echo $label; ?></option>
+        <?php } ?>
+        </select>
+    <input type="text" name="order" value="<?php echo $order_number; ?>" placeholder="order #">
+    <input type="submit" value="Go">
+</form>
+<?php
+if ( $error ) {
+    echo "<div class='error'>$error</div>";
+} else {
+    echo $email_html;
+}
+?>
+</body>
+</html>
+
+<?php
+    return null;
+}
+add_action('wp_ajax_previewemail', 'mytheme_preview_email');
+
+// Adds instructions for order emails
+function add_order_email_instructions( $order, $sent_to_admin ) {
+
+  if ( ! $sent_to_admin ) {
+
+    if ( 'cod' == $order->payment_method ) {
+      // cash on delivery method
+      echo '<p><strong>Instructions:</strong> Full payment is due immediately upon delivery. <em>Cash only, no exceptions</em>.</p>';
+    } else {
+      // other methods (ie credit card)
+      echo '<p><strong>Instructions:</strong> Please look for "Madrigal Electromotive GmbH" on your next credit card statement.</p>';
+    }
+  }
+}
+add_action( 'woocommerce_email_before_order_table', 'add_order_email_instructions', 10, 2 );
+
+function dotifollow_function() {
+?>
+  <ul class="products">
+  	<?php
+  		$args = array(
+  			'post_type' => 'product',
+  			'posts_per_page' => 12
+  			);
+  		$loop = new WP_Query( $args );
+  		if ( $loop->have_posts() ) {
+  			while ( $loop->have_posts() ) : $loop->the_post();
+  				wc_get_template_part( 'content', 'product' );
+  			endwhile;
+  		} else {
+  			echo __( 'No products found' );
+  		}
+  		wp_reset_postdata();
+  	?>
+  </ul><!--/.products-->
+  <?php
+}
+
+add_shortcode('dotifollow', 'dotifollow_function');
