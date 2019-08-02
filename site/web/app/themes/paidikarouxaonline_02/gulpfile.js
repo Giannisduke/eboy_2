@@ -15,6 +15,7 @@ var merge        = require('merge-stream');
 var cssNano      = require('gulp-cssnano');
 var plumber      = require('gulp-plumber');
 var rev          = require('gulp-rev');
+var runSequence  = require('run-sequence');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var uglify       = require('gulp-uglify');
@@ -217,8 +218,7 @@ gulp.task('jshint', function() {
   return gulp.src([
     'bower.json', 'gulpfile.js'
   ].concat(project.js)
-  .concat('!assets/scripts/plugins/**'))
-
+.concat('!assets/scripts/plugins/**'))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(gulpif(enabled.failJSHint, jshint.reporter('fail')));

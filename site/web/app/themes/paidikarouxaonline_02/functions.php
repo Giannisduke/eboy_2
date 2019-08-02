@@ -631,8 +631,6 @@ function product_remove() {
 add_action( 'wp_ajax_product_remove', 'product_remove' );
 add_action( 'wp_ajax_nopriv_product_remove', 'product_remove' );
 
-//add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
-
 function custom_remove_woo_checkout_fields( $fields ) {
 
    unset($fields['billing']['billing_company']);
@@ -646,6 +644,7 @@ function custom_remove_woo_checkout_fields( $fields ) {
 
     return $fields;
 }
+add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
 
 /**
  * Add Bootstrap form styling to WooCommerce fields
