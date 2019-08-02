@@ -26,10 +26,11 @@ global $product;
 	  $marka_icon = '<img class="ico svg" src=" ' .get_template_directory_uri() .'/dist/images/marka_'. get_field('μάρκα') .'.svg">';
 	?>
 
-<div class="row">
-	<div class="col-2">
+
+<div class="d-flex flex-row justify-content-between">
+  <div class="p-0 w-25">
 		<?php echo $marka_icon; ?>
-		</div>
-</div>
+	</div>
+
 
 <?php endif; ?>

@@ -21,13 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 ?>
-<div class="d-flex flex-row justify-content-between align-items-end">
-  <div class="p-0 w-50">
+<div class="d-flex flex-row justify-content-between">
+  <div class="p-0 w-75">
 		<?php echo do_shortcode("[ti_wishlists_addtowishlist loop=yes]"); ?>
 	</div>
 
-  <div class="p-0 w-50 align-self-center">
-		<div class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price ml-auto' ) );?>"><?php echo catalogue_price();  ?>
+  <div class="p-0 w-25 text-right">
+		<div class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) );?>"><?php echo catalogue_price();  ?>
 			<span class="currency">
 			<?php echo get_woocommerce_currency_symbol();  ?>
 		</span>

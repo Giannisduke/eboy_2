@@ -380,6 +380,13 @@ function woocommerce_template_single_manufacturer() {
 
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_manufacturer', 2);
 
+function woocommerce_template_single_print() {
+  wc_get_template( 'single-product/print.php' );
+
+}
+
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_print', 3);
+
 //  remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 //add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 25 );
 
@@ -609,52 +616,6 @@ function woocommerce_product_tabs_remove_qr_code($tabs){
     }
     return $tabs;
 }
-
-function button_qr_code() {
-    global $product;
-    ?>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-      Εκτύπωση Κάρτας
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Εκτύπωση Κάρτας</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="d-flex flex-row">
-              <div class="p-0">
-                <?php
-                if (get_wc_product_qr_code_src($product->get_id())) {
-                    echo '<div class="wc-qr-codes-container">';
-                    echo '<img class="wcqrc-qr-code-img" src="' . get_wc_product_qr_code_src($product->get_id()) . '" alt="QR Code" />';
-                    echo '</div>';
-                } ?>
-              </div>
-              <div class="p-0"><div class="d-flex flex-column">
-                <div class="px-3"><?php the_title( '<h3 class="product_title entry-title">', '</h3>' );?></div>
-                <div class="p-0"><?php echo $product->get_price_html(); ?></div>
-
-              </div>
-            </div>
-
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Κλεισιμο</button>
-            <button type="button" class="btn btn-primary">Εκτύπωση</button>
-          </div>
-        </div>
-      </div>
-    </div>
-<?php }
-//add_action('woocommerce_single_product_summary', 'button_qr_code', 10);
 
 function product_remove() {
     global $wpdb, $woocommerce;
