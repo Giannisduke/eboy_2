@@ -833,7 +833,7 @@ class Iconic_WooThumbs {
             // Scripts
             $this->load_file( 'slick-carousel', '/assets/vendor/slick'.$min.'.js', true );
             $this->load_file( 'hoverIntent', '/assets/vendor/jquery.hoverIntent.js', true );
-            $this->load_file( $this->slug . '-script', '/assets/frontend/js/main'.$min.'.js', true, array('jquery', 'wp-util') );
+            $this->load_file( $this->slug . '-script', '/assets/frontend/js/main.js', true, array('jquery', 'wp-util') );
 
             $vars = array(
                 'ajaxurl' => admin_url( 'admin-ajax.php', 'relative' ),
