@@ -675,12 +675,22 @@ function custom_default_address_fields( $address_fields ){
         // Change class
         $address_fields['first_name']['class'] = array('form-row-first test'); //  50%
         $address_fields['last_name']['class']  = array('form-row-last');  //  50%
-        $address_fields['address_1']['class']  = array('form-row-first');  // 100%
-        $address_fields['state']['class']      = array('form-row-last');  // 100%
-        $address_fields['postcode']['class']   = array('form-row-first'); //  50%
-        $address_fields['city']['class']       = array('form-row-last');  //  50%
+        $address_fields['address_1']['class']  = array('form-row-third_one');  // 100%
+        $address_fields['postcode']['class']   = array('form-row-third_two'); //  50%
+        $address_fields['city']['class']       = array('form-row-third_three');  //  50%
+      //  $address_fields['state']['class']      = array('form-row-last');  // 100%
+
     }
     return $address_fields;
+}
+
+add_filter( 'woocommerce_default_address_fields', 'misha_email_first' );
+
+function misha_email_first( $address_fields ) {
+	// as you can see, no needs to specify a field group anymore
+	$address_fields['postcode']['priority'] = 49;
+  //$address_fields['city']['priority'] = 49;
+	return $address_fields;
 }
 
 /**
@@ -868,3 +878,19 @@ function dotifollow_function() {
 }
 
 add_shortcode('dotifollow', 'dotifollow_function');
+
+function isa_woo_cart_attributes($cart_item, $cart_item_key) {
+    global $product;
+    if (is_cart()){
+        echo "<style>#checkout_thumbnail{display:none;}</style>";
+    }
+    $item_data = $cart_item_key['data'];
+    $post = get_post($item_data->id);
+    $thumb = get_the_post_thumbnail($item_data->id, array( 132, 150));
+    $product = new WC_product($item_data->id);
+    echo $product->name;
+    //echo $product->price;
+
+    echo '<div id="checkout_thumbnail" style="float: left; padding-right: 8px">' . $thumb . '</div> ';
+}
+add_filter('woocommerce_cart_item_name', 'isa_woo_cart_attributes', 10, 2);
