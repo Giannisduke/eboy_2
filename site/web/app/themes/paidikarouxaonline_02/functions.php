@@ -430,8 +430,13 @@ add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loo
 remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 
 //remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
-remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10  );
-add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_coupon_form', 5  );
+//remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10  );
+//add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_coupon_form', 5  );
+
+
+//remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+
+
 
 
 function my_simple_product_price_html($price, $product) {
@@ -617,20 +622,6 @@ function woocommerce_product_tabs_remove_qr_code($tabs){
     return $tabs;
 }
 
-function product_remove() {
-    global $wpdb, $woocommerce;
-    session_start();
-    $cart = WC()->instance()->cart;
-    $cart_id = $_POST['product_id']; // This info is already the result of generate_cart_id method now
-    /* $cart_id = $cart->generate_cart_id($id); // No need for this! :) */
-    $cart_item_id = $cart->find_product_in_cart($cart_id);
-    if($cart_item_id){
-       $cart->set_quantity($cart_item_id,0);
-    }
-}
-add_action( 'wp_ajax_product_remove', 'product_remove' );
-add_action( 'wp_ajax_nopriv_product_remove', 'product_remove' );
-
 function custom_remove_woo_checkout_fields( $fields ) {
 
    unset($fields['billing']['billing_company']);
@@ -644,7 +635,7 @@ function custom_remove_woo_checkout_fields( $fields ) {
 
     return $fields;
 }
-add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
+//add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
 
 /**
  * Add Bootstrap form styling to WooCommerce fields
@@ -771,7 +762,7 @@ wc_update_new_customer_past_orders( $user_id );
 }
 
 //call our wc_register_guests() function on the thank you page
-add_action( 'woocommerce_thankyou', 'wc_register_guests', 10, 1 );
+//add_action( 'woocommerce_thankyou', 'wc_register_guests', 10, 1 );
 
 function mytheme_preview_email() {
     global $woocommerce;
@@ -855,42 +846,41 @@ function add_order_email_instructions( $order, $sent_to_admin ) {
 }
 add_action( 'woocommerce_email_before_order_table', 'add_order_email_instructions', 10, 2 );
 
-function dotifollow_function() {
+/**
+ * @snippet       Display Cart @ Checkout Page Only - WooCommerce
+ * @how-to        Watch tutorial @ https://businessbloomer.com/?p=19055
+ * @author        Rodolfo Melogli
+ * @compatible    WooCommerce 3.5.7
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+
+function bbloomer_cart_on_checkout_page_only() {
+
+if ( is_wc_endpoint_url( 'order-received' ) ) return;
 ?>
-  <ul class="products">
-  	<?php
-  		$args = array(
-  			'post_type' => 'product',
-  			'posts_per_page' => 12
-  			);
-  		$loop = new WP_Query( $args );
-  		if ( $loop->have_posts() ) {
-  			while ( $loop->have_posts() ) : $loop->the_post();
-  				wc_get_template_part( 'content', 'product' );
-  			endwhile;
-  		} else {
-  			echo __( 'No products found' );
-  		}
-  		wp_reset_postdata();
-  	?>
-  </ul><!--/.products-->
-  <?php
+
+  	<?php //do_action( 'woocommerce_checkout_before_order_review' ); ?>
+<?php echo do_shortcode('[woocommerce_cart]'); ?>
+    	<?php //do_action( 'woocommerce_checkout_after_order_review' ); ?>
+
+<?php }
+
+add_action( 'woocommerce_after_checkout_form', 'bbloomer_cart_on_checkout_page_only', 10 );
+add_action( 'woocommerce_after_checkout_form', 'woocommerce_order_review', 15 );
+add_action( 'woocommerce_after_checkout_form', 'woocommerce_checkout_payment', 20 );
+/**
+ * @snippet       Redirect Empty Cart/Checkout - WooCommerce
+ * @how-to        Watch tutorial @ https://businessbloomer.com/?p=19055
+ * @sourcecode    https://businessbloomer.com/?p=80321
+ * @author        Rodolfo Melogli
+ * @compatible    WooCommerce 3.5.7
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+
+function bbloomer_redirect_empty_cart_checkout_to_home() {
+   if ( is_cart() && is_checkout() && 0 == WC()->cart->get_cart_contents_count() && ! is_wc_endpoint_url( 'order-pay' ) && ! is_wc_endpoint_url( 'order-received' ) ) {
+      wp_safe_redirect( home_url() );
+      exit;
+   }
 }
-
-add_shortcode('dotifollow', 'dotifollow_function');
-
-function isa_woo_cart_attributes($cart_item, $cart_item_key) {
-    global $product;
-    if (is_cart()){
-        echo "<style>#checkout_thumbnail{display:none;}</style>";
-    }
-    $item_data = $cart_item_key['data'];
-    $post = get_post($item_data->id);
-    $thumb = get_the_post_thumbnail($item_data->id, array( 132, 150));
-    $product = new WC_product($item_data->id);
-    echo $product->name;
-    //echo $product->price;
-
-    echo '<div id="checkout_thumbnail" style="float: left; padding-right: 8px">' . $thumb . '</div> ';
-}
-add_filter('woocommerce_cart_item_name', 'isa_woo_cart_attributes', 10, 2);
+add_action( 'template_redirect', 'bbloomer_redirect_empty_cart_checkout_to_home' );
