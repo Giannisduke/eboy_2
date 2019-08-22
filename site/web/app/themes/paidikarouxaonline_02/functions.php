@@ -431,7 +431,7 @@ remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 1
 
 //remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10  );
-add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_coupon_form', 5  );
+//add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_coupon_form', 5  );
 
 
 function my_simple_product_price_html($price, $product) {
@@ -631,21 +631,6 @@ function product_remove() {
 add_action( 'wp_ajax_product_remove', 'product_remove' );
 add_action( 'wp_ajax_nopriv_product_remove', 'product_remove' );
 
-function custom_remove_woo_checkout_fields( $fields ) {
-
-   unset($fields['billing']['billing_company']);
-
-    // remove order comment fields
-    unset($fields['order']['order_comments']);
-    unset($fields['billing']['billing_country']);
-    unset( $fields['billing']['billing_address_2'] );
-    unset( $fields['billing']['billing_country'] );
-    unset( $fields['billing']['billing_state'] );
-
-    return $fields;
-}
-add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
-
 /**
  * Add Bootstrap form styling to WooCommerce fields
  *
@@ -693,167 +678,7 @@ function misha_email_first( $address_fields ) {
 	return $address_fields;
 }
 
-/**
- * Pre-populate Woocommerce checkout fields
- */
-add_filter('woocommerce_checkout_get_value', function($input, $key ) {
-	global $current_user;
-	switch ($key) :
-		case 'billing_first_name':
-		case 'shipping_first_name':
-			return $current_user->first_name;
-		break;
 
-		case 'billing_last_name':
-		case 'shipping_last_name':
-			return $current_user->last_name;
-		break;
-		case 'billing_email':
-			return $current_user->user_email;
-		break;
-		case 'billing_phone':
-			return $current_user->phone;
-		break;
-	endswitch;
-}, 10, 2);
-
-
-function wc_register_guests( $order_id ) {
-  // get all the order data
-  $order = new WC_Order($order_id);
-
-  //get the user email from the order
-  $order_email = $order->billing_email;
-
-  // check if there are any users with the billing email as user or email
-  $email = email_exists( $order_email );
-  $user = username_exists( $order_email );
-
-  // if the UID is null, then it's a guest checkout
-  if( $user == false && $email == false ){
-    // perform guest user actions here
-// random password with 12 chars
-$random_password = wp_generate_password();
-
-// create new user with email as username & newly created pw
-$user_id = wp_create_user( $order_email, $random_password, $order_email );
-//WooCommerce guest customer identification
-update_user_meta( $user_id, 'guest', 'yes' );
-
-//user's billing data
-update_user_meta( $user_id, 'billing_address_1', $order->billing_address_1 );
-update_user_meta( $user_id, 'billing_address_2', $order->billing_address_2 );
-update_user_meta( $user_id, 'billing_city', $order->billing_city );
-update_user_meta( $user_id, 'billing_company', $order->billing_company );
-update_user_meta( $user_id, 'billing_country', $order->billing_country );
-update_user_meta( $user_id, 'billing_email', $order->billing_email );
-update_user_meta( $user_id, 'billing_first_name', $order->billing_first_name );
-update_user_meta( $user_id, 'billing_last_name', $order->billing_last_name );
-update_user_meta( $user_id, 'billing_phone', $order->billing_phone );
-update_user_meta( $user_id, 'billing_postcode', $order->billing_postcode );
-update_user_meta( $user_id, 'billing_state', $order->billing_state );
-
-// user's shipping data
-update_user_meta( $user_id, 'shipping_address_1', $order->shipping_address_1 );
-update_user_meta( $user_id, 'shipping_address_2', $order->shipping_address_2 );
-update_user_meta( $user_id, 'shipping_city', $order->shipping_city );
-update_user_meta( $user_id, 'shipping_company', $order->shipping_company );
-update_user_meta( $user_id, 'shipping_country', $order->shipping_country );
-update_user_meta( $user_id, 'shipping_first_name', $order->shipping_first_name );
-update_user_meta( $user_id, 'shipping_last_name', $order->shipping_last_name );
-update_user_meta( $user_id, 'shipping_method', $order->shipping_method );
-update_user_meta( $user_id, 'shipping_postcode', $order->shipping_postcode );
-update_user_meta( $user_id, 'shipping_state', $order->shipping_state );
-// link past orders to this newly created customer
-wc_update_new_customer_past_orders( $user_id );
-  }
-
-}
-
-//call our wc_register_guests() function on the thank you page
-add_action( 'woocommerce_thankyou', 'wc_register_guests', 10, 1 );
-
-function mytheme_preview_email() {
-    global $woocommerce;
-    if ( ! is_admin() ) {
-        return null;
-    }
-    $mailer = $woocommerce->mailer();
-    $email_options = array();
-    foreach ( $mailer->emails as $key => $obj ) {
-        $email_options[$key] = $obj->title;
-    }
-    $in_order_id = isset( $_GET['order'] ) ? $_GET['order'] : '';
-    $in_email_type = isset( $_GET['email_type'] ) ? $_GET['email_type'] : '';
-    $order_number = is_numeric( $in_order_id ) ? (int) $in_order_id : '';
-    $email_class = isset( $email_options[ $in_email_type ] ) ? $in_email_type : '';
-    $order = $order_number ? wc_get_order( $order_number ) : false;
-    $error = '';
-    $email_html = '';
-    if ( ! $in_order_id && ! $in_email_type ) {
-        $error = '<p>Please select an email type and enter an order #</p>';
-    } elseif ( ! $email_class ) {
-        $error = '<p>Bad email type</p>';
-    } elseif ( ! $order ) {
-        $error = '<p>Bad order #</p>';
-    } else {
-        $email = $mailer->emails[$email_class];
-        $email->object = $order;
-        $email_html = apply_filters( 'woocommerce_mail_content', $email->style_inline( $email->get_content_html() ) );
-    }
-?>
-<!DOCTYPE HTML>
-<html>
-<head></head>
-<body>
-<form method="get" action="<?php echo site_url(); ?>/wp-admin/admin-ajax.php">
-    <input type="hidden" name="action" value="previewemail">
-    <select name="email_type">
-        <option value="--">Email Type</option>
-        <?php
-            foreach( $email_options as $class => $label ){
-                if ( $email_class && $class == $email_class ) {
-                    $selected = 'selected';
-                } else {
-                    $selected = '';
-                }
-            ?>
-                <option value="<?php echo $class; ?>" <?php echo $selected; ?> ><?php echo $label; ?></option>
-        <?php } ?>
-        </select>
-    <input type="text" name="order" value="<?php echo $order_number; ?>" placeholder="order #">
-    <input type="submit" value="Go">
-</form>
-<?php
-if ( $error ) {
-    echo "<div class='error'>$error</div>";
-} else {
-    echo $email_html;
-}
-?>
-</body>
-</html>
-
-<?php
-    return null;
-}
-add_action('wp_ajax_previewemail', 'mytheme_preview_email');
-
-// Adds instructions for order emails
-function add_order_email_instructions( $order, $sent_to_admin ) {
-
-  if ( ! $sent_to_admin ) {
-
-    if ( 'cod' == $order->payment_method ) {
-      // cash on delivery method
-      echo '<p><strong>Instructions:</strong> Full payment is due immediately upon delivery. <em>Cash only, no exceptions</em>.</p>';
-    } else {
-      // other methods (ie credit card)
-      echo '<p><strong>Instructions:</strong> Please look for "Madrigal Electromotive GmbH" on your next credit card statement.</p>';
-    }
-  }
-}
-add_action( 'woocommerce_email_before_order_table', 'add_order_email_instructions', 10, 2 );
 
 function dotifollow_function() {
 ?>
@@ -879,18 +704,44 @@ function dotifollow_function() {
 
 add_shortcode('dotifollow', 'dotifollow_function');
 
-function isa_woo_cart_attributes($cart_item, $cart_item_key) {
-    global $product;
-    if (is_cart()){
-        echo "<style>#checkout_thumbnail{display:none;}</style>";
-    }
-    $item_data = $cart_item_key['data'];
-    $post = get_post($item_data->id);
-    $thumb = get_the_post_thumbnail($item_data->id, array( 132, 150));
-    $product = new WC_product($item_data->id);
-    echo $product->name;
-    //echo $product->price;
+function bbloomer_cart_on_checkout_page_only() {
 
-    echo '<div id="checkout_thumbnail" style="float: left; padding-right: 8px">' . $thumb . '</div> ';
+if ( is_wc_endpoint_url( 'order-received' ) ) return;
+
+echo do_shortcode('[woocommerce_cart]');
+
 }
-add_filter('woocommerce_cart_item_name', 'isa_woo_cart_attributes', 10, 2);
+add_action( 'woocommerce_checkout_order_review', 'bbloomer_cart_on_checkout_page_only', 5 );
+
+
+
+add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
+
+function custom_remove_woo_checkout_fields( $fields ) {
+
+    // remove billing fields
+    unset($fields['billing']['billing_company']);
+    unset($fields['billing']['billing_country']);
+
+    // remove shipping fields
+    unset($fields['shipping']['billing_company']);
+    unset($fields['shipping']['shipping_country']);
+
+    // remove order comment fields
+    unset($fields['order']['order_comments']);
+
+    return $fields;
+}
+/**
+ * Change the default state and country on the checkout page
+ */
+add_filter( 'default_checkout_billing_country', 'change_default_checkout_country' );
+//add_filter( 'default_checkout_billing_state', 'change_default_checkout_state' );
+
+function change_default_checkout_country() {
+  return 'GR'; // country code
+}
+
+function change_default_checkout_state() {
+  return 'XX'; // state code
+}
