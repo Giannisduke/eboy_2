@@ -713,10 +713,6 @@ echo do_shortcode('[woocommerce_cart]');
 }
 add_action( 'woocommerce_checkout_order_review', 'bbloomer_cart_on_checkout_page_only', 5 );
 
-
-
-add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
-
 function custom_remove_woo_checkout_fields( $fields ) {
 
     // remove billing fields
@@ -732,11 +728,11 @@ function custom_remove_woo_checkout_fields( $fields ) {
 
     return $fields;
 }
+add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
+
 /**
  * Change the default state and country on the checkout page
  */
-add_filter( 'default_checkout_billing_country', 'change_default_checkout_country' );
-//add_filter( 'default_checkout_billing_state', 'change_default_checkout_state' );
 
 function change_default_checkout_country() {
   return 'GR'; // country code
@@ -745,3 +741,5 @@ function change_default_checkout_country() {
 function change_default_checkout_state() {
   return 'XX'; // state code
 }
+add_filter( 'default_checkout_billing_country', 'change_default_checkout_country' );
+//add_filter( 'default_checkout_billing_state', 'change_default_checkout_state' );

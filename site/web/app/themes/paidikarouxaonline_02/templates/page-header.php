@@ -4,7 +4,6 @@
   <div class="row">
     <div class="col-12">
   <h3><?= Titles\title(); ?></h3>
-
 </div>
 </div>
 </div>
