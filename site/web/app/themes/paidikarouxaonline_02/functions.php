@@ -559,19 +559,6 @@ function wc_remove_all_quantity_fields( $return, $product ) {
 }
 add_filter( 'woocommerce_is_sold_individually', 'wc_remove_all_quantity_fields', 10, 2 );
 
-//shortcode for mini-cart
-function jma_woo_minicart($atts){
-	ob_start();
-	global $woocommerce;
-
-	echo '<a class="cart-contents" href="' . ' $woocommerce->cart->get_cart_url()' . '" title="View your shopping cart">';
-	echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count) . ' - ' . $woocommerce->cart->get_cart_total() . '</a>';
-
-	$x = ob_get_contents();
-	ob_end_clean();
-	return $x;
-}
-add_shortcode('jma_woo_minicart','jma_woo_minicart');
 
 // Ensure cart contents update when products are added to the cart via AJAX (place the following in functions.php)
 function woocommerce_header_add_to_cart_fragment( $fragments ) {
@@ -743,3 +730,15 @@ function change_default_checkout_state() {
 }
 add_filter( 'default_checkout_billing_country', 'change_default_checkout_country' );
 //add_filter( 'default_checkout_billing_state', 'change_default_checkout_state' );
+
+
+// Function to add footer logo shortcode
+  function footer_logo() { ?>
+    <div class="col-3 test">
+      <a class="navbar-brand d-flex align-items-center" href="<?= esc_url(home_url('/')); ?>">
+          <img class="svg" src='<?php echo esc_url( get_theme_mod( 'themeslug_logo' ) ); ?>' alt='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>'>
+          <h6><?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></h6>
+      </a>
+  </div>
+<? }
+add_shortcode('footer_logo', 'footer_logo');

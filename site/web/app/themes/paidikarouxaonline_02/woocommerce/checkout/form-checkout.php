@@ -50,7 +50,6 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 </div>
 <div class="col-sm-6">
 
-
 	<?php do_action( 'woocommerce_checkout_before_order_review'); ?>
 
 	<div id="order_review" class="woocommerce-checkout-review-order">
