@@ -186,7 +186,7 @@ function carhub_carousel_start_1(){
           'order' => 'ASC' ));
   ?>
   <!--CAROUSEL SLIDER SECTION START HERE-->
-    <div id="cars-carousel" class="row carousel slide text-center facetwp-template">
+    <div id="cars-carousel" class="row carousel slide text-center facetwp-template test">
       <div class="carousel-inner " role="listbox" >
         <!-- The slideshow -->
       <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); global $product; ?>
@@ -326,3 +326,12 @@ function my_custom_cart_contains( $product_id ) {
 	}
 	return false;
 }
+
+function woo_remove_product_tabs( $tabs ) {
+    unset( $tabs['description'] );          // Remove the description tab
+    unset( $tabs['reviews'] );          // Remove the reviews tab
+//    unset( $tabs['additional_information'] );   // Remove the additional information tab
+    return $tabs;
+}
+
+add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
