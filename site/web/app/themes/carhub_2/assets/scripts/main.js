@@ -120,28 +120,57 @@
              $('.booking_to_date_day').val(str5);
 
 
-             var ajaxurl = singleprojectajax.ajaxurl;
-             $( document.body).on('click', '.my-custom-add-to-cart-button', function(e) {
+             $('.custom_add_to_cart').click(function (e) {
                e.preventDefault();
-               var $this = $(this);
-               if( $this.is(':disabled') ) {
-                 return;
-               }
-               var id = $(this).data("product-id");
+               var id = $(this).next().next().attr('value');
+               var duration = $(this).next().next().next().attr('value');
+               var persons = $(this).next().next().next().next().attr('value');
+               var start_day = $(this).next().next().next().next().next().attr('value');
+               var start_month = $(this).next().next().next().next().next().next().attr('value');
+               var start_year = $(this).next().next().next().next().next().next().next().attr('value');
+               var start_time = $(this).next().next().next().next().next().next().next().next().attr('value');
                var data = {
-                 action     : 'my_custom_add_to_cart',
-                 product_id : id
+                 product_id: id,
+                 quantity: 1,
+                 wc_bookings_field_duration: duration,
+                 wc_bookings_field_persons: persons,
+                 wc_bookings_field_start_date_day: start_day,
+                 wc_bookings_field_start_date_month: start_month,
+                 wc_bookings_field_start_date_year: start_year,
+                 wc_bookings_field_start_date_time: start_time
                };
-               $.post(ajaxurl, data, function(response) {
-                 if( response.success ) {
-                   $this.text("added to cart");
-                   $this.attr('disabled', 'disabled');
-                   $( document.body ).trigger( 'wc_fragment_refresh' );
+               $(this).parent().addClass('loading');
+               $.post(wc_add_to_cart_params.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart'), data, function (response) {
 
-                   alert('I hate tomatoes.');
+                 if (!response) {
+                   return;
                  }
-               }, 'json');
-             });
+                 if (response.error) {
+                   alert("Custom Massage ");
+                   $('.custom_add_to_cart').parent().removeClass('loading');
+                   return;
+                 }
+                 if (response) {
+
+                   var url = woocommerce_params.wc_ajax_url;
+                   url = url.replace("%%endpoint%%", "get_refreshed_fragments");
+                   $.post(url, function (data, status) {
+                     $(".woocommerce.widget_shopping_cart").html(data.fragments["div.widget_shopping_cart_content"]);
+                     if (data.fragments) {
+                       jQuery.each(data.fragments, function (key, value) {
+
+                         jQuery(key).replaceWith(value);
+                       });
+                     }
+                     jQuery("body").trigger("wc_fragments_refreshed");
+                   });
+                   $('.custom_add_to_cart').parent().removeClass('loading');
+
+                 }
+
+               });
+
+            });
 
              console.log(str1);
          if (FWP.loaded) { // after the initial pageload

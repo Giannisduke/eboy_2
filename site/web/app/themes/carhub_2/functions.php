@@ -100,9 +100,20 @@ add_filter( 'facetwp_assets', function( $assets ) {
 
     return $assets;
 });
-remove_action ('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+//remove_action ('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 
 
+
+function potenzzza_wc_bookings_clear_cart_before_add_to_cart( $passed, $added_product_id ) {
+
+	$items = WC()->cart->get_cart();
+	foreach ( $items as $item_key => $item ) {
+		WC()->cart->remove_cart_item( $item_key );
+	}
+	return $passed;
+
+}
+add_filter( 'woocommerce_add_to_cart_validation', 'potenzzza_wc_bookings_clear_cart_before_add_to_cart', 99, 2 );
 
 
 
@@ -186,7 +197,7 @@ function carhub_carousel_start_1(){
           'order' => 'ASC' ));
   ?>
   <!--CAROUSEL SLIDER SECTION START HERE-->
-    <div id="cars-carousel" class="row carousel slide text-center facetwp-template test">
+    <div id="cars-carousel" class="row carousel slide text-center facetwp-template">
       <div class="carousel-inner " role="listbox" >
         <!-- The slideshow -->
       <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); global $product; ?>
@@ -215,13 +226,27 @@ function carhub_carousel_start_1(){
                       <li class="pt-2">
                         <button type="button" class="btn btn-primary btn-lg">Book Now!</button>
                         <button class="my-custom-add-to-cart-button" data-product-id="<?php echo $product->get_id(); ?>">add to cart</button>
+
+
+<div class="woocommerce-variation-add-to-cart variations_button">
+ <button   type="submit" class="custom_add_to_cart single_add_to_cart_button button"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
+ <input type="hidden" name="add-to-cart" value="<?php echo absint($product->get_id()); ?>" />
+ <input type="hidden" name="product_id" value="<?php echo absint($product->get_id()); ?>" />
+
+ <input type="hidden" name="wc_bookings_field_duration" value="12">
+ <input type="hidden" name="wc_bookings_field_persons" value="02">
+ <input type="hidden" name="wc_bookings_field_start_date_day" value="10">
+ <input type="hidden" name="wc_bookings_field_start_date_month" value="12">
+ <input type="hidden" name="wc_bookings_field_start_date_year" value="2019">
+ <input type="hidden" name="wc_bookings_field_start_date_time" value="12:00">
+</div>
                       </li>
                     </ul>
 
                    </div>
 
                 <div class="col-6 p-0">
-                    <?php the_post_thumbnail( 'large' ); ?>
+                    <?php wc_get_template_part( 'content', 'single-product' );?>
                 </div>
                 <div class="col-3 p-0 text-left">
                   <ul class="list-unstyled">
@@ -279,18 +304,13 @@ function carhub_template_loop_product_link_close() {
 add_action( 'woocommerce_after_shop_loop_item', 'carhub_template_loop_product_link_close', 5 );
 
 //ADD TO CART FUNCTION
-add_action('wp_footer', 'my_custom_wc_button_script');
-function my_custom_wc_button_script() {
-	?>
 
-	<?php
-}
 add_action('wp_ajax_my_custom_add_to_cart', "my_custom_add_to_cart");
 add_action('wp_ajax_nopriv_my_custom_add_to_cart', "my_custom_add_to_cart");
 function my_custom_add_to_cart() {
 	$retval = array(
 		'success' => false,
-		'message' => ""
+		'message' => "Not"
 	);
 	if( !function_exists( "WC" ) ) {
 		$retval['message'] = "woocommerce not installed";

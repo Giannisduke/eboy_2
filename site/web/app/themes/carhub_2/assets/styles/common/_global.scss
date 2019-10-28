@@ -53,8 +53,8 @@ input.facetwp-date {
   color: transparent;
 }
 
-.wc-bookings-booking-form fieldset {
-    display: none;
+.carousel-indicators .wc-bookings-booking-form fieldset {
+  //  display: none;
 }
 
 .wc-bookings-booking-form {
@@ -185,7 +185,7 @@ input.facetwp-date {
     margin-bottom: 0.5em;
 }
 
-.woocommerce div.product form.cart .button {
+.carousel-indicators .woocommerce div.product form.cart .button {
   opacity: 0;
 }
 
@@ -280,6 +280,6 @@ input.facetwp-date {
       color: rgba(0,0,0,.75);
   }
 
-  .woocommerce div.product div.images.woocommerce-product-gallery{
+.woocommerce div.product div.images.woocommerce-product-gallery{
 opacity:100!important;
 }

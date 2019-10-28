@@ -16,9 +16,7 @@ function setup() {
   add_theme_support('soil-jquery-cdn');
   add_theme_support('soil-relative-urls');
   add_theme_support('woocommerce');
-  add_theme_support( 'wc-product-gallery-zoom' );
-add_theme_support( 'wc-product-gallery-lightbox' );
-add_theme_support( 'wc-product-gallery-slider' );
+
 
   // Make theme available for translation
   // Community translations can be found at https://github.com/roots/sage-translations
@@ -39,6 +37,7 @@ add_theme_support( 'wc-product-gallery-slider' );
   // http://codex.wordpress.org/Function_Reference/set_post_thumbnail_size
   // http://codex.wordpress.org/Function_Reference/add_image_size
   add_theme_support('post-thumbnails');
+  set_post_thumbnail_size( 50, 50, array( 'center', 'center')  );
 
   // Enable post formats
   // http://codex.wordpress.org/Post_Formats

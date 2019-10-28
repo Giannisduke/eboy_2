@@ -11,7 +11,6 @@
  * the readme will list any important changes.
  *
  * @see 	    https://docs.woocommerce.com/document/template-structure/
- * @author 		WooThemes
  * @package 	WooCommerce/Templates
  * @version     1.6.4
  */
@@ -34,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php //wc_get_template_part( 'content', 'single-product' ); ?>
+			<?php wc_get_template_part( 'content', 'single-product' ); ?>
 
 		<?php endwhile; // end of the loop. ?>
 
@@ -45,4 +44,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
 		 */
 		do_action( 'woocommerce_after_main_content' );
-	?>
+
+
+/* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */
