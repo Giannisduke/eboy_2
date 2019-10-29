@@ -348,7 +348,7 @@ function my_custom_cart_contains( $product_id ) {
 function woo_remove_product_tabs( $tabs ) {
     unset( $tabs['description'] );          // Remove the description tab
     unset( $tabs['reviews'] );          // Remove the reviews tab
-//    unset( $tabs['additional_information'] );   // Remove the additional information tab
+    unset( $tabs['additional_information'] );   // Remove the additional information tab
     return $tabs;
 }
 
