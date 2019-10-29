@@ -20,7 +20,94 @@
       init: function() {
         // JavaScript to be fired on all pages
 
+        $(document).on('facetwp-loaded', function() {
 
+      //    carouselitemactive();
+
+          var full_dates = $("input.facetwp-date").val(),
+
+                full_dates_start = full_dates.slice(0, 10),
+                full_dates_year = full_dates.slice(0, 4),
+                full_dates_month = full_dates.slice(5, 7),
+                 full_dates_day = full_dates.slice(8, 10),
+                 full_dates_end = full_dates.slice(19, 29),
+                 str4 = full_dates.slice(24,26);
+                 str5 = full_dates.slice(27,30);
+
+
+                 var a = moment(full_dates_start,'YYYY-M-D');
+                  var b = moment(full_dates_end,'YYYY-M-D');
+                  var diffDays = b.diff(a, 'days');
+                //  alert(diffDays);
+
+           $('.booking_date_month').val(full_dates_month);
+           $('.booking_date_day').val(full_dates_day);
+          // $('.booking_date_day').focus();
+           $('.booking_to_date_month').val(str4);
+           $('.booking_to_date_day').val(str5);
+           $('input[name="wc_bookings_field_duration"]').val(diffDays);
+           $('input[name="wc_bookings_field_start_date_day"]').val(full_dates_day);
+           $('input[name="wc_bookings_field_start_date_month"]').val(full_dates_month);
+           $('input[name="wc_bookings_field_start_date_year"]').val(full_dates_year);
+
+           $('.custom_add_to_cart').click(function (e) {
+             e.preventDefault();
+
+             var id = $(this).next().next().attr('value');
+             var duration = $(this).next().next().next().attr('value');
+             var persons = $(this).next().next().next().next().attr('value');
+             var start_day = $(this).next().next().next().next().next().attr('value');
+             var start_month = $(this).next().next().next().next().next().next().attr('value');
+             var start_year = $(this).next().next().next().next().next().next().next().attr('value');
+             var start_time = $(this).next().next().next().next().next().next().next().next().attr('value');
+             var data = {
+               product_id: id,
+               quantity: 1,
+               wc_bookings_field_duration: diffDays,
+               wc_bookings_field_persons: persons,
+               wc_bookings_field_start_date_day: start_day,
+               wc_bookings_field_start_date_month: start_month,
+               wc_bookings_field_start_date_year: start_year,
+               wc_bookings_field_start_date_time: start_time
+             };
+             $(this).parent().addClass('loading');
+             $.post(wc_add_to_cart_params.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart'), data, function (response) {
+
+               if (!response) {
+                 return;
+               }
+               if (response.error) {
+                 alert("Custom Massage ");
+                 $('.custom_add_to_cart').parent().removeClass('loading');
+                 return;
+               }
+               if (response) {
+
+                 var url = woocommerce_params.wc_ajax_url;
+                 url = url.replace("%%endpoint%%", "get_refreshed_fragments");
+                 $.post(url, function (data, status) {
+                   $(".woocommerce.widget_shopping_cart").html(data.fragments["div.widget_shopping_cart_content"]);
+                   if (data.fragments) {
+                     jQuery.each(data.fragments, function (key, value) {
+
+                       jQuery(key).replaceWith(value);
+                     });
+                   }
+                   jQuery("body").trigger("wc_fragments_refreshed");
+                 });
+                 $('.custom_add_to_cart').parent().removeClass('loading');
+
+               }
+
+             });
+
+          });
+
+           console.log(full_dates);
+
+
+
+    });
 
 
       },
@@ -103,119 +190,7 @@
 
           }
 
-          $(document).on('facetwp-loaded', function() {
 
-            carouselitemactive();
-
-            var full_dates = $("input.facetwp-date").val(),
-
-                  full_dates_start = full_dates.slice(0, 10),
-                  full_dates_year = full_dates.slice(0, 4),
-                  full_dates_month = full_dates.slice(5, 7),
-                   full_dates_day = full_dates.slice(8, 10),
-                   full_dates_end = full_dates.slice(20, 29),
-                   str4 = full_dates.slice(24,26);
-                   str5 = full_dates.slice(27,30);
-
-                   var start = new Date(full_dates_start);
-                        var end = new Date(full_dates_end);
-
-                        var diffDate = (end - start) / (1000 * 60 * 60 * 24);
-                        var days = Math.floor(diffDate);
-
-             $('.booking_date_month').val(full_dates_month);
-             $('.booking_date_day').val(full_dates_day);
-            // $('.booking_date_day').focus();
-             $('.booking_to_date_month').val(str4);
-             $('.booking_to_date_day').val(str5);
-             $('input[name="wc_bookings_field_duration"]').val(days);
-             $('input[name="wc_bookings_field_start_date_day"]').val(full_dates_day);
-             $('input[name="wc_bookings_field_start_date_month"]').val(full_dates_month);
-             $('input[name="wc_bookings_field_start_date_year"]').val(full_dates_year);
-
-             $('.custom_add_to_cart').click(function (e) {
-               e.preventDefault();
-
-               var id = $(this).next().next().attr('value');
-               var duration = $(this).next().next().next().attr('value');
-               var persons = $(this).next().next().next().next().attr('value');
-               var start_day = $(this).next().next().next().next().next().attr('value');
-               var start_month = $(this).next().next().next().next().next().next().attr('value');
-               var start_year = $(this).next().next().next().next().next().next().next().attr('value');
-               var start_time = $(this).next().next().next().next().next().next().next().next().attr('value');
-               var data = {
-                 product_id: id,
-                 quantity: 1,
-                 wc_bookings_field_duration: duration,
-                 wc_bookings_field_persons: persons,
-                 wc_bookings_field_start_date_day: start_day,
-                 wc_bookings_field_start_date_month: start_month,
-                 wc_bookings_field_start_date_year: start_year,
-                 wc_bookings_field_start_date_time: start_time
-               };
-               $(this).parent().addClass('loading');
-               $.post(wc_add_to_cart_params.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart'), data, function (response) {
-
-                 if (!response) {
-                   return;
-                 }
-                 if (response.error) {
-                   alert("Custom Massage ");
-                   $('.custom_add_to_cart').parent().removeClass('loading');
-                   return;
-                 }
-                 if (response) {
-
-                   var url = woocommerce_params.wc_ajax_url;
-                   url = url.replace("%%endpoint%%", "get_refreshed_fragments");
-                   $.post(url, function (data, status) {
-                     $(".woocommerce.widget_shopping_cart").html(data.fragments["div.widget_shopping_cart_content"]);
-                     if (data.fragments) {
-                       jQuery.each(data.fragments, function (key, value) {
-
-                         jQuery(key).replaceWith(value);
-                       });
-                     }
-                     jQuery("body").trigger("wc_fragments_refreshed");
-                   });
-                   $('.custom_add_to_cart').parent().removeClass('loading');
-
-                 }
-
-               });
-
-            });
-
-             console.log(full_dates);
-         if (FWP.loaded) { // after the initial pageload
-           booking_form();
-      //  jqueryScript();
-           jqueryblockui();
-           woocommerce();
-           cart_fragments();
-//           mainjs();
-          add_to_cart_variation();
-          datepicker();
-           single_product();
-           underscore();
-           date_picker();
-
-
-
-           console.log("second load");
-           var time = 1000;
-           $('.booking_date_month').each(function() {
-               setTimeout(function() {
-                   console.log('paused');
-                   mykeypress();
-               }, time);
-               time += 2000;
-           });
-
-         }
-
-
-      });
 
       getScripts = function (urls, callback) {
       var script = urls.shift();
@@ -229,6 +204,33 @@
           }
       });
   };
+
+  if (FWP.loaded) { // after the initial pageload
+    booking_form();
+//  jqueryScript();
+    jqueryblockui();
+    woocommerce();
+    cart_fragments();
+//           mainjs();
+   add_to_cart_variation();
+   datepicker();
+    single_product();
+    underscore();
+    date_picker();
+
+
+
+    console.log("second load");
+    var time = 1000;
+    $('.booking_date_month').each(function() {
+        setTimeout(function() {
+            console.log('paused');
+            mykeypress();
+        }, time);
+        time += 2000;
+    });
+
+  }
 
       }
     },
