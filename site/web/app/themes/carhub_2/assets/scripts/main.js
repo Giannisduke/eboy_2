@@ -107,21 +107,35 @@
 
             carouselitemactive();
 
-            var str1 = $("input.facetwp-date").val(),
-                  str2 = str1.slice(5, 7),
-                   str3 = str1.slice(8, 11),
-                   str4 = str1.slice(24,26);
-                   str5 = str1.slice(27,30);
+            var full_dates = $("input.facetwp-date").val(),
 
-             $('.booking_date_month').val(str2);
-             $('.booking_date_day').val(str3);
+                  full_dates_start = full_dates.slice(0, 10),
+                  full_dates_year = full_dates.slice(0, 4),
+                  full_dates_month = full_dates.slice(5, 7),
+                   full_dates_day = full_dates.slice(8, 10),
+                   full_dates_end = full_dates.slice(20, 29),
+                   str4 = full_dates.slice(24,26);
+                   str5 = full_dates.slice(27,30);
+
+                   var start = new Date(full_dates_start);
+                        var end = new Date(full_dates_end);
+
+                        var diffDate = (end - start) / (1000 * 60 * 60 * 24);
+                        var days = Math.floor(diffDate);
+
+             $('.booking_date_month').val(full_dates_month);
+             $('.booking_date_day').val(full_dates_day);
             // $('.booking_date_day').focus();
              $('.booking_to_date_month').val(str4);
              $('.booking_to_date_day').val(str5);
-
+             $('input[name="wc_bookings_field_duration"]').val(days);
+             $('input[name="wc_bookings_field_start_date_day"]').val(full_dates_day);
+             $('input[name="wc_bookings_field_start_date_month"]').val(full_dates_month);
+             $('input[name="wc_bookings_field_start_date_year"]').val(full_dates_year);
 
              $('.custom_add_to_cart').click(function (e) {
                e.preventDefault();
+
                var id = $(this).next().next().attr('value');
                var duration = $(this).next().next().next().attr('value');
                var persons = $(this).next().next().next().next().attr('value');
@@ -172,7 +186,7 @@
 
             });
 
-             console.log(str1);
+             console.log(full_dates);
          if (FWP.loaded) { // after the initial pageload
            booking_form();
       //  jqueryScript();

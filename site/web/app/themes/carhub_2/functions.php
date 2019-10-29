@@ -224,20 +224,17 @@ function carhub_carousel_start_1(){
                       <li class="car_price"><?php echo $product->get_price_html(); ?></li>
                       <li class="price_from">/Day</li>
                       <li class="pt-2">
-                        <button type="button" class="btn btn-primary btn-lg">Book Now!</button>
-                        <button class="my-custom-add-to-cart-button" data-product-id="<?php echo $product->get_id(); ?>">add to cart</button>
-
 
 <div class="woocommerce-variation-add-to-cart variations_button">
- <button   type="submit" class="custom_add_to_cart single_add_to_cart_button button"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
+ <button   type="submit" class="custom_add_to_cart single_add_to_cart_button btn btn-primary btn-lg"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
  <input type="hidden" name="add-to-cart" value="<?php echo absint($product->get_id()); ?>" />
  <input type="hidden" name="product_id" value="<?php echo absint($product->get_id()); ?>" />
 
- <input type="hidden" name="wc_bookings_field_duration" value="12">
+ <input type="hidden" name="wc_bookings_field_duration" value="">
  <input type="hidden" name="wc_bookings_field_persons" value="02">
- <input type="hidden" name="wc_bookings_field_start_date_day" value="10">
- <input type="hidden" name="wc_bookings_field_start_date_month" value="12">
- <input type="hidden" name="wc_bookings_field_start_date_year" value="2019">
+ <input type="hidden" name="wc_bookings_field_start_date_day" value="">
+ <input type="hidden" name="wc_bookings_field_start_date_month" value="">
+ <input type="hidden" name="wc_bookings_field_start_date_year" value="">
  <input type="hidden" name="wc_bookings_field_start_date_time" value="12:00">
 </div>
                       </li>
@@ -246,7 +243,8 @@ function carhub_carousel_start_1(){
                    </div>
 
                 <div class="col-6 p-0">
-                    <?php wc_get_template_part( 'content', 'single-product' );?>
+                  <?php the_post_thumbnail( 'large' ); ?>
+                  <?php //wc_get_template_part( 'content', 'single-product' );?>
                 </div>
                 <div class="col-3 p-0 text-left">
                   <ul class="list-unstyled">
