@@ -226,7 +226,7 @@ function carhub_carousel_start_1(){
                       <li class="pt-2">
 
 <div class="woocommerce-variation-add-to-cart variations_button">
- <button   type="submit" class="custom_add_to_cart single_add_to_cart_button btn btn-primary btn-lg"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
+ <button   type="submit" class="custom_add_to_cart single_add_to_cart_button btn btn-primary btn-lg" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
  <input type="hidden" name="add-to-cart" value="<?php echo absint($product->get_id()); ?>" />
  <input type="hidden" name="product_id" value="<?php echo absint($product->get_id()); ?>" />
 
@@ -270,6 +270,15 @@ function carhub_carousel_start_1(){
 
  </div> <!-- Carousel 1 -->
  <!--//CAROUSEL SLIDER SECTION END HERE-->
+<div class="container test">
+<div class="row">
+  <div class="col-12 ajax collapse" id="collapseExample">
+test
+
+</div>
+</div>
+</div>
+
  <!--CAROUSEL indicators SECTION START HERE-->
   <div class="row carousel-indicators pt-5">
   <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); ?>
