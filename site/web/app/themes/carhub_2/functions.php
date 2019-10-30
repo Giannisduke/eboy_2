@@ -243,7 +243,7 @@ function carhub_carousel_start_1(){
                    </div>
 
                 <div class="col-6 p-0">
-                  <?php the_post_thumbnail( 'large' ); ?>
+                  <?php the_post_thumbnail( 'full' ); ?>
                   <?php //wc_get_template_part( 'content', 'single-product' );?>
                 </div>
                 <div class="col-3 p-0 text-left">
@@ -362,3 +362,12 @@ function woo_remove_product_tabs( $tabs ) {
 }
 
 add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
+
+/* Remove Related Products */
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
+add_action( 'woocommerce_after_shop_loop_item', 'remove_add_to_cart_buttons', 1 );
+
+function remove_add_to_cart_buttons() {
+    remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
+}
