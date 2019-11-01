@@ -368,3 +368,89 @@ remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_r
 
 /* Remove Categories from Single Products */
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+
+
+function custom_remove_woo_checkout_fields( $fields ) {
+
+    // remove billing fields
+    unset($fields['billing']['billing_company']);
+    unset($fields['billing']['billing_address_1']);
+    unset($fields['billing']['billing_address_2']);
+//    unset($fields['billing']['billing_city']);
+    unset($fields['billing']['billing_postcode']);
+//    unset($fields['billing']['billing_country']);
+    unset($fields['billing']['billing_state']);
+//    unset($fields['billing']['billing_phone']);
+//    unset($fields['billing']['billing_email']);
+
+    // remove order comment fields
+//    unset($fields['order']['order_comments']);
+
+    return $fields;
+}
+add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
+
+
+// Hook in
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+
+// Our hooked in function - $fields is passed via the filter!
+function custom_override_checkout_fields( $fields ) {
+     $fields['billing']['shipping_phone'] = array(
+        'label'     => __('Phone', 'woocommerce'),
+    'placeholder'   => _x('Phone', 'placeholder', 'woocommerce'),
+    'required'  => true,
+    'class'     => array(''),
+    'clear'     => true,
+    'priority' => 5
+     );
+
+     return $fields;
+}
+
+
+/**
+ * Display field value on the order edit page
+ */
+
+add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
+
+function my_custom_checkout_field_display_admin_order_meta($order){
+    echo '<p><strong>'.__('Phone From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_phone', true ) . '</p>';
+}
+
+
+
+
+//add_filter('woocommerce_form_field_country', 'clean_custom_override_checkout_fields', 20, 4);
+add_filter('woocommerce_form_field_country', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_state', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_textarea', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_checkbox', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_password', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_text', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_email', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_tel', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_number', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_select', 'clean_checkout_fields_class_attribute_values', 20, 4);
+add_filter('woocommerce_form_field_radio', 'clean_checkout_fields_class_attribute_values', 20, 4);
+function clean_checkout_fields_class_attribute_values( $field, $key, $args, $value ){
+    if( is_checkout() ){
+        // remove "form-row"
+        $field = str_replace( array('<p class="', 'form-row', '-wide', '-first', '-last', '</p>', '<div class="  '), array('<div class="', '', '', '', '', '</div>', '<div class="'), $field);
+    }
+
+    return $field;
+}
+add_filter('woocommerce_checkout_fields', 'addBootstrapToCheckoutFields' );
+function addBootstrapToCheckoutFields($fields) {
+    foreach ($fields as &$fieldset) {
+        foreach ($fieldset as &$field) {
+            // if you want to add the form-group class around the label and the input
+            $field['class'][] = 'form-group  col-6';
+            // add form-control to the actual input
+            $field['input_class'][] = 'form-control';
+        }
+    }
+    return $fields;
+}
