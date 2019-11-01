@@ -197,7 +197,7 @@ function carhub_carousel_start_1(){
           'order' => 'ASC' ));
   ?>
   <!--CAROUSEL SLIDER SECTION START HERE-->
-    <div id="cars-carousel" class="row carousel slide text-center facetwp-template">
+    <div id="cars-carousel" class="row carousel slide text-center facetwp-template" data-ride="carousel">
       <div class="carousel-inner " role="listbox" >
         <!-- The slideshow -->
       <?php $count = 0; while ( $loop->have_posts() ) : $loop->the_post(); global $product; ?>
@@ -270,7 +270,7 @@ function carhub_carousel_start_1(){
 
  </div> <!-- Carousel 1 -->
  <!--//CAROUSEL SLIDER SECTION END HERE-->
-<div class="container test">
+<div class="container">
 <div class="row">
   <div class="col-12 ajax collapse" id="collapseExample">
 test
