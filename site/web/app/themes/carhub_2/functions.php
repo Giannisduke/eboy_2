@@ -391,34 +391,95 @@ function custom_remove_woo_checkout_fields( $fields ) {
 add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
 
 
+// Our hooked in function - $fields is passed via the filter!
+function custom_override_checkout_fields( $fields ) {
+     $fields['billing']['check_in_date'] = array(
+        'label'     => __('Check in date', 'woocommerce'),
+    'placeholder'   => _x('Check in date', 'placeholder', 'woocommerce'),
+    'required'  => true,
+    'type'      => 'date',
+    'class'     => array(''),
+    'clear'     => true,
+    'priority' => 1
+     );
+
+     $fields['billing']['check_in_time'] = array(
+        'label'     => __('Time', 'woocommerce'),
+    'placeholder'   => _x('Check in time', 'placeholder', 'woocommerce'),
+    'required'  => true,
+    'type'          => 'time',
+    'class'     => array(''),
+    'clear'     => true,
+    'priority' => 2
+     );
+
+     $fields['billing']['pick_up'] = array(
+        'label'     => __('Pick Up', 'woocommerce'),
+    'placeholder'   => _x('Pick Up', 'placeholder', 'woocommerce'),
+    'required'  => true,
+    'type'          => 'select',
+    'class'     => array(''),
+    'clear'     => true,
+    'priority' => 3,
+    'options'	=> array( // options for <select> or <input type="radio" />
+			''		=> 'Please select', // empty values means that field is not selected
+			'By phone'	=> 'By phone', // 'value'=>'Name'
+			'By email'	=> 'By email'
+			)
+     );
+
+
+$fields['billing']['check_out_date'] = array(
+   'label'     => __('Check out date', 'woocommerce'),
+'placeholder'   => _x('Check out date', 'placeholder', 'woocommerce'),
+'required'  => true,
+'type'      => 'date',
+'class'     => array(''),
+'clear'     => true,
+'priority' => 4
+);
+
+$fields['billing']['check_out_time'] = array(
+   'label'     => __('Time', 'woocommerce'),
+'placeholder'   => _x('Check out time', 'placeholder', 'woocommerce'),
+'required'  => true,
+'type'          => 'time',
+'class'     => array(''),
+'clear'     => true,
+'priority' => 5
+);
+
+$fields['billing']['drop_off'] = array(
+   'label'     => __('Drop Off', 'woocommerce'),
+'placeholder'   => _x('Drop Off', 'placeholder', 'woocommerce'),
+'required'  => true,
+'type'          => 'select',
+'class'     => array(''),
+'clear'     => true,
+'priority' => 6,
+'options'	=> array( // options for <select> or <input type="radio" />
+ ''		=> 'Please select', // empty values means that field is not selected
+ 'By phone'	=> 'By phone', // 'value'=>'Name'
+ 'By email'	=> 'By email'
+ )
+);
+
+return $fields;
+}
 // Hook in
 add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
 
-// Our hooked in function - $fields is passed via the filter!
-function custom_override_checkout_fields( $fields ) {
-     $fields['billing']['shipping_phone'] = array(
-        'label'     => __('Phone', 'woocommerce'),
-    'placeholder'   => _x('Phone', 'placeholder', 'woocommerce'),
-    'required'  => true,
-    'class'     => array(''),
-    'clear'     => true,
-    'priority' => 5
-     );
-
-     return $fields;
-}
 
 
 /**
  * Display field value on the order edit page
  */
-
-add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
-
 function my_custom_checkout_field_display_admin_order_meta($order){
-    echo '<p><strong>'.__('Phone From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_phone', true ) . '</p>';
+    echo '<p><strong>'.__('Check in From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_check_in_date', true ) . '</p>';
+      echo '<p><strong>'.__('Check in time From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_check_in_time', true ) . '</p>';
 }
 
+add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 
 
 
@@ -432,25 +493,78 @@ add_filter('woocommerce_form_field_text', 'clean_checkout_fields_class_attribute
 add_filter('woocommerce_form_field_email', 'clean_checkout_fields_class_attribute_values', 20, 4);
 add_filter('woocommerce_form_field_tel', 'clean_checkout_fields_class_attribute_values', 20, 4);
 add_filter('woocommerce_form_field_number', 'clean_checkout_fields_class_attribute_values', 20, 4);
-add_filter('woocommerce_form_field_select', 'clean_checkout_fields_class_attribute_values', 20, 4);
+
 add_filter('woocommerce_form_field_radio', 'clean_checkout_fields_class_attribute_values', 20, 4);
 function clean_checkout_fields_class_attribute_values( $field, $key, $args, $value ){
     if( is_checkout() ){
+    //  $field_html = '';
         // remove "form-row"
-        $field = str_replace( array('<p class="', 'form-row', '-wide', '-first', '-last', '</p>', '<div class="  '), array('<div class="', '', '', '', '', '</div>', '<div class="'), $field);
+        $field = str_replace( array('<p class="', 'form-row', '-wide', '-first', '-last', '</p>', '<div class="  '), array('<div class="', 'col-6', '', '', '', '</div>', '<div class="'), $field);
+      //  $field_html  = str_replace( array('<label>', '</label>'), array('<span>', '</span>'), $field_html);
+
     }
 
     return $field;
 }
+
+add_filter('woocommerce_form_field_time', 'clean_checkout_fields_class_attribute_values_small', 20, 4);
+function clean_checkout_fields_class_attribute_values_small( $field, $key, $args, $value ){
+    if( is_checkout() ){
+        // remove "form-row"
+        $field = str_replace( array('<p class="', 'form-row', '-wide', '-first', '-last', '</p>', '<div class="  '), array('<div class="', 'col-2', 'test', '', '', '</div>', '<div class="'), $field);
+    }
+
+    return $field;
+}
+
+add_filter('woocommerce_form_field_date', 'clean_checkout_fields_class_attribute_values_medium', 20, 4);
+function clean_checkout_fields_class_attribute_values_medium( $field, $key, $args, $value ){
+    if( is_checkout() ){
+        // remove "form-row"
+        $field = str_replace( array('<p class="', 'form-row', '-wide', '-first', '-last', '</p>', '<div class="  '), array('<div class="', 'col-4', 'test', '', '', '</div>', '<div class="'), $field);
+    }
+
+    return $field;
+}
+
+add_filter('woocommerce_form_field_select', 'clean_checkout_fields_class_attribute_values_select', 20, 4);
+function clean_checkout_fields_class_attribute_values_select( $field, $key, $args, $value ){
+    if( is_checkout() ){
+        // remove "form-row"
+        $field = str_replace( array('<p class="', 'form-row', '-wide', '-first', '-last', '</p>', '<div class="  '), array('<div class="', 'col-6', 'test', '', '', '</div>', '<div class="'), $field);
+    }
+
+    return $field;
+}
+
+
 add_filter('woocommerce_checkout_fields', 'addBootstrapToCheckoutFields' );
 function addBootstrapToCheckoutFields($fields) {
     foreach ($fields as &$fieldset) {
         foreach ($fieldset as &$field) {
             // if you want to add the form-group class around the label and the input
-            $field['class'][] = 'form-group  col-6';
+            $field['class'][] = 'form-group';
             // add form-control to the actual input
             $field['input_class'][] = 'form-control';
+
         }
     }
     return $fields;
+}
+
+// WooCommerce Checkout Fields Hook
+add_filter('woocommerce_checkout_fields','custom_wc_checkout_fields_no_label');
+
+// Our hooked in function - $fields is passed via the filter!
+// Action: remove label from $fields
+function custom_wc_checkout_fields_no_label($fields) {
+    // loop by category
+    foreach ($fields as $category => $value) {
+        // loop by fields
+        foreach ($fields[$category] as $field => $property) {
+            // remove label property
+            unset($fields[$category][$field]['label']);
+        }
+    }
+     return $fields;
 }
