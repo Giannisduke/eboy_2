@@ -401,8 +401,8 @@ function custom_override_checkout_fields( $fields ) {
         'label'     => __(' ', 'woocommerce'),
     'placeholder'   => _x('Check in date', 'placeholder', 'woocommerce'),
     'required'  => true,
-    'type'      => 'date',
-    'class'     => array('col-4'),
+    'type'      => 'text',
+    'class'     => array('col-6 col-lg-4'),
     'label_class' => array('far fa-calendar-alt'),
     'clear'     => true,
     'priority' => 1
@@ -413,7 +413,7 @@ function custom_override_checkout_fields( $fields ) {
     'placeholder'   => _x('Check in time', 'placeholder', 'woocommerce'),
     'required'  => true,
     'type'          => 'time',
-    'class'     => array('col-2'),
+    'class'     => array('col-6 col-lg-2'),
     'label_class' => array('far fa-clock'),
     'clear'     => true,
     'priority' => 2
@@ -424,7 +424,7 @@ function custom_override_checkout_fields( $fields ) {
     'placeholder'   => _x('Pick Up', 'placeholder', 'woocommerce'),
     'required'  => true,
     'type'          => 'select',
-    'class'     => array('col-6'),
+    'class'     => array('col-12 col-lg-6'),
     'label_class' => array('fas fa-map-marker-alt'),
     'clear'     => true,
     'priority' => 3,
@@ -448,7 +448,7 @@ $fields['billing']['check_out_date'] = array(
 );
 
 $fields['billing']['check_out_time'] = array(
-   'label'     => __('Time', 'woocommerce'),
+   'label'     => __(' ', 'woocommerce'),
 'placeholder'   => _x('Check out time', 'placeholder', 'woocommerce'),
 'required'  => true,
 'type'          => 'time',
