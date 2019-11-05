@@ -9,7 +9,8 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "jquery-ui": "^1.12.1",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "components-font-awesome": "^5.9.0"
   },
   "overrides": {
     "bootstrap": {
