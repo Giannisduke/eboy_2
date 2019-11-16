@@ -31,7 +31,8 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
-<div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
+<div id="product-<?php the_ID(); ?>" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3"
+	<?php //wc_product_class( 'card mb-4', $product ); ?>>
 
 	<?php
 	/**

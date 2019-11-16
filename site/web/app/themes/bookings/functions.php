@@ -40,6 +40,10 @@ function bbloomer_redefine_products_per_page( $per_page ) {
   return $per_page;
 }
 
+add_filter( 'woocommerce_enqueue_styles', '__return_false' );
+
+remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
+
 // Fuction to display the FacetWP Pager
 function print_facet_pagination(){
     echo facetwp_display( 'pager', 'true' );
