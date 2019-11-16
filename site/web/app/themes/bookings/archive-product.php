@@ -34,7 +34,7 @@ do_action( 'woocommerce_before_main_content' );
 		<h1 class="page-title"><?php woocommerce_page_title(); ?></h1>
 	<?php endif; ?>
 	<?php echo facetwp_display( 'facet', 'date_range' ); ?>
-<?php do_action( 'woocommerce_shop_loop' ); ?>
+<?php //do_action( 'woocommerce_shop_loop' ); ?>
 
 
 	<?php
@@ -58,14 +58,24 @@ if ( woocommerce_product_loop() ) {
 	 * @hooked woocommerce_result_count - 20
 	 * @hooked woocommerce_catalog_ordering - 30
 	 */
-	do_action( 'woocommerce_before_shop_loop' ); ?>
+	//do_action( 'woocommerce_before_shop_loop' );
 
+	woocommerce_product_loop_start();
 
-	<?php woocommerce_product_loop_start(); ?>
+	if ( wc_get_loop_prop( 'total' ) ) {
+		while ( have_posts() ) {
+			the_post();
 
-	<?php do_action( 'carhub_carousel_start' ); ?>
-	
-	<?php woocommerce_product_loop_end();
+			/**
+			 * Hook: woocommerce_shop_loop.
+			 */
+		//	do_action( 'carhub_carousel_start' );
+
+		wc_get_template_part( 'content', 'single-product' );
+		}
+	}
+
+	woocommerce_product_loop_end();
 
 	/**
 	 * Hook: woocommerce_after_shop_loop.
@@ -94,6 +104,3 @@ do_action( 'woocommerce_after_main_content' );
  *
  * @hooked woocommerce_get_sidebar - 10
  */
-//do_action( 'woocommerce_sidebar' );
-
-//get_footer( 'shop' );
