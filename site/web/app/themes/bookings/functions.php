@@ -157,7 +157,7 @@ function additional_div_in_shop() {
       <div class="row justify-content-center calendar">
           <div class="col-12">
             test
-            <?php echo facetwp_display( 'facet', 'date_range' ); ?>
+            <?php echo facetwp_display( 'facet', 'product_categories' ); ?>
 
           </div>
       </div>
@@ -166,7 +166,7 @@ function additional_div_in_shop() {
     <?php
 }
 
-add_action( 'woocommerce_archive_description', 'additional_div_in_shop', 5 );
+//add_action( 'woocommerce_archive_description', 'additional_div_in_shop', 5 );
 
 
 function carhub_carousel_start_1(){
