@@ -36,13 +36,26 @@ add_filter( 'facetwp_is_main_query', function( $is_main_query, $query ) {
 }, 10, 2 );
 
 function bbloomer_redefine_products_per_page( $per_page ) {
-  $per_page = 6;
+  $per_page = 16;
   return $per_page;
 }
+add_filter( 'loop_shop_per_page', 'bbloomer_redefine_products_per_page', 9999 );
 
 add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 
-remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
+//remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
+
+//wp_dequeue_style('init', 'wc-bookings-styles');
+
+function custom_dequeue() {
+    wp_dequeue_style('wc-bookings-styles');
+    wp_dequeue_style('jquery-ui-style');
+    //wp_deregister_style('et-gf-open-sans');
+
+}
+
+add_action( 'wp_enqueue_scripts', 'custom_dequeue', 9999 );
+add_action( 'wp_head', 'custom_dequeue', 9999 );
 
 // Fuction to display the FacetWP Pager
 function print_facet_pagination(){
@@ -52,24 +65,83 @@ function print_facet_pagination(){
 // Function to add it to the template
 //add_action('woocommerce_after_main_content', 'print_facet_pagination', 20 );
 
-add_filter( 'loop_shop_per_page', 'bbloomer_redefine_products_per_page', 9999 );
+remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
+function custom_show_product_images() { global $product;
+  if ( is_shop() || is_product_category() ) { ?>
+   test_4
+   <figure class="car-thumb">
+       <img class="img-fluid" src="<?php echo wp_get_attachment_image_src( $product->get_image_id(), 'medium')[0]; ?>" />
+   </figure>
+<?php }
+
+  if ( is_product() )
+   { ?>
+
+    test_5
+    <figure class="car-thumb">
+        <img class="img-fluid" src="<?php echo wp_get_attachment_image_src( $product->get_image_id(), 'full')[0]; ?>" />
+    </figure>
+<?php }
+    }
+add_action( 'woocommerce_before_single_product_summary', 'custom_show_product_images', 20);
+
+// First remove default wrapper
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
 
 
 
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+function eboy_product_summary() {
+  global $product;
+  echo '<div class="d-flex flex-row justify-content-between">';
+  echo '<div>';
+  echo '<h2>' . $product->get_name() . '</h2>';
+  echo '</div>';
+  echo '<div>';
+  echo $product->get_price();
+  echo '</div>';
 
+  echo '</div>';
 
-//remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
-
-
-function custom_loop_product_thumbnail() {
-    global $product;
-    $size = 'medium';
-
-    $image_size = apply_filters( 'single_product_archive_thumbnail_size', $size );
-
-    //return $product ? $product->get_image( $image_size ) : '';
-    echo $product ? $product->get_image( $image_size ) : '';
 }
+add_action('woocommerce_single_product_summary', 'eboy_product_summary', 5);
+
+function eboy_wrapper_start() {
+  echo '<main class="main facetwp-template">';
+}
+
+function eboy_wrapper_end() {
+  echo '</main>';
+}
+
+// Then add new wrappers
+add_action('woocommerce_before_main_content', 'eboy_wrapper_start', 10);
+add_action('woocommerce_after_main_content', 'eboy_wrapper_end', 10);
+
+function eboy_carousel_open() { ?>
+  <div id="cars-carousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+
+  </div>
+  <a class="carousel-control-prev" href="#cars-carousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#cars-carousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+<?php }
+
+// Then add new wrappers
+add_action('woocommerce_before_main_content', 'eboy_carousel_open', 9);
+
+
 
 function carhub_carousel_start_1(){
   $loop = new WP_Query(array(

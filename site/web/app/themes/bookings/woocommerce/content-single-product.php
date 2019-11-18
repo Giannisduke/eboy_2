@@ -31,7 +31,7 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
-<div id="product-<?php the_ID(); ?>" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3"
+<car class="car" data-target="#cars-carousel" id="product-<?php the_ID(); ?>" 
 	<?php //wc_product_class( 'card mb-4', $product ); ?>>
 
 	<?php
@@ -72,6 +72,6 @@ if ( post_password_required() ) {
 	 */
 //	do_action( 'woocommerce_after_single_product_summary' );
 	?>
-</div>
+</car>
 
 <?php do_action( 'woocommerce_after_single_product' ); ?>

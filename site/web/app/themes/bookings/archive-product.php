@@ -28,27 +28,7 @@ defined( 'ABSPATH' ) || exit;
  */
 do_action( 'woocommerce_before_main_content' );
 
-?>
-<header class="products-header">
-	<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-		<h1 class="page-title"><?php woocommerce_page_title(); ?></h1>
-	<?php endif; ?>
-	<?php echo facetwp_display( 'facet', 'date_range' ); ?>
-<?php //do_action( 'woocommerce_shop_loop' ); ?>
 
-
-	<?php
-	/**
-	 * Hook: woocommerce_archive_description.
-	 *
-	 * @hooked woocommerce_taxonomy_archive_description - 10
-	 * @hooked woocommerce_product_archive_description - 10
-	 */
-	do_action( 'woocommerce_archive_description' );
-	?>
-
-</header>
-<?php
 if ( woocommerce_product_loop() ) {
 
 	/**
