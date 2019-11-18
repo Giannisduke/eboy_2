@@ -109,7 +109,6 @@ function eboy_product_summary() {
 add_action('woocommerce_single_product_summary', 'eboy_product_summary', 5);
 
 function eboy_wrapper_start() {
-   echo facetwp_display( 'facet', 'product_categories' ); 
   echo '<main class="main facetwp-template">';
 }
 
@@ -158,7 +157,7 @@ function additional_div_in_shop() {
       <div class="row justify-content-center calendar">
           <div class="col-12">
             test
-
+            <?php echo facetwp_display( 'facet', 'date_range' ); ?>
 
           </div>
       </div>
