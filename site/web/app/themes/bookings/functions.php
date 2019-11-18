@@ -109,6 +109,7 @@ function eboy_product_summary() {
 add_action('woocommerce_single_product_summary', 'eboy_product_summary', 5);
 
 function eboy_wrapper_start() {
+   echo facetwp_display( 'facet', 'product_categories' ); 
   echo '<main class="main facetwp-template">';
 }
 
@@ -141,6 +142,32 @@ function eboy_carousel_open() { ?>
 // Then add new wrappers
 add_action('woocommerce_before_main_content', 'eboy_carousel_open', 9);
 
+function additional_div_in_shop() {
+    // Only on "shop" archives pages
+    if( ! is_shop() ) return;
+    // Output the div
+    ?>
+
+
+
+      <div class="row description">
+        <div class="col-12 text-center">
+        <h1><?php printf( esc_html__( '%s', 'sage' ), get_bloginfo ( 'description' ) ); ?></h1>
+        </div>
+      </div>
+      <div class="row justify-content-center calendar">
+          <div class="col-12">
+            test
+
+
+          </div>
+      </div>
+
+
+    <?php
+}
+
+add_action( 'woocommerce_archive_description', 'additional_div_in_shop', 5 );
 
 
 function carhub_carousel_start_1(){
