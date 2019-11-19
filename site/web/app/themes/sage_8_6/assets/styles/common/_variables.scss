@@ -1,0 +1,32 @@
+// Grid settings
+$main-sm-columns:       12;
+//$sidebar-sm-columns:    4;
+
+$grid-columns:       12;
+$grid-gutter-width: 2rem;
+$sidebar-sm-columns:    6;
+
+// Colors
+$white: #fff;
+$primary: red;
+
+
+$grid-breakpoints: (
+xs: 0px,
+sm: 576px,
+md: 768px,
+lg: 992px,
+xl: 1200px,
+xxl: 1680px
+);
+
+$container-max-widths: (
+sm: 576px,
+md: 768px,
+lg: 992px,
+xl: 1200px,
+xxl: 1680px
+);
+
+
+$enable-responsive-font-sizes:                true !default;
