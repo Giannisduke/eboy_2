@@ -45,6 +45,7 @@ function additional_div_in_shop() {
           <div class="col-12">
             test
             <?php echo facetwp_display( 'facet', 'categories' ); ?>
+            <?php echo facetwp_display( 'facet', 'date_range' ); ?>
 
           </div>
       </div>
