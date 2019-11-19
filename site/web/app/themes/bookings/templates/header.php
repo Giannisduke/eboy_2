@@ -12,7 +12,7 @@
   <?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
     <h1 class="page-title"><?php woocommerce_page_title(); ?></h1>
   <?php endif; ?>
-  <?php echo facetwp_display( 'facet', 'date_range' ); ?>
+
 <?php //do_action( 'woocommerce_shop_loop' ); ?>
 
 

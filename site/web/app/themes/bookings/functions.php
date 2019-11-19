@@ -50,6 +50,7 @@ add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 function custom_dequeue() {
     wp_dequeue_style('wc-bookings-styles');
     wp_dequeue_style('jquery-ui-style');
+
     //wp_deregister_style('et-gf-open-sans');
 
 }
@@ -64,6 +65,9 @@ function print_facet_pagination(){
 
 // Function to add it to the template
 //add_action('woocommerce_after_main_content', 'print_facet_pagination', 20 );
+
+//remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+
 
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20);
 function custom_show_product_images() { global $product;
@@ -156,8 +160,9 @@ function additional_div_in_shop() {
       </div>
       <div class="row justify-content-center calendar">
           <div class="col-12">
-            test
+            test facet
             <?php echo facetwp_display( 'facet', 'product_categories' ); ?>
+            <?php echo facetwp_display( 'facet', 'date_range' ); ?>
 
           </div>
       </div>
@@ -166,7 +171,7 @@ function additional_div_in_shop() {
     <?php
 }
 
-//add_action( 'woocommerce_archive_description', 'additional_div_in_shop', 5 );
+add_action( 'woocommerce_before_main_content', 'additional_div_in_shop', 5 );
 
 
 function carhub_carousel_start_1(){
