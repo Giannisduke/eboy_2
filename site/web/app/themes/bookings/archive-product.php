@@ -51,7 +51,7 @@ if ( woocommerce_product_loop() ) {
 			 */
 		//	do_action( 'carhub_carousel_start' );
 
-		wc_get_template_part( 'content', 'single-product' );
+		wc_get_template_part( 'content', 'product' );
 		}
 	}
 

@@ -47,16 +47,7 @@ add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 
 //wp_dequeue_style('init', 'wc-bookings-styles');
 
-function custom_dequeue() {
-    wp_dequeue_style('wc-bookings-styles');
-    wp_dequeue_style('jquery-ui-style');
 
-    //wp_deregister_style('et-gf-open-sans');
-
-}
-
-add_action( 'wp_enqueue_scripts', 'custom_dequeue', 9999 );
-add_action( 'wp_head', 'custom_dequeue', 9999 );
 
 // Fuction to display the FacetWP Pager
 function print_facet_pagination(){
@@ -76,6 +67,10 @@ function custom_show_product_images() { global $product;
    <figure class="car-thumb">
        <img class="img-fluid" src="<?php echo wp_get_attachment_image_src( $product->get_image_id(), 'medium')[0]; ?>" />
    </figure>
+   <h2 class="test">
+     test_6
+     <?php wc_get_template( 'single-product/title.php' ); ?>
+   </h2>
 <?php }
 
   if ( is_product() )
@@ -159,9 +154,9 @@ function additional_div_in_shop() {
         </div>
       </div>
       <div class="row justify-content-center calendar">
-          <div class="col-12">
+          <div class="col-12 text-center">
             test facet
-            <?php echo facetwp_display( 'facet', 'product_categories' ); ?>
+            <?php //echo facetwp_display( 'facet', 'product_categories' ); ?>
             <?php echo facetwp_display( 'facet', 'date_range' ); ?>
 
           </div>
@@ -198,8 +193,8 @@ function carhub_carousel_start_1(){
 add_action( 'carhub_carousel_start', 'carhub_carousel_start_1' , 20);
 
 
-//remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
-//remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
+remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
 
 
 function carhub_template_loop_product_link_open() {
@@ -239,3 +234,54 @@ function eboy_bookings_carousel() {
 add_action( 'woocommerce_shop_loop', 'eboy_bookings_carousel', 10 );
 
 remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
+
+remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
+add_action('woocommerce_shop_loop_item_title', 'soChangeProductsTitle', 10 );
+function soChangeProductsTitle() {
+    echo '<h6 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'test' ) ) . '">' . get_the_title() . '</h6>';
+}
+
+
+function eboy_get_galendar() {
+  $retrive_data = WC()->session->get( 'name_for_your_data' );
+  ?>
+  <div class="load_cal test">
+    total price: <?php $retrive_data; ?>
+  </div>
+<?php }
+
+add_action('woocommerce_shop_loop_item_title', 'eboy_get_galendar', 20 );
+
+/**
+ * Automatically add product to cart on visit
+ */
+function add_product_to_cart() {
+	if ( ! is_admin() ) {
+		$product_id = 26; //replace with your own product id
+    $duration = 2;
+    $found = false;
+		//check if product already in cart
+		if ( sizeof( WC()->cart->get_cart() ) > 0 ) {
+			foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+				$_product = $values['data'];
+				if ( $_product->get_id() == $product_id )
+					$found = true;
+			}
+			// if product not found, add it
+			if ( ! $found )
+				WC()->cart->add_to_cart( $product_id );
+		} else {
+			// if no products in cart, add it
+			WC()->cart->add_to_cart( $product_id );
+		}
+	}
+}
+//add_action( 'template_redirect', 'add_product_to_cart' );
+
+add_filter( 'woocommerce_product_add_to_cart_text', function( $text ) {
+    if ( 'Read more' == $text ) {
+        $text = __( 'Book Now', 'woocommerce' );
+    }
+
+    return $text;
+} );

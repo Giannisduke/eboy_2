@@ -19,6 +19,9 @@ defined( 'ABSPATH' ) || exit;
 
 global $product;
 
+$link = apply_filters( 'woocommerce_loop_product_link', get_the_permalink(), $product );
+$url  = get_site_url();
+
 /**
  * Hook: woocommerce_before_single_product.
  *
@@ -30,8 +33,10 @@ if ( post_password_required() ) {
 	echo get_the_password_form(); // WPCS: XSS ok.
 	return;
 }
+
 ?>
-<car class="car" data-target="#cars-carousel" id="product-<?php the_ID(); ?>" 
+
+<car class="product" data-target="#cars-carousel" id="<?php the_ID(); ?>"  url="<?php echo $link; ?>"
 	<?php //wc_product_class( 'card mb-4', $product ); ?>>
 
 	<?php
@@ -58,7 +63,11 @@ if ( post_password_required() ) {
 		 * @hooked woocommerce_template_single_sharing - 50
 		 * @hooked WC_Structured_Data::generate_product_data() - 60
 		 */
-		do_action( 'woocommerce_single_product_summary' );
+		 do_action( 'woocommerce_single_product_summary' );
+//		 if ( is_product()  ) {
+//			 do_action( 'woocommerce_single_product_summary' );
+//}
+
 		?>
 	</div>
 

@@ -24,7 +24,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
 ?>
-<div class="col-md-3 card-container ">
+<div class="col-md-3 card-container" data-target="#cars-carousel">
 <div <?php wc_product_class( 'card', $product ); ?>>
 
 	<?php
