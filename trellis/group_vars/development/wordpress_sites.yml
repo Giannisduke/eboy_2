@@ -4,15 +4,15 @@
 wordpress_sites:
   eboy.gr:
     site_hosts:
-    - canonical: eboy.test
-      redirects:
-      - www.eboy.test
-    local_path: ../site
+      - canonical: eboy.test
+        redirects:
+          - www.eboy.test
+    local_path: ../site # path targeting local Bedrock site directory (relative to Ansible root)
     admin_email: admin@eboy.test
     multisite:
-      enabled: false
+      enabled: true
     ssl:
-      enabled: false
+      enabled: true
       provider: self-signed
     cache:
       enabled: false
