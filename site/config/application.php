@@ -92,6 +92,18 @@ Config::define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
 Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
 Config::define('NONCE_SALT', env('NONCE_SALT'));
 
+
+/**
+ * Multisite Network
+ */
+Config::define('WP_ALLOW_MULTISITE', true);
+Config::define('MULTISITE', true);
+Config::define('SUBDOMAIN_INSTALL', false); // obv switch this to true if you're using subdomains
+Config::define('DOMAIN_CURRENT_SITE', env('DOMAIN_CURRENT_SITE') ?: parse_url(WP_HOME,  PHP_URL_HOST));
+Config::define('PATH_CURRENT_SITE', '/');
+Config::define('SITE_ID_CURRENT_SITE', 1);
+Config::define('BLOG_ID_CURRENT_SITE', 1);
+
 /**
  * Custom Settings
  */

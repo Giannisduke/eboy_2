@@ -9,7 +9,7 @@ wordpress_sites:
       - www.eboy.gr
     local_path: ../site
     branch: master
-    repo: git@bitbucket.org:eboygr/eboy.gr.git
+    repo: git@github.com:Giannisduke/eboy_2.git
     repo_subtree_path: site
     multisite:
       enabled: false

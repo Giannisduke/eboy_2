@@ -8,7 +8,7 @@ wordpress_sites:
         redirects:
           - www.eboy.gr
     local_path: ../site # path targeting local Bedrock site directory (relative to Ansible root)
-    repo: git@bitbucket.org:eboygr/eboy.gr.git # replace with your Git repo URL
+    repo: git@github.com:Giannisduke/eboy_2.git # replace with your Git repo URL
     repo_subtree_path: site # relative path to your Bedrock/WP directory in your repo
     branch: master
     multisite:
@@ -21,5 +21,3 @@ wordpress_sites:
       enabled: false
     env:
       domain_current_site: eboy.gr
-    h5bp:
-      expires: true # See https://roots.io/trellis/docs/wordpress-sites/#common and https://github.com/h5bp/server-configs-nginx
